@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="login_register_form">
+    <div id="login_form">
+        <div class="box_form">
+            <div class="box_form-left">
+                <h1>CHIM CHIM</h1>
+                <p>This is login form</p>
+            </div>
+            <div class="box_form-right">
+                <h1>Login</h1>
+                <p>Don't have an account? <a href="./register">Creat your account</a></p>
+
+                <div id="error_login" style="background-color: red; display: none">
+                    Sai Tai Khoan hoac Mat Khau!!!
+                </div>
+                <form action="/login" id="input_form" method="POST">
+                    <div  class="inputs_login_register_form">
+                        <div class="form_group">
+                            <input id="email" name="email" rules="required|email" type="email" placeholder="Email">
+                            <p class="form_mess"></p>
+                        </div>
+                        <br>
+                        <div class="form_group">
+                            <input id="password" name="password" rules="required|min:6" type="password" placeholder="Password">
+                            <p class="form_mess"></p>
+                        </div>
+                    
+                        <br> <br>
+
+                        <div class="remember_me-forget_password">
+                            <label>
+                            <input type="checkbox" name="remember_me">
+                            <span class="text-checkbox">Remember me</span>
+                            </label>
+                            <p>Forget password?</p>
+                        </div>    
+                    </div>
+
+                    <div>
+                        <button type="submit" class="form_submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src='/js/validation_form.js'></script>
+    
+    <script>
+
+        var form = new Validator('#input_form');   
+        form.onSubmit = function(formData) {
+            login();
+        }
+        
+        function login() {
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                data: {
+                    email: $('#email').val(),
+                    password: $('#password').val() 
+                }
+            })
+            .done(function(data) {
+                console.log(data)
+                if (data.token) {
+                    setCookie('token', data.token, 1);
+                    // luu thong tin nguoi dung vao localstorage de xuat ra man hinh
+                    window.localStorage.setItem('name', data.user_name)
+                    window.location.href = './homePage';
+                } else {
+                    $('#error_login').show();                
+                }        
+            })
+            .fail(function(err) {
+                console.log(err)
+            }) 
+            .always(function(data) {
+                var inputs = $('[name][rules]');
+                for(var input of inputs) {
+                    input.oninput = function(e) {
+                        $('#error_login').hide();
+                    }
+                }
+            })
+        }
+        
+        
+    </script>
+    
+</body>
+</html>
