@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <div class="payment_page">
+        <form id="payment_page" action="" method="post">
+            <header class="header_payment">
+                <div class="header_container">
+                    <div class="logo">
+                        <a href="./homeAuthentication">
+                            <img style="width: 80px;" src="/img/delivery_fast.jpg" alt="LOGO">
+                        </a>
+                        <span class="divider"></span>
+                        <span class="tiltle">Thanh Toán</span>
+                    </div>
+                </div>
+            </header>
+            <div style="background-color: aliceblue;"><br><br></div>
+            <main>
+                <div class="container_payment">
+                    <div class="payment_left">
+                        <div class= "selection_container">
+                            <div class="selection_container_child">
+                                <div class="delivery">
+                                    <p3 class="delivery_tiltle">Chọn hình thức giao hàng</p3>
+                                </div>
+                                <div class="delivery_select" id="delivery_select">
+                                    <div>
+                                        <label class="container_label">
+                                            <input type="radio" name="shipping_method" value="Giao sieu toc" checked="checked">
+                                            <!-- <span class="checkmark"> --> <div class="shipping_type">
+                                            <span class="method_logo">
+                                                <img style="width: 25px" src="/img/delivery_fast.jpg" alt="delivery_fast">
+                                            </span>
+                                            <span class="method_text">
+                                                Giao siêu tốc
+                                            </span></div>
+                                            <!-- </span> -->
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="container_label">
+                                            <input type="radio" name="shipping_method" value="Giao tiet kiem">
+                                            <!-- <span class="checkmark"> --><div class="shipping_type">
+                                            <span class="method_logo"> 
+                                                <img style="width: 25px" src="/img/delivery_fast.jpg" alt="delivery_fast">
+                                            </span>
+                                            <span class="method_text">
+                                                Giao tiết kiệm 
+                                            </span></div>
+                                            <!-- </span> -->
+                                        </label>
+                                    </div>
+                                </div>
+                                <img class="methods-arrow" src="https://salt.tikicdn.com/ts/upload/05/9e/d8/f13e86df128f19d197397e44924f9616.png" width="32">
+                            </div>
+                            <div class="product_list">
+                                <div class="delivery_time">
+                                    Giao Trước 11/01/2023.
+                                </div>
+                                <div class="product_list_info">
+                                    <div class="package_summary">
+                                        <div class="delivery_type" id="delivery_type">
+                                            <span class="method_logo">
+                                                <img style="width: 25px" src="/img/delivery_fast.jpg" alt="delivery_fast">
+                                            </span>
+                                            <span class="method_text">
+                                                Giao sieu toc
+                                            </span>
+                                        </div>
+                                        <div class="shipping_cost">
+                                            <span id="current-fee">25000</span>
+                                            <span>₫</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" class="info-icon" background="#ffffff" aria-describedby="popup-15"><path d="M12.75 11.25C12.75 10.8358 12.4142 10.5 12 10.5C11.5858 10.5 11.25 10.8358 11.25 11.25V15.75C11.25 16.1642 11.5858 16.5 12 16.5C12.4142 16.5 12.75 16.1642 12.75 15.75V11.25Z" fill="#808089"></path><path d="M12.75 8.25C12.75 8.66421 12.4142 9 12 9C11.5858 9 11.25 8.66421 11.25 8.25C11.25 7.83579 11.5858 7.5 12 7.5C12.4142 7.5 12.75 7.83579 12.75 8.25Z" fill="#808089"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM4.5 12C4.5 7.85786 7.85786 4.5 12 4.5C16.1421 4.5 19.5 7.85786 19.5 12C19.5 16.1421 16.1421 19.5 12 19.5C7.85786 19.5 4.5 16.1421 4.5 12Z" fill="#808089"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div class="package_item_list">
+                                        {{#each product_list}}
+                                        <div class="item_product" product_id="{{this._id}}">
+                                            <div class="item_icon">
+                                                <picture class="img_product">
+                                                    <img class="" style="width: 48px;" src="{{this.main_image}}" alt="icon">
+                                                </picture>
+                                            </div>
+                                            <div class="item_info">
+                                                <div class="item_info_first_line">
+                                                    <span class="product_name" title="#">{{this.name}}</span>
+                                                </div>
+                                                <div class="item_info_second_line">
+                                                    <div class="info_quantity">
+                                                        <span>SL: x</span>
+                                                        <span class="q-ty_product">{{getThe2ndParameter this ../product_list ../product_quantity_list}}</span>
+                                                    </div>
+                                                    <div class="info_price">
+                                                        <span class="product_price">{{multiplication this.price (getThe2ndParameter this ../product_list ../product_quantity_list)}} ₫</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selection_payment">
+                            <h3 class="delivery_tiltle" style="margin: auto;">Chọn hình thức thanh toán</h3>
+                            <div>
+                                <label class="container_label">
+                                    <input type="radio" name="payment_method" value="Thanh toan tien mat khi nhan hang" checked>
+                                    <!-- <span class="radio_fake"></span> -->
+                                    <!-- <span class="checkmark"> -->
+                                        <img class="method-icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-cod.svg" width="32" height="32" alt="icon">
+                                        <span>Thanh toán tiền mặt khi nhận hàng</span>
+                                    <!-- </span> -->
+                                </label>
+                            </div>
+                            <div>
+                                <label class="container_label">
+                                    <input type="radio" name="payment_method" value="Thanh toan bang Viettel Money" onclick="paymentError(event)">
+                                    <!-- <span class="checkmark"> -->
+                                        <img class="method-icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-viettelmoney.png" width="32" height="32" alt="icon">
+                                        <span>Thanh toán bằng Viettel Money</span>
+                                    <!-- </span> -->
+                                </label>
+                            </div>
+                            <div>
+                                <label class="container_label">
+                                    <input type="radio" name="payment_method" value="Thanh toan bang vi ZaloPay" onclick="paymentError(event)">
+                                    <!-- <span class="checkmark"> -->
+                                        <img class="method-icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-zalo-pay.svg" width="32" height="32" alt="icon">
+                                        <span>Thanh toán bằng ví ZaloPay</span>
+                                    <!-- </span> -->
+                                </label>
+                            </div>
+                            <div>
+                                <label class="container_label">
+                                    <input type="radio" name="payment_method" value="Thanh toan bang vi MoMo" onclick="paymentError(event)">
+                                    <!-- <span class="checkmark"> -->
+                                        <img class="method-icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-momo.svg" width="32" height="32" alt="icon">
+                                        <span>Thanh toán bằng ví MoMo</span>
+                                    <!-- </span> -->
+                                </label>
+                            </div>
+                            <div>
+                                <label class="container_label">
+                                    <input type="radio" name="payment_method" value="Thanh toan bang VNPAY" onclick="paymentError(event)">
+                                    <!-- <span class="checkmark"> -->
+                                        <img class="method-icon" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-vnpay.png" width="32" height="32" alt="icon">                                   
+                                        <span>Thanh toán bằng VNPAY</span>
+                                        <!-- </span> -->
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment_right">
+                        <div class="user_info">
+                            <div class="user_info-header">
+                                <h3>Giao tới</h3>
+                            </div>
+                            <div class="user_input_info">
+                                <div class="inputs_login_register_form">
+                                    <div class="form_group">
+                                        <input id="user_name" name="user_name" rules="required" type="text" placeholder="Ho ten">
+                                        <p class="form_mess"></p>
+                                    </div>
+                                    <br>
+                                    <div class="form_group">
+                                        <input id="sdt" name="sdt" rules="required|min:10|max:11" type="number" placeholder="Dien thoai di dong">
+                                        <p class="form_mess"></p>
+                                    </div>
+                                    <br>
+                                    <div class="form_group">
+                                        <input id="Tinh" name="Tinh" rules="required" type="text" placeholder="Tinh/Thanh pho">
+                                        <p class="form_mess"></p>
+                                    </div>
+                                    <br>
+                                    <div class="form_group">
+                                        <input id="Huyen" name="Huyen" rules="required" type="text" placeholder="Quan/Huyen">
+                                        <p class="form_mess"></p>
+                                    </div>
+                                    <br>
+                                    <div class="form_group">
+                                        <input id="Dia_chi" name="Dia_chi" rules="required" type="text" placeholder="Dia chi">
+                                        <p class="form_mess"></p>
+                                    </div>
+                                    <br> <br>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="style_order_summary">
+                            <div class="block_header">
+                                <h3 class="block-header__title">Đơn hàng</h3>
+                                <p class="sub-title-text">
+                                    <span id="total_q-ty_product">0</span>
+                                    <span>sản phẩm.</span>
+                                </p>                       
+                            </div>
+                            <div class="summary_info">
+                                <div class="summary_info_">
+                                    <div class="summary-label">Tạm tính</div>
+                                    <div class="summary-value" id="total_product_price">295900</div>
+                                </div>
+                                <div class="summary_info_">
+                                    <div class="summary-label">Phí vận chuyển</div>
+                                    <div class="summary-value" id="shipping_price">39000</div>
+                                </div>
+                                <div class="summary_info_">
+                                    <div class="summary-label">Khuyến mãi</div>
+                                    <div class="summary-value">0</div>
+                                </div>
+                            </div>
+                            <div class="styles__Divider-sc-1kbdasz-2 jFlDlb" style="width: calc(100% - 32px);">
+                            </div>
+                            <div class="order_total">
+                                <div class="order-total__label">Tổng tiền</div>
+                                <div class="order-total__value">
+                                    <div class="order-total__total">
+                                        <span id="total_price">334900</span>
+                                        <span>₫</span>
+                                    </div>
+                                    <div class="order-total__additional-text">(Đã bao gồm VAT nếu có)</div>
+                                </div>
+                            </div>
+                            <div class="contain_payment_btn">
+                                <button class="payment_btn">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="payment_footer">
+            </footer>
+        </form>
+    </div>
+    <div class="ReactModalPortal hide" id="ReactModalPortal">
+        <div class="ReactModal__Overlay ReactModal__Overlay--after-open" 
+            style="position: fixed; inset: 0px; background-color: rgba(39, 39, 42, 0.7); z-index: 999;">
+            <div class="ReactModal__Content ReactModal__Content--after-open" 
+                tabindex="-1" role="dialog" aria-modal="true" 
+                style="position: absolute; inset: 50% 40px auto 50%; border: 1px solid rgb(204, 204, 204); 
+                        background: rgb(255, 255, 255); overflow: auto; border-radius: 8px; outline: none; 
+                        padding: 16px; width: 311px; transform: translate(-50%, -50%);">
+                <div class="styles__StyledDialog-sc-10typcj-0 Pvpwm">
+                    <div class="dialog-content" style="color: rgb(56, 56, 61); margin-bottom: 24px; display: flex;">
+                        <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="#FC820A"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z" fill="#FC820A"></path>
+                            <path d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z" fill="#FC820A"></path>
+                        </svg>
+                        <div class="dialog-content__text">
+                            <div class="dialog-content__title" style="font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px;">Xin Lỗi!!!</div>
+                            <div class="dialog-content__message" style="font-size: 14px; line-height: 20px; color: rgb(81, 81, 88); word-break: break-word;">Shop sẽ cập nhập phương thức thanh toán này sau =(</div>
+                        </div>
+                    </div>
+                    <div class="dialog-control" style="display: flex; text-align: center; font-size: 14px; line-height: 20px; font-weight: 500; -webkit-box-pack: end; justify-content: flex-end;">
+                        {{!-- <div id="confirm" class="dialog-control__button dialog-control__button--secondary" 
+                            style="padding: 8px 16px; border-radius: 4px; 
+                                    height: 36px; cursor: pointer; box-sizing: border-box; 
+                                    border: 1px solid rgb(11, 116, 229); 
+                                    color: rgb(11, 116, 229); margin-right: 8px;">Xác Nhận</div> --}}
+                        <div id="OK" class="dialog-control__button dialog-control__button--main" 
+                            style="padding: 8px 16px; border-radius: 4px; height: 36px; 
+                                    cursor: pointer; box-sizing: border-box; 
+                                    background-color: rgb(11, 116, 229); 
+                                    color: rgb(255, 255, 255);">OK Shop</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Order_Success hide" id="Order_Success">
+        <div class="ReactModal__Overlay ReactModal__Overlay--after-open" 
+            style="position: fixed; inset: 0px; background-color: rgba(39, 39, 42, 0.7); z-index: 999;">
+            <div class="ReactModal__Content ReactModal__Content--after-open" 
+                tabindex="-1" role="dialog" aria-modal="true" 
+                style="position: absolute; inset: 50% 40px auto 50%; border: 1px solid rgb(204, 204, 204); 
+                        background: rgb(255, 255, 255); overflow: auto; border-radius: 8px; outline: none; 
+                        padding: 16px; width: 311px; transform: translate(-50%, -50%); background-color:">
+                <div class="styles__StyledDialog-sc-10typcj-0 Pvpwm">
+                    <div class="dialog-content" style="color: rgb(56, 56, 61); margin-bottom: 24px; display: flex;">
+                        {{!-- <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;"> --}}
+                            <img src="/img/success_icon.png" alt="order_success" width="24" height="24" style="margin-right:10px;">
+                        {{!-- </svg> --}}
+                        <div class="dialog-content__text">
+                            <div class="dialog-content__title" style="font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px;">Đặt hàng thành công!!!</div>
+                            <div class="dialog-content__message" style="font-size: 14px; line-height: 20px; color: rgb(81, 81, 88); word-break: break-word;">Shop xin chân thành cảm ơn sự ủng hộ của quý khách.</div>
+                        </div>
+                    </div>
+                    <div class="dialog-control" style="display: flex; text-align: center; font-size: 14px; line-height: 20px; font-weight: 500; -webkit-box-pack: end; justify-content: flex-end;">
+                        <div id="back_home_page" class="dialog-control__button dialog-control__button--secondary" 
+                            style="padding: 8px 16px; border-radius: 4px; 
+                                    height: 36px; cursor: pointer; box-sizing: border-box; 
+                                    border: 1px solid rgb(11, 116, 229); 
+                                    color: rgb(11, 116, 229); margin-right: 8px;">Về Trang Chủ</div>
+                        <div id="order_page" class="dialog-control__button dialog-control__button--main" 
+                            style="padding: 8px 16px; border-radius: 4px; height: 36px; 
+                                    cursor: pointer; box-sizing: border-box; 
+                                    background-color: rgb(11, 116, 229); 
+                                    color: rgb(255, 255, 255);">Quản Lý Đơn Hàng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- <form action="/payment/success" method="POST" id="payment_form">
+        <input type="hidden" name="payment_info" id="payment_info">
+    </form> --}}
+</body>
+
+<script src='/js/validation_form.js'></script>
+<script>
+
+//Thong bao loi khi chon phuong thuc thanh toan
+    function paymentError(event) {
+        var ReactModalPortal = document.getElementById('ReactModalPortal')
+        ReactModalPortal.classList.remove('hide');
+        var cancel = document.getElementById('OK')
+        cancel.onclick = function(event_) {
+            ReactModalPortal.classList.add('hide')
+            event.target.checked = false
+            document.querySelector('input[name="payment_method"]').checked = true
+        }
+    }
+
+// cap nhap tong so san pham cua don hang
+    var q_ty_products = document.getElementsByClassName('q-ty_product')
+    var total_q_ty_product = document.getElementById('total_q-ty_product')
+    q_ty_products = Array.from(q_ty_products)
+    q_ty_products.forEach(q_ty_product => {
+        total_q_ty_product.textContent = parseFloat(total_q_ty_product.textContent) + parseFloat(q_ty_product.textContent)
+    })
+
+    function update_unit_price () {
+        // Tổng tiền hóa đơn
+        var total_price = document.getElementById('total_price');
+        // Tiền ship cuối cùng
+        var shipping_price = document.getElementById('shipping_price');
+        // Tổng tiền các sản phẩm
+        var total_product_price = document.getElementById('total_product_price');
+        // Tiền ship theo phương thức
+        var current_fee = document.getElementById('current-fee');
+        // Mảng mệnh giá từng sản phẩm  
+        var product_prices = document.getElementsByClassName('product_price');
+        
+        product_prices = Array.from(product_prices);
+        var total_product_prices_test = 0;
+        product_prices.forEach( function(product_price) {
+            total_product_prices_test = total_product_prices_test + parseFloat(product_price.innerText);
+        });
+        shipping_price.innerText = current_fee.innerText + ' ₫';
+        total_product_price.innerText = total_product_prices_test + ' ₫';
+        total_price.innerText = total_product_prices_test + parseFloat(shipping_price.innerText) ;
+    }
+
+    update_unit_price();
+
+
+    var checkTime = function(i) {
+        if(i<10) {
+            i = '0' + i
+        }
+        return i
+    }
+    var today = new Date()
+    var ship_date = new Date()
+    var delivery_select = document.getElementById('delivery_select');
+    var delivery_time = document.getElementsByClassName('delivery_time')[0]
+    ship_date.setDate(today.getDate() + 2)
+    delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
+    delivery_select.onclick = function(event) {
+        if(event.target.value) {
+            var delivery_type = document.getElementById('delivery_type');
+            delivery_type.innerHTML = event.target.parentElement.getElementsByClassName('shipping_type')[0].innerHTML;
+            if(delivery_type.innerText === 'GIAO TIẾT KIỆM') {
+                document.getElementById('current-fee').innerText = 15000;
+                var today = new Date()
+                var ship_date = new Date()
+                ship_date.setDate(today.getDate() + 5)
+                delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
+                update_unit_price();
+            } else {
+                document.getElementById('current-fee').innerText = 25000;
+                var today = new Date()
+                var ship_date = new Date()
+                ship_date.setDate(today.getDate() + 2)
+                delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
+                update_unit_price();
+            }
+        }
+        
+    }
+
+
+    var product_list =  document.getElementsByClassName('item_product')
+    product_list = Array.from(product_list)
+    product_list = product_list.map(product_ => {
+        return {
+            product_id: product_.getAttribute("product_id"),
+            product_qty: product_.getElementsByClassName('q-ty_product')[0].textContent
+        }
+    })
+    var payment_info = {};    
+    var form = new Validator('#payment_page');   
+    form.onSubmit = function(formData) {
+        formData['So_san_pham'] = total_q_ty_product.textContent
+        formData['Tong_tien'] = total_price.innerText;
+        payment_info = formData
+        payment_info['product_list'] = product_list
+        payment_info['order_date'] = checkTime(today.getDate()) + '/' + checkTime((today.getMonth() + 1)) + '/' + today.getFullYear()
+        var payment_info_json = JSON.stringify(payment_info)
+        $.ajax({
+            url: '/payment/success',
+            type: 'POST',
+            data: {
+                    payment_info: payment_info
+                  }
+        })
+        .done(message => {
+            if(message.isSuccess) {
+                order_success();
+            } else {
+                alert('Dat hang that bai')
+            }
+        })
+        .fail(err => {
+            console.log(err)
+        })
+        
+
+        {{!-- var payment_form = document.getElementById('payment_form')
+        var input_payment_form = document.getElementById('payment_info')
+        input_payment_form.value = payment_info_json
+        payment_form.submit() --}}
+    }
+
+    var order_success = function() {
+        var Order_Success = document.getElementById('Order_Success')
+        Order_Success.classList.remove('hide');
+        var home_page = document.getElementById('back_home_page')
+        var order_page = document.getElementById('order_page')
+        home_page.onclick = function(event) {
+            window.location.href = './homePage'
+        }
+        order_page.onclick = function(event) {
+            window.location.href = './order'
+        }
+    }
+    
+     
+</script>
+</html>

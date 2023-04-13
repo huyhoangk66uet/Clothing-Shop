@@ -7,14 +7,40 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
+    <div id="id_Product" _id = '{{product._id}}'>
         <img style="width: 450px;" src="{{product.main_image}}" alt="">
         <p>{{product.name}}</p>
         <p>{{product.description}}</p>
         <p>{{product.price}}</p>
-        <button>Them vao gio hang</button>
-        <img src="{{product.main_image2}}" alt="">
+        <p>{{product._id}}</p>
+        <a href="">
+            <button onclick="addToCart()">Them vao gio hang</button>
+        </a>
+        {{!-- <img src="{{product.main_image2}}" alt=""> --}}
         
     </div>
 </body>
+
+<script>
+    function addToCart() {
+        console.log('onclick')
+            $.ajax({
+                url: '/product/addtocart',
+                type: 'POST',
+                data: {
+                    _id: $('#id_Product').attr('_id'), 
+                }
+            })
+            .done(function(data) {
+                console.log(data)
+                alert(data.message)
+            })
+            .fail(function(err) {
+                console.log(err)
+            }) 
+            .always(function(data) {
+                
+            })
+        }
+</script>
 </html>

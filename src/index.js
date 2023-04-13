@@ -2,7 +2,7 @@
 // import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
-import { engine } from 'express-handlebars';
+import { engine, create } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import session, { Cookie } from 'express-session';
 const app = express();
@@ -45,10 +45,29 @@ app.use(express.static('./src/public'));
 app.use(morgan('combined'))
 
 //Template engine
-app.engine('.hbs', engine({extname: '.hbs'}));
+
+app.engine(
+    '.hbs', 
+    engine({extname: '.hbs',
+            helpers: {
+              getThe2ndParameter: function(value1, ArrayValue1, ArrayValue2) {
+                                      const value1Index = ArrayValue1.indexOf(value1);
+                                      if (value1Index !== -1 && value1Index < ArrayValue2.length) {
+                                          return ArrayValue2[value1Index];
+                                      }
+                                      return '';
+                                  },
+              multiplication: function(value1, value2){
+                                  return value1 * value2
+                              },
+              check: function(value, Array1, Array2) {
+                          return Array2[Array1.indexOf(value)]
+                      },
+              sum: (a,b) => a+b  
+            }}),
+    );
 app.set('view engine', '.hbs');
 app.set('views', './src/resources/views');
-
 
 // Route init tu day moi quyet dinh tuyen duong di tiep theo (vao routes/index)
 route(app);

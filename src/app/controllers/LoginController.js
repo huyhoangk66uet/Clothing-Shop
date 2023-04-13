@@ -34,10 +34,10 @@ class LoginController {
                 var token = jwt.sign({
                     _id: data._id
                 },'mk')
-                console.log(data)
+                //console.log(data)
                 req.session.user_name = data.name;
                 req.session.isAuth = true;
-                console.log(req.session.user_name)
+                //console.log(req.session.user_name)
                 res.json({
                     message:'Thanh cong',
                     token: token,

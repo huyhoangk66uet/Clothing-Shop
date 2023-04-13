@@ -24,9 +24,14 @@ function Validator(formSelector ) {
         },
         min: function(min) {
             return function (value) {
-                return value.length >= min ? undefined : 'Vui long nhap toi thieu '+min+' ky tu';
+                return value.length >= min ? undefined : 'Vui long nhap toi thieu '+ min +' ky tu';
             }
         }, 
+        max: function(max) {
+            return function(value) {
+                return value.length <= max ? undefined : 'Vui long nhap toi da ' + max + ' ky tu';
+            }
+        }
     }
 
  

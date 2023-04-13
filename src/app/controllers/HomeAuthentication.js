@@ -1,8 +1,18 @@
+import Product from '../models/Product.js'; // tra ve bang users
+
 class HomeAuthenticationController {
     
     // [GET] /home
     home(req, res, next) {
-        res.render('./homeAuthentication')    
+        Product.find({}) 
+            .then(products => {
+                products = products.map(product => product.toObject())
+                res.render('./homeAuthentication', {products})
+            })
+            .catch(err => {
+                res.status(400).json({ error: err })
+            })
+        //res.render('./homeAuthentication')    
     }
 
     logout(req, res, next) {

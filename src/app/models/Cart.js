@@ -3,11 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 // const ObjectId = Schema.ObjectId;
 
-const User = new Schema({
-    name: { type: String },
-    email: { type: String },
-    password: { type: String},
+const Cart = new Schema({
+    user_id: {type: Schema.Types.ObjectId, ref: 'users'},
+    products: [{type: Schema.Types.ObjectId, ref: 'products'}],
   });
 // users la ten bang trong db, phai de so nhieu neu ko co no se tu tao bang moi trong db
-export default mongoose.model('users', User);  
-
+export default mongoose.model('carts', Cart);  

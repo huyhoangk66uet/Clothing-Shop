@@ -1,4 +1,5 @@
 import Users from '../models/User.js'; // tra ve bang users
+import Carts from '../models/Cart.js';
 
 class RegisterController {
     // [GET] /:slug
@@ -35,7 +36,12 @@ class RegisterController {
                 })
             } else {
                 Users.create(data_user)
-                // tao thanh cong
+                .then(newUser => {
+                    Carts.create({
+                        user_id: newUser._id,
+                        products: []
+                    })
+                })
                 res.json({
                     isCreate: true
                 })

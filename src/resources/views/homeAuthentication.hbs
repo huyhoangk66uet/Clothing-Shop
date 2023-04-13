@@ -5,16 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="info_user"></div>
 
-    
+    <form action="/cart" method="get">
+        <button type="submit">CART</button>
+    </form>
     <form action="/homePage/logout" method="get">
         <button type="submit">LOG OUT</button>
     </form>
+
+    <div>
+        
+        <div class="row">
+            {{#each products}}
+            <div class="col-sm-6 col-lg-3" style="margin-right: 0px;">
+                <div class="card mt-4" style="width: 18rem;">
+                    <a href="/product/{{this._id}}">
+                        <img src="{{this.main_image}}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <p>{{this.name}}</p>
+                        <p>{{this.price}} d</p>
+                        <p class="card-text">{{this.description}}</p>
+                        <p>Chi con: {{this.remaining_products}} san pham</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        
+    </div>
     
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
 <script>
     
