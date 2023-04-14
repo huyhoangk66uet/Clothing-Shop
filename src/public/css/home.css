@@ -105,7 +105,8 @@ li {
   text-align: center;
   height: 50px;
   font-size: 25px;
-  cursor: pointer; }
+  cursor: pointer;
+  padding-top: 10px; }
 
 .category-item:hover .category-item__parent {
   background-color: #d8d9db;
@@ -179,7 +180,8 @@ body {
   margin: 30px auto;
   width: 300px;
   height: 400px;
-  background-color: #4ab1ed; }
+  background-color: #4ab1ed;
+  justify-content: space-around; }
 
 .product:hover {
   margin: 25px calc(auto - 5px);

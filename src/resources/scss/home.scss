@@ -102,6 +102,7 @@ li {
     display: flex;
     column-gap: 10px;
     position: relative;
+    //background-color: aquamarine;
 }
 
 .category-item {
@@ -125,6 +126,7 @@ li {
     height: 50px;
     font-size: 25px;
     cursor: pointer;
+    padding-top: 10px;
 }
 
 .category-item:hover .category-item__parent{
@@ -222,6 +224,7 @@ body {
     width: 300px;
     height: 400px;
     background-color: rgb(74, 177, 237);
+    justify-content: space-around;
 }
 
 .product:hover {

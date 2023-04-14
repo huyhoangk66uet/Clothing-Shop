@@ -7,17 +7,41 @@ class HomeController {
     // [GET] /home
     home(req, res, next) {
 
-        Product.find({}) 
+        if(req.query.classify && req.query.category){
+            var category = req.query.category
+            var classify = req.query.classify
+            Product.find({
+                category: category,
+                classify: classify
+            }) 
             .then(products => {
                 products = products.map(product => product.toObject())
-                //console.log(products[0].image_[0])
                 res.render('./home', {products})
             })
             .catch(err => {
                 res.status(400).json({ error: err })
             })
-
-
+        } else if(req.query.category){
+            var category = req.query.category
+            Product.find({category: category}) 
+            .then(products => {
+                products = products.map(product => product.toObject())
+                res.render('./home', {products})
+            })
+            .catch(err => {
+                res.status(400).json({ error: err })
+            })
+        } else {
+            Product.find({}) 
+                .then(products => {
+                    products = products.map(product => product.toObject())
+                    //console.log(products[0].image_[0])
+                    res.render('./home', {products})
+                })
+                .catch(err => {
+                    res.status(400).json({ error: err })
+                })
+        }
         //res.render('./home')    
     }
 }

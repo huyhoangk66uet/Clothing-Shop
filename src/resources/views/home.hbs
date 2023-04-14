@@ -12,11 +12,11 @@
     <header>
         <div class="header">
             <div class="logo" style="display: flex; align-items: center;">
-                <a href="/homeAuthentication">
+                <a href="/">
                         <img style="width: 80px;" src="/img/delivery_fast.jpg" alt="LOGO">
                 </a>
                 <div class="category-item" >
-                    <div onclick="" class="category-item__home"><a href="/home">Cặc Shop</a></div>
+                    <div onclick="" class="category-item__home"><a href="/">Cặc Shop</a></div>
                 </div>
             </div>
             <div class="search">
@@ -39,76 +39,111 @@
                 </div>
             </div>
         </div>
-        <div class="category">
-            <div class="category-item" >
-                <div onclick="" class="category-item__home"><a href="/home">Trang chủ</a></div>
-            </div>
-            <div class="category-item">
-                <div class="category-item__parent" ><a href="">Nam</a></div>
-                <div class="category-item__child">
-                    <li>danh mục con 1</li>
-                    <li>danh mục con 2</li>
-                    <li>danh mục con 3</li>
-                    <li>danh mục con 4</li>
-                    <li>danh mục con 5</li>
+        <div style="background-color: rgb(222, 252, 252);">
+            <div class="category">
+                {{!-- <div class="category-item" >
+                    <div onclick="" class="category-item__home"><a href="/home">Trang chủ</a></div>
+                </div> --}}
+                <div class="category-item">
+                    <div class="category-item__parent" category="nam">Nam</div>
+                    <div class="category-item__child">
+                        <li class="category_child" classify="ao">Áo</li>
+                        <li class="category_child" classify="quan">Quần</li>
+                    </div>
                 </div>
-            </div>
-            <div class="category-item">
-                <div class="category-item__parent" ><a href="">Nữ</a></div>
-                <div class="category-item__child">
-                    <li>danh mục con 1</li>
-                    <li>danh mục con 2</li>
+                <div class="category-item">
+                    <div class="category-item__parent" category="nu">Nữ</div>
+                    <div class="category-item__child">
+                        <li class="category_child" classify="ao">Áo</li>
+                        <li class="category_child" classify="quan">Quần</li>
+                        <li class="category_child" classify="vay">Váy</li>
+                    </div>
                 </div>
-            </div>
-            <div class="category-item">
-                <div class="category-item__parent" ><a href="">Trẻ em</a></div>
-                <div class="category-item__child">
-                    <li>danh mục con 1</li>
-                    <li>danh mục con 2</li>
-                    <li>danh mục con 3</li>
+                <div class="category-item">
+                    <div class="category-item__parent" category="tre_em">Trẻ em</div>
+                    <div class="category-item__child">
+                        <li class="category_child" classify="ao">Áo</li>
+                        <li class="category_child" classify="quan">Quần</li>
+                    </div>
                 </div>
+                <div class="category-item">
+                    <div class="category-item__parent" category="khac">Khác</div>
+                    <div class="category-item__child">
+                        <li class="category_child" classify="ao">Áo</li>
+                        <li class="category_child" classify="quan">Quần</li>
+                    </div>
+                </div>   
             </div>
-            <div class="category-item">
-                <div class="category-item__parent" ><a href="">Khác</a></div>
-                <div class="category-item__child">
-                    <li>danh mục con 1</li>
-                    <li>danh mục con 2</li>
-                    <li>danh mục con 3</li>
-                    <li>danh mục con 4</li>
-                </div>
-            </div>   
         </div>
         
         
     </header>
     <div  class="content">
         {{#each products}}
+            <div class="product" onmouseover="slideShow({productId : '{{sum @index 1}}', imageClass : 'img{{sum @index 1}}'})" id="{{sum @index 1}}">
             <a href="/product/{{this._id}}" style="text-decoration: none;">
-                <div class="product" onmouseover="slideShow({productId : '{{sum @index 1}}', imageClass : 'img{{sum @index 1}}'})" id="{{sum @index 1}}">
                 <div class="product__image">
                     <img class="img{{sum @index 1}}" style="display: block;" src="{{this.main_image}}" alt="">
                     <img class="img{{sum @index 1}}" style="display: none;" src="{{getValueAtIndex image_ 0}}" alt="">
                     <img class="img{{sum @index 1}}" style="display: none;" src="{{getValueAtIndex image_ 1}}" alt="">
                     <img class="img{{sum @index 1}}" style="display: none;" src="{{getValueAtIndex image_ 2}}" alt="">
                 </div>
+            
                 <div class="product__name">{{this.name}}</div>
                 {{!-- <p class="card-text">{{this.description}}</p> --}}
                 <div>
                     <p>Chi con: {{this.remaining_products}} san pham</p>
                 </div>
-                <div class="product__price">{{this.price}}</div>
+                <div class="product__price">{{this.price}} ₫</div>
             
                 {{!-- <div class="product__cart"><i class="fa-solid fa-cart-shopping"></i></div> --}}
                 </div>   
             </a>   
-        {{/each}}   
+        {{/each}}    
     </div>
     
-
+    <form action="/" method="GET" id="get_category">
+        <input type="hidden" name="category" id="category_info">
+        <input type="hidden" name="classify" id="classify_info">
+    </form>
 </body>
 <footer>
 
 </footer>
+
+<script>
+
+//// phan loai theo gioi tinh
+    var form_category = document.getElementById('get_category')
+    var input_category = document.getElementById('category_info')
+    var input_classify = document.getElementById('classify_info')
+
+    var categorys = document.getElementsByClassName('category-item__parent')
+    categorys = Array.from(categorys)
+    categorys.forEach(category => {
+        category.onclick = function(event) {
+            var sex = event.target.getAttribute('category')
+            input_category.value = sex
+            form_category.submit()
+        }
+    })
+
+//// phan loai theo loai hang
+
+    var category_childs = document.getElementsByClassName('category_child')
+    category_childs = Array.from(category_childs)
+    category_childs.forEach(category_child => {
+        category_child.onclick = function(event) {
+            var sex = event.target.parentElement.parentElement.getElementsByClassName('category-item__parent')[0].getAttribute('category')
+            var classify = event.target.getAttribute('classify')
+            console.log(sex + '/' + classify)
+            input_category.value = sex
+            input_classify.value = classify
+            form_category.submit()
+
+        }
+    })
+</script>
 <script>
         function slideShow({
             productId = '',
