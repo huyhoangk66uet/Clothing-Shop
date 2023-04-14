@@ -10,6 +10,7 @@ class HomeController {
         Product.find({}) 
             .then(products => {
                 products = products.map(product => product.toObject())
+                //console.log(products[0].image_[0])
                 res.render('./home', {products})
             })
             .catch(err => {

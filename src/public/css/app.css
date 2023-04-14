@@ -120,7 +120,8 @@ html .payment_page {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  height: 100px; }
+  height: 100px;
+  margin-left: 10px; }
 
 .header_container .logo .divider {
   width: 1px;

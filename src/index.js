@@ -63,6 +63,9 @@ app.engine(
               check: function(value, Array1, Array2) {
                           return Array2[Array1.indexOf(value)]
                       },
+              getValueAtIndex: function(Array, index) {
+                return Array[index];
+              },
               sum: (a,b) => a+b  
             }}),
     );
