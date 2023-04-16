@@ -66,7 +66,8 @@ app.engine(
               getValueAtIndex: function(Array, index) {
                 return Array[index];
               },
-              sum: (a,b) => a+b  
+              sum: (a,b) => a+b  ,
+              difference: (a,b) => a-b,
             }}),
     );
 app.set('view engine', '.hbs');

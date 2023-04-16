@@ -6,7 +6,7 @@ import homeAuthenticationController from '../app/controllers/HomeAuthentication.
 
 // router.get('/:slug', homeController.chim);
 router.get('/logout', homeAuthenticationController.logout);
-router.get('/', homeAuthenticationController.home);
+router.get('/', homeAuthenticationController.show);
 router.post('/', homeAuthenticationController.home);
 
 

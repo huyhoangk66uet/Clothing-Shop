@@ -5,15 +5,65 @@ import Product from '../models/Product.js'; // tra ve bang users
 class HomeController {
     
     // [GET] /home
+    show(req, res, next) {
+
+        var page = parseInt(req.query.page) || 1;
+        var perPage = 12;
+        var start = (page - 1) * perPage;
+        var end = page * perPage;
+        if(req.query.category){
+            var category = req.query.category
+            var category_ = 'category=' + category
+            Product.find({category: new RegExp(category, "i")}) 
+            .skip(start)
+            .limit(perPage)
+            .then(products => {
+                products = products.map(product => product.toObject())
+                res.render('./home', {products, page, category_})
+            })
+            .catch(err => {
+                res.status(400).json({ error: err })
+            })
+        } else if (req.query.search) {
+            var category = req.query.search
+            var category_ = 'search=' + category
+            Product.find({category: new RegExp(category, "i")}) 
+            .skip(start)
+            .limit(perPage)
+            .then(products => {
+                products = products.map(product => product.toObject())
+                res.render('./home', {products, page, category_})
+            })
+            .catch(err => {
+                res.status(400).json({ error: err })
+            })
+        } else {
+            Product.find({}) 
+                .skip(start)
+                .limit(perPage)
+                .then(products => {
+                    products = products.map(product => product.toObject())
+                    //console.log(products[0].image_[0])
+                    res.render('./home', {products, page})
+                })
+                .catch(err => {
+                    res.status(400).json({ error: err })
+                })
+        }
+        //res.render('./home')    
+    }
+
     home(req, res, next) {
 
-        if(req.query.classify && req.query.category){
+        var page = parseInt(req.query.page) || 1;
+        var perPage = 12;
+        var start = (page - 1) * perPage;
+        var end = page * perPage;
+        if(req.query.category){
             var category = req.query.category
-            var classify = req.query.classify
-            Product.find({
-                category: category,
-                classify: classify
-            }) 
+            Product.find({category: new RegExp(category, "i")}) 
+            .skip(start)
+            .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
                 res.render('./home', {products})
@@ -21,9 +71,11 @@ class HomeController {
             .catch(err => {
                 res.status(400).json({ error: err })
             })
-        } else if(req.query.category){
-            var category = req.query.category
-            Product.find({category: category}) 
+        } else if (req.query.search) {
+            var category = req.query.search
+            Product.find({category: new RegExp(category, "i")}) 
+            .skip(start)
+            .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
                 res.render('./home', {products})
@@ -33,6 +85,8 @@ class HomeController {
             })
         } else {
             Product.find({}) 
+                .skip(start)
+                .limit(perPage)
                 .then(products => {
                     products = products.map(product => product.toObject())
                     //console.log(products[0].image_[0])
