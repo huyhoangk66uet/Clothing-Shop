@@ -23,7 +23,8 @@ class RegisterController {
         const data_user = {
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            role: 'user'
         }
         Users.findOne({
             email: data_user.email,

@@ -9,9 +9,11 @@ import cartRouter from './cart.router.js'
 import paymentRouter from './payment.router.js'
 import orderRouter from './order.router.js'
 import userRouter from './user.router.js'
+import adminRouter from './admin.router.js'
 
 export default function route(app) {
 
+    app.use('/admin',MiddleWare.checkAuthentication, MiddleWare.checkAdmin, adminRouter)
     app.use('/user', MiddleWare.checkAuthentication, userRouter)
     app.use('/order', MiddleWare.checkAuthentication, orderRouter)
     app.use('/payment', MiddleWare.checkAuthentication, paymentRouter);

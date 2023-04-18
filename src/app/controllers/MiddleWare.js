@@ -36,6 +36,31 @@ class MiddleWare {
         //     next();
         // }
     }
+
+    checkAdmin(req, res, next) {
+        try {
+            var token = req.cookies.token;
+            var ketqua = jwt.verify(token,'mk');
+            Users.findOne({_id: ketqua._id})
+            .then(user => {
+                if(user) {
+                    var role = user.role
+                    if(role === 'admin') {
+                        next();
+                    } else {
+                        res.redirect('./homePage')
+                    }
+                } else {
+                    res.redirect('./login')
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        } catch (error) {
+            return res.redirect('./login');
+        }
+    }
 }
 
 export default new MiddleWare;
