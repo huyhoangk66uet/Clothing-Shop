@@ -7,6 +7,7 @@ const Product = new Schema({
     name: { type: String },
     price: {type: Number},
     category: {type: String},
+    key_search: {type: String},
     description: {type: String},
     main_image: {type: String},
     image_: [{type: String}],

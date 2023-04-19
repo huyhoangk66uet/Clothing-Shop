@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+    <div class="logo"><a href="/">HShop</a></div>
+    <div class="admin"><i onclick="closeSidebar()" class="fa-solid fa-bars"></i><span>Admin</span></div>
+    <div class="individual" onclick="showDropdown()">
+        <div class="individual__info">
+            <img class="image" src="\img\anh.jpg" alt=""><span id="info_user">Nguyễn Huy</span>
+        </div>
+        <div class="individual__dropdown">
+            <a class="individual__edit" href="/admin/profile">Tùy chỉnh hồ sơ</a>
+            <a class="individual__logout" href="">Đăng xuất</a>
+        </div>
+    </div>
+</div>
+<div class="sidebar">
+    <a class="sidebar-item" href="/admin">
+        <i class="fa-regular fa-hand-point-right"></i><span>Tổng quan</span>
+    </a>
+    <a class="sidebar-item" onclick="showTreeview()">
+        <i class="fa-regular fa-hand-point-right"></i><span>Thiết lập</span>
+    </a>
+    <div class="treeview-sidebar">
+        <div><i class="fa-regular fa-circle"></i>
+            <a href="/admin/size">Size</a>
+        </div>
+        <div><i class="fa-regular fa-circle"></i>
+            <a href="/admin/color">Màu</a>
+        </div>
+        <div><i class="fa-regular fa-circle"></i> <a href="">Danh mục</a></div>
+    </div>
+    <a class="sidebar-item" href="/admin/product">
+        <i class="fa-regular fa-hand-point-right"></i><span>Quản lý sản
+            phẩm</span>
+    </a>
+    <a class="sidebar-item" href="/admin/order">
+        <i class="fa-regular fa-hand-point-right"></i><span>Quản lý đơn hàng</span>
+    </a>
+    <a class="sidebar-item" href="/admin/customer">
+        <i class="fa-regular fa-hand-point-right"></i><span>Khách hàng</span>
+    </a>
+    <a class="sidebar-item" href="/admin/introduce">
+        <i class="fa-regular fa-hand-point-right"></i><span>Giới thiệu</span>
+    </a>
+
+</div>
+</body>
+<script>
+     $('#info_user').text(window.localStorage.getItem('name'))
+</script>
+</html>

@@ -414,6 +414,7 @@
         payment_info = formData
         payment_info['product_list'] = product_list
         payment_info['order_date'] = checkTime(today.getDate()) + '/' + checkTime((today.getMonth() + 1)) + '/' + today.getFullYear()
+        payment_info['ship_date'] = checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
         var payment_info_json = JSON.stringify(payment_info)
         $.ajax({
             url: '/payment/success',

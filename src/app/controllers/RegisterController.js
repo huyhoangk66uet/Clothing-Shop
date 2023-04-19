@@ -24,6 +24,8 @@ class RegisterController {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
+            phone_number: req.body.phone_number,
+            address: req.body.address,
             role: 'user'
         }
         Users.findOne({

@@ -50,13 +50,13 @@
                                                                 <input name="check_product" class="input_checkbox" type="checkbox"  product_id="{{this._id}}" data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
                                                             </label>
                                                         </div>
-                                                        <a href="">
+                                                        <a href="/product/{{this._id}}">
                                                             <picture class="img_product">
                                                                 <img class="" style="width: 90px;" src="{{this.main_image}}" alt="icon">
                                                             </picture>
                                                         </a>
                                                         <div class="product_content">
-                                                            <a href="" class="product_name">{{this.name}}</a>
+                                                            <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,14 +99,14 @@
                                                                 <input style="cursor: no-drop;" name="check_product" class="input_checkbox_fail" type="checkbox"  product_id="{{this._id}}" disabled data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
                                                             </label>
                                                         </div>
-                                                        <a href="">
+                                                        <a href="/product/{{this._id}}">
                                                             <picture class="img_product">
                                                                 <img class="" style="width: 90px;" src="{{this.main_image}}" alt="icon">
                                                             </picture>
                                                         </a>
                                                         <div class="product_content">
-                                                            <a href="" class="product_name">{{this.name}}</a>
-                                                            <p style="color: orangered;">San Pham Tam Het Hang</p>
+                                                            <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
+                                                            <p style="color: orangered;">Sản phẩm tạm hết hàng</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -251,7 +251,7 @@
             })
             .done(function(data) {
                 if(data.message) {
-                    window.location.href = './cart';
+                    window.location.reload();
                 }
             })
             .fail(function(err) {

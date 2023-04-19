@@ -68,6 +68,11 @@ app.engine(
               },
               sum: (a,b) => a+b  ,
               difference: (a,b) => a-b,
+              compareDate: function(date) {
+                  var today = new Date()
+                  today = today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear()
+                  return (date > today)
+              }
             }}),
     );
 app.set('view engine', '.hbs');

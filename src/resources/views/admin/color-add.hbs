@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HShop</title>
+    {{!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> --}}
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    {{> header-admin}}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="content-header-left">
+                <i class="fa-solid fa-circle-right"></i><span>Thêm màu</span>
+            </div>
+            <div class="content-header-right"><a href="/admin/color">Quay lại</a></div>
+        </div>
+        <div class="content">
+            <div class="form-group">
+                <label for="">Màu </label>
+                <input type="text" name="p_size" class="form-control">
+            </div>
+            <button class="btn-submit">Hoàn thành</button>
+            
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

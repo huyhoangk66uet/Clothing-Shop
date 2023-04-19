@@ -38,6 +38,17 @@
                             <input id="password" name="password" rules="required|min:6" type="password" placeholder="Password">
                             <p class="form_mess"></p>
                         </div>
+                        <br>
+                        <div class="form_group">
+                            <input id="sdt" name="sdt" rules="required|min:10|max:11" type="number" placeholder="Dien thoai di dong">
+                            <p class="form_mess"></p>
+                        </div>
+                        <br>
+                        <div class="form_group">
+                            <input id="Tinh" name="Tinh" rules="required" type="text" placeholder="Tinh/Thanh pho">
+                            <p class="form_mess"></p>
+                        </div>
+                        <br>
                         <!-- <br>
                         <div class="form_group">
                             <input id="confirm_password" name="confirm_password" rules="required|min:6" type="password" placeholder="Confirm Password">
@@ -69,7 +80,9 @@
                 data: {
                     name: $('#user_name').val(),
                     email: $('#email').val(),
-                    password: $('#password').val() 
+                    password: $('#password').val(),
+                    phone_number: $('#sdt').val(),
+                    address: $('#Tinh').val()
                 }
             })
             .done(function(data) {

@@ -63,7 +63,8 @@ class PaymentController {
                 phone_number: payment_info.sdt,
                 address: address,
                 total_money: payment_info.Tong_tien,
-                order_date: payment_info.order_date
+                order_date: payment_info.order_date,
+                ship_date: payment_info.ship_date
             }
         Order.create(order_data)
         .then(newOrder => {

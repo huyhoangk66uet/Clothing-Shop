@@ -10,9 +10,9 @@ class HomeAuthenticationController {
         var start = (page - 1) * perPage;
         var end = page * perPage;
         if(req.query.category){
-            var category = req.query.category
-            var category_ = 'category=' + category
-            Product.find({category: new RegExp(category, "i")}) 
+            var key_search = req.query.category
+            var category_ = 'category=' + key_search
+            Product.find({key_search: new RegExp(key_search, "i")}) 
             .skip(start)
             .limit(perPage)
             .then(products => {
@@ -23,9 +23,9 @@ class HomeAuthenticationController {
                 res.status(400).json({ error: err })
             })
         } else if (req.query.search) {
-            var category = req.query.search
-            var category_ = 'search=' + category
-            Product.find({category: new RegExp(category, "i")}) 
+            var key_search = req.query.search
+            var category_ = 'search=' + key_search
+            Product.find({key_search: new RegExp(key_search, "i")}) 
             .skip(start)
             .limit(perPage)
             .then(products => {
