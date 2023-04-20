@@ -15,18 +15,60 @@ class CartController {
         Cart.findOne({
             user_id: ketqua._id
         })
-        .populate('products')
-        .exec()
         .then(cart => {
-            var products = cart.products.map(product => product.toObject())
-            var check_remaining = cart.products.map(product => {
-                if(product.remaining_products > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+            var products_id = cart.products.map(product => product.product_id)
+            var size_list = cart.products.map(product => product.size)
+            var size_list_num = cart.products.map(product => {
+                if(product.size === 'S') return 0;
+                else if(product.size === 'M') return 1;
+                else if(product.size === 'L') return 2;
+                else if(product.size === 'XL') return 3;
+                else if(product.size === 'XXL') return 4;
             })
-            res.render('./cart', {products, check_remaining}) 
+            console.log(products_id)
+            const getProductList = (productIds) => {
+                const promises = productIds.map((productId) => {
+                  return Product.findById(productId);
+                });
+                return Promise.all(promises);
+            };
+            
+              getProductList(products_id)
+                .then((products) => {
+                    // productList will contain all products matching the provided ids, in the same order
+                    var check_remaining = products.map((product, index) => {
+                        if(product.remaining_products[size_list_num[index]] > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    })
+                    var remaining_product_list = products.map((product, index) => {
+                        return product.remaining_products[size_list_num[index]]
+                    })
+                    console.log(remaining_product_list + '///////////////////////////')
+                    products = products.map(product => product.toObject())
+                    res.render('./cart', {products, check_remaining, size_list, remaining_product_list})
+                })
+                
+            // Product.find({_id: {$in: products_id}})
+            // .then(products => {
+            //     //console.log(products)
+            //     var check_remaining = products.map((product, index) => {
+            //         if(product.test[size_list_num[index]] > 0) {
+            //             return true;
+            //         } else {
+            //             return false;
+            //         }
+            //     })
+            //     var remaining_product_list = products.map((product, index) => {
+            //         return product.test[size_list_num[index]]
+            //     })
+            //     products = products.map(product => product.toObject())
+            //     res.render('./cart', {products, check_remaining, size_list, remaining_product_list})
+            // })
+            
+             
         })
         .catch(err => {
             res.status(400).json({ error: err })
@@ -36,12 +78,14 @@ class CartController {
 
     delete(req, res, next) {
         var product_id = req.params.id;
+        var size = req.body.size;
         var token = req.cookies.token;
         var ketqua = jwt.verify(token,'mk');
         Cart.updateOne(
             {user_id: ketqua._id},
-            {$pull: {
-                products: product_id
+            {$pull: { products: {
+                        product_id: product_id,
+                        size: size}
             }}
         )
         .then(() => res.json({
@@ -55,11 +99,17 @@ class CartController {
 
     update(req, res, next) {
         var q_ty_product = req.body.q_ty_product
+        var size = req.body.size
+        if(size === 'S') {size = 0;}
+        else if(size === 'M') {size = 1;}
+        else if(size === 'L') {size = 2;}
+        else if(size === 'XL') {size = 3;}
+        else if(size === 'XXL') {size = 4;}
         var product_id = req.body.product_id
         Product.findOne({_id: req.body.product_id})
         .then(data => {
             if(data) {
-                if(q_ty_product < data.remaining_products) {
+                if(q_ty_product < data.remaining_products[size]) {
                     res.json({
                         check_remaining: true
                     })

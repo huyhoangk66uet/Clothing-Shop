@@ -10,7 +10,7 @@ import { query } from 'express';
 class ProductController {
     
     // [GET] / product by id
-    show(req, res, next) {
+    show(req, res) {
 
         Product.findOne({_id: req.params.id})
             // .populate('product_images')
@@ -32,22 +32,31 @@ class ProductController {
     addToCart(req, res, next) {
         var token = req.cookies.token;
         var ketqua = jwt.verify(token,'mk');
-        Cart.findOne({
+        var product_size = {product_id: req.body._id,
+                            size: req.body.size}
+        //console.log(product_size)
+        Cart.find({
             user_id: ketqua._id,
-            products: req.body._id
+            products: {
+                $elemMatch: {
+                    product_id: req.body._id,
+                    size: req.body.size
+                }
+            }
         }).then(cart => {
-            if(!cart){
+            console.log(cart.length)
+            if(!cart.length){
                 Cart.updateOne(
                     {user_id: ketqua._id},
-                    {$push: {products: req.body._id}}
+                    {$push: {products: product_size}}
                 ).then(data => {
-                    console.log('ok' + data)
                     res.json({
-                        message: 'Da Them Vao Gio Hang'
-                    })
+                        message: 'Da them vao gio hang'
+                    })                    
                 }).catch(err => {
                     console.log('err' + err)
                 })
+                
             } else {
                 res.json({
                     message: 'San Pham Da Ton Tai Trong Gio Hang'
@@ -56,6 +65,7 @@ class ProductController {
         })        
     }
 
+    
     test(req, res, next) {
         console.log(req.query)
         res.json({cc: req.query.q})

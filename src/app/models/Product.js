@@ -12,7 +12,7 @@ const Product = new Schema({
     main_image: {type: String},
     image_: [{type: String}],
     //product_images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product_images' }],
-    remaining_products: {type: Number},
+    remaining_products: [{type: Number}],
   });
 // users la ten bang trong db, phai de so nhieu neu ko co no se tu tao bang moi trong db
 export default mongoose.model('products', Product);  
