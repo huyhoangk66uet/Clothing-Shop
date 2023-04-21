@@ -9,17 +9,36 @@ class PaymentController {
     
     show(req, res, next) {
         var product_list = JSON.parse(req.body.product_id_list)
+        console.log('ok nhá')
+        console.log(product_list)
         var product_id_list = product_list.map(function(product) {
             return product.product_id
+        })
+        var product_size_list = product_list.map(function(product) {
+            return product.size
         })
         var product_quantity_list = product_list.map(function(product) {
             return product.quantity
         })
-        Product.find({_id: {$in: product_id_list}})
-        .then(product_list => {
-            product_list = product_list.map(product => product.toObject())
-            res.render('./payment', {product_list, product_quantity_list })
-        })    
+        // Product.find({_id: {$in: product_id_list}})
+        // .then(product_list => {
+        //     product_list = product_list.map(product => product.toObject())
+        //     res.render('./payment', {product_list, product_quantity_list })
+        // })    
+        const getProductList = (productIds) => {
+            const promises = productIds.map((productId) => {
+              return Product.findById(productId);
+            });
+            return Promise.all(promises);
+        };
+        
+          getProductList(product_id_list)
+            .then((product_list) => {
+                // productList will contain all products matching the provided ids, in the same order
+                
+                product_list = product_list.map(product => product.toObject())
+                res.render('./payment', {product_list, product_quantity_list , product_size_list})
+            })
     }
 
     success(req, res, next) {
@@ -31,6 +50,16 @@ class PaymentController {
         var product_list_id = payment_info.product_list.map(product => {
             return product.product_id
         })
+        var product_list_size = payment_info.product_list.map(product => {
+            return product.product_size
+        })
+        var size_list_num = product_list_size.map(size => {
+            if(size === 'S') return 0;
+            else if(size === 'M') return 1;
+            else if(size === 'L') return 2;
+            else if(size === 'XL') return 3;
+            else if(size === 'XXL') return 4;
+        })
         var product_list_quantity = payment_info.product_list.map(product => {
             return product.product_qty
         })
@@ -41,8 +70,10 @@ class PaymentController {
             Product.findOne({_id: _id}) 
             .then(product => {
                 if(product) {
-                    var remaining_product = product.remaining_products
-                    Product.updateOne({_id: _id}, {$set: {remaining_products: (remaining_product - product_qty)}})
+                    
+                    var remaining_product_of_size = product.remaining_products[size_list_num[i]]
+                    var index = size_list_num[i]
+                    Product.updateOne({_id: _id}, {$set: {['remaining_products.'+index]: (remaining_product_of_size - product_qty)}})
                     .then(() => {
                         console.log('update ok')
                     })

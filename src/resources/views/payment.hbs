@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="package_item_list">
                                         {{#each product_list}}
-                                        <div class="item_product" product_id="{{this._id}}">
+                                        <div class="item_product" product_id="{{this._id}}" size="{{getThe2ndParameter this ../product_list ../product_size_list}}">
                                             <div class="item_icon">
                                                 <picture class="img_product">
                                                     <img class="" style="width: 48px;" src="{{this.main_image}}" alt="icon">
@@ -90,8 +90,10 @@
                                             </div>
                                             <div class="item_info">
                                                 <div class="item_info_first_line">
-                                                    <span class="product_name" title="#">{{this.name}}</span>
+                                                    <span class="product_name" title="#">{{this.name}} </span>
+                                                    <p style="margin: 0px;">| Size: {{getThe2ndParameter this ../product_list ../product_size_list}}</p>
                                                 </div>
+                                                
                                                 <div class="item_info_second_line">
                                                     <div class="info_quantity">
                                                         <span>SL: x</span>
@@ -403,6 +405,7 @@
     product_list = product_list.map(product_ => {
         return {
             product_id: product_.getAttribute("product_id"),
+            product_size: product_.getAttribute("size"),
             product_qty: product_.getElementsByClassName('q-ty_product')[0].textContent
         }
     })

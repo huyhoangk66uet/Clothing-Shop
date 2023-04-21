@@ -2,7 +2,7 @@ var check_remaining_products = function() {
     var product_list = document.getElementsByClassName('item_product')
     product_list = Array.from(product_list)
     product_list.forEach(product => {
-        console.log(product)
+        //console.log(product)
     })
 }
 
@@ -42,10 +42,13 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
             var q_ty_mess = event.currentTarget.parentElement.parentElement.getElementsByClassName('q-ty_mess')[0]
             
             var product_id = event.currentTarget.parentElement.parentElement.getAttribute('product_id')
+            console.log(event.currentTarget.parentElement.parentElement)
+            var size = event.currentTarget.parentElement.parentElement.getAttribute("size")
             $.ajax({
                 url: '/cart',
                 type: 'PUT',
                 data: {product_id: product_id,
+                       size: size, 
                        q_ty_product: parseFloat(qty_input.value)}
             })
             .done(data => {

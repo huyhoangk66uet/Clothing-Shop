@@ -7,6 +7,7 @@ const Order = new Schema({
     user_id: {type: Schema.Types.ObjectId, ref: 'users'},
     product_list: [{
                 product_id: {type: Schema.Types.ObjectId, ref: 'products'},
+                product_size: {type: String},
                 product_qty: {type: Number}
               }],
     payment_method: {type: String},

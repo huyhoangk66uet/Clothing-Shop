@@ -47,7 +47,7 @@
                                                     <div class="product_images">
                                                         <div class="product_checkbox">
                                                             <label>
-                                                                <input name="check_product" class="input_checkbox" type="checkbox"  product_id="{{this._id}}" data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
+                                                                <input name="check_product" class="input_checkbox" type="checkbox"  product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}" data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
                                                             </label>
                                                         </div>
                                                         <a href="/product/{{this._id}}">
@@ -57,6 +57,7 @@
                                                         </a>
                                                         <div class="product_content">
                                                             <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
+                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../size_list}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,7 +67,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="product-qty" product_id = "{{this._id}}">
+                                                    <div class="product-qty" product_id = "{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
                                                         <div class="gEpOC">
                                                             <span data-view-id="cart_main_quantity.decrease" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-decrease ">
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg" alt="decrease">
@@ -76,14 +77,14 @@
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg" alt="increase">
                                                             </span>
                                                         </div>
-                                                        <div class="q-ty_mess hide">Chi con {{this.remaining_products}} san pham</div>
+                                                        <div class="q-ty_mess hide">Chi con {{getThe2ndParameter this ../products ../remaining_product_list}} san pham</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <span class="product__final-prices">{{this.price}} ₫</span>
                                                 </div>
                                                 <div class="col-5">
-                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}">
+                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
                                                         <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted">
                                                     </span>
                                                 </div>
@@ -106,6 +107,7 @@
                                                         </a>
                                                         <div class="product_content">
                                                             <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
+                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6;" class="size">{{getThe2ndParameter this ../products ../size_list}}</span>
                                                             <p style="color: orangered;">Sản phẩm tạm hết hàng</p>
                                                         </div>
                                                     </div>
@@ -116,7 +118,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-3  blur_button">
-                                                    <div class="product-qty hide" product_id = "{{this._id}}">
+                                                    <div class="product-qty hide" product_id = "{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
                                                         <div class="gEpOC">
                                                             <span data-view-id="cart_main_quantity.decrease" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-decrease ">
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg" alt="decrease">
@@ -133,7 +135,7 @@
                                                     <span class="product__final-prices hide">{{this.price}} ₫</span>
                                                 </div>
                                                 <div class="col-5">
-                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}">
+                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
                                                         <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted" >
                                                     </span>
                                                 </div>
@@ -230,12 +232,13 @@
 <script src='/js/Cart_Logic.js'></script>
 <script>
 
-    check_remaining_products()
+    //check_remaining_products()
 
 
     function removeProduct(event) {
         var product_id = event.currentTarget.getAttribute("product_id")
-        console.log(product_id)
+        var size = event.currentTarget.getAttribute("size")
+        //console.log(product_id)
         var ReactModalPortal = document.getElementById('ReactModalPortal')
         ReactModalPortal.classList.remove('hide');
         var confirm = document.getElementById('confirm')
@@ -247,7 +250,8 @@
             $.ajax({
                 url: '/cart/' + product_id,
                 type: 'DELETE',
-                data: {}
+                data: {product_id: product_id,
+                        size: size}
             })
             .done(function(data) {
                 if(data.message) {
@@ -268,11 +272,14 @@
             //product_id_list = product_id_list.map(product_id => product_id.getAttribute('product_id'))
             product_id_list = product_id_list.map(function(product) {
                 var quantity = product.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.qty-input').value
+                
                 return {
                     product_id: product.getAttribute('product_id'),
+                    size: product.getAttribute('size'),
                     quantity: quantity
                 }
             })
+            console.log(product_id_list)
             var cart_form = document.getElementById('cart_form')
             var product_id_list_json = JSON.stringify(product_id_list)
             var input_product_id_list = document.getElementById('input_product_id_list')
@@ -291,6 +298,8 @@
             })  
             /////////////////////
             cart_form.submit()    
+        } else {
+            var cart_form = document.getElementById('cart_form').preventDefault()
         }
     }
 </script>

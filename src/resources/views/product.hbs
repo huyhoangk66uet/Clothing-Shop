@@ -13,9 +13,9 @@
         <p>{{product.description}}</p>
         <p>{{product.price}}</p>
         <p>{{product._id}}</p>
-        <a href="">
+        {{!-- <a href=""> --}}
             <button onclick="addToCart()">Them vao gio hang</button>
-        </a>
+        {{!-- </a> --}}
         {{!-- <img src="{{product.main_image2}}" alt=""> --}}
         
     </div>
@@ -26,20 +26,20 @@
         console.log('onclick')
             $.ajax({
                 url: '/product/addtocart',
+                timeout: 10000,
                 type: 'POST',
                 data: {
                     _id: $('#id_Product').attr('_id'), 
+                    size: 'L'
                 }
             })
             .done(function(data) {
-                console.log(data)
                 alert(data.message)
             })
             .fail(function(err) {
                 console.log(err)
             }) 
             .always(function(data) {
-                
             })
         }
 </script>
