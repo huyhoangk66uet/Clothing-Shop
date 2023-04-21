@@ -1,9 +1,7 @@
 // dua bang csdl sang controller de su ly
 import jwt from 'jsonwebtoken';
 import Product from '../models/Product.js'; // tra ve bang users
-import Cart from '../models/Cart.js'
-//import { data } from 'jquery';
-//import Product_Image from '../models/Product_Image.js';
+import Cart from '../models/Cart.js';
 
 
 class CartController {
@@ -25,7 +23,7 @@ class CartController {
                 else if(product.size === 'XL') return 3;
                 else if(product.size === 'XXL') return 4;
             })
-            console.log(products_id)
+            
             const getProductList = (productIds) => {
                 const promises = productIds.map((productId) => {
                   return Product.findById(productId);
@@ -33,42 +31,22 @@ class CartController {
                 return Promise.all(promises);
             };
             
-              getProductList(products_id)
-                .then((products) => {
-                    // productList will contain all products matching the provided ids, in the same order
-                    var check_remaining = products.map((product, index) => {
-                        if(product.remaining_products[size_list_num[index]] > 0) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    })
-                    var remaining_product_list = products.map((product, index) => {
-                        return product.remaining_products[size_list_num[index]]
-                    })
-                    console.log(remaining_product_list + '///////////////////////////')
-                    products = products.map(product => product.toObject())
-                    res.render('./cart', {products, check_remaining, size_list, remaining_product_list})
+            getProductList(products_id)
+            .then((products) => {
+                //productList will contain all products matching the provided ids, in the same order
+                var check_remaining = products.map((product, index) => {
+                    if(product.remaining_products[size_list_num[index]] > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 })
-                
-            // Product.find({_id: {$in: products_id}})
-            // .then(products => {
-            //     //console.log(products)
-            //     var check_remaining = products.map((product, index) => {
-            //         if(product.test[size_list_num[index]] > 0) {
-            //             return true;
-            //         } else {
-            //             return false;
-            //         }
-            //     })
-            //     var remaining_product_list = products.map((product, index) => {
-            //         return product.test[size_list_num[index]]
-            //     })
-            //     products = products.map(product => product.toObject())
-            //     res.render('./cart', {products, check_remaining, size_list, remaining_product_list})
-            // })
-            
-             
+                var remaining_product_list = products.map((product, index) => {
+                    return product.remaining_products[size_list_num[index]]
+                })
+                products = products.map(product => product.toObject())
+                res.render('./cart', {products, check_remaining, size_list, remaining_product_list})
+            })    
         })
         .catch(err => {
             res.status(400).json({ error: err })
@@ -132,3 +110,14 @@ class CartController {
 
 // exports cai gi thi khi require se nhan duoc cai do
 export default new CartController;
+
+
+
+
+
+
+
+
+
+
+

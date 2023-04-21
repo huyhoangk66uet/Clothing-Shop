@@ -1,12 +1,14 @@
 import Product from '../models/Product.js'; // tra ve bang users
 import User from '../models/User.js';
 import Order from '../models/Order.js';
+import e from 'express';
 
 
 class AdminController {
     show(req, res, next) {
         res.render('./admin/home')
     }
+    ////////////////////////////////
     showProduct(req, res, next) {
         Product.find({}) 
                 .then(products => {
@@ -28,21 +30,92 @@ class AdminController {
             message: false
         }))
     }
+    ////////////////////////////////////////////
     showProduct_add(req, res, next) {
         res.render('./admin/product-add')
     }
-    showCategory(req, res, next) {
-        res.render('./admin/category')
+
+    add_product(req, res, next) {
+        console.log(req.body)
+        
+        var newProduct = {
+            name: req.body.name,
+            price: req.body.price,
+            category: req.body.category,
+            description: req.body.description,
+            main_image: req.body.main_image,
+            remaining_products: [req.body.S_quantity, 
+                                 req.body.M_quantity,
+                                 req.body.L_quantity,
+                                 req.body.XL_quantity,
+                                 req.body.XXL_quantity],
+            image_: [req.body.image_1,
+                     req.body.image_2,
+                     req.body.image_3],
+            key_search: req.body.key_search
+        }
+        Product.create(newProduct)
+        .then(newProduct => {
+            res.json({
+                message: true
+            })
+        })
+        .catch(err => {
+            res.json({
+                message: false
+            })
+        })
+        
     }
-    showCategory_add(req, res, next) {
-        res.render('./admin/category-add')
+    ////////////////////////////////////
+    showProduct_update(req, res, next) {
+        var product_id = req.params.id
+        Product.findOne({_id: product_id})
+        .then(product => {
+            if(product){
+                product = product.toObject();
+                res.render('./admin/product-update', {product})
+            }else{
+                res.send('Khong tim thay san pham')
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
-    showColor(req, res, next) {
-        res.render('./admin/color')
+
+    update_product(req, res, next) {
+        var product_id = req.params.id
+        var updateProduct = {
+            name: req.body.name,
+            price: req.body.price,
+            category: req.body.category,
+            description: req.body.description,
+            main_image: req.body.main_image,
+            remaining_products: [req.body.S_quantity, 
+                                 req.body.M_quantity,
+                                 req.body.L_quantity,
+                                 req.body.XL_quantity,
+                                 req.body.XXL_quantity],
+            image_: [req.body.image_1,
+                     req.body.image_2,
+                     req.body.image_3],
+            key_search: req.body.key_search
+        }
+        Product.updateOne({_id: product_id}, updateProduct)
+        .then(product => {
+            res.json({
+                message: true
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        
     }
-    showColor_add(req, res, next) {
-        res.render('./admin/color-add')
-    }
+    ////////////////////////////////////
+    ////////////////////////////////////////
+    ////////////////////////////////////////
     showCustomer(req, res, next) {
         User.find({}) 
                 .then(users => {
@@ -64,10 +137,8 @@ class AdminController {
             message: false
         }))
     }
-    showIntroduce(req, res, next) {
-        res.render('./admin/introduce')
-    }
-
+    //////////////////////////////////////
+    //////////////////////////////////////////
     showOrder(req, res, next) {
         Order.find({}) 
                 .then(orders => {
@@ -91,15 +162,11 @@ class AdminController {
         }))
     }
 
+    ////////////////////////////////////////////////
     showProfile(req, res, next) {
         res.render('./admin/profile-edit')
     }
-    showSize(req, res, next) {
-        res.render('./admin/size')
-    }
-    showSize_add(req, res, next) {
-        res.render('./admin/size-add')
-    }
+    ///////////////////////////////////////////
 }
 
 export default new AdminController;

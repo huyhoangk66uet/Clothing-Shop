@@ -46,7 +46,7 @@
                         <th>{{this.remaining_products}}</th>
                         <th>{{this.category}}</th>
                         <th>
-                            <button class="btn btn-edit">Sửa</button>
+                            <a href="/admin/product-update/{{this._id}}"><button class="btn btn-edit">Sửa</button></a>
                             <button class="btn btn-delete" onclick="removeProduct(event)" product_id="{{this._id}}">Xóa</button>
                         </th>
                     </tr>
@@ -124,5 +124,7 @@
             })
         }
     }
+
+
 </script>
 </html>

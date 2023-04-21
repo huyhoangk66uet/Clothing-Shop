@@ -19,73 +19,73 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="content-header-left">
-                <i class="fa-solid fa-circle-right"></i><span>Thêm sản phẩm</span>
+                <i class="fa-solid fa-circle-right"></i><span>Sửa sản phẩm</span>
             </div>
             <div class="content-header-right"><a href="/admin/product">Quay lại</a></div>
         </div>
         <div class="content">
-            <form id="add_product_form" action="" method="POST">
+            <form id="update_product_form" action="" method="POST" product_id="{{product._id}}">
                 <div class="form-group">
                     <label for="">Tên sản phẩm * </label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Name product">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Name product" value="{{product.name}}">
                 </div>
                 <div class="form-group">
                     <label for="">Mô tả sản phẩm </label>
-                    <textarea id="description" name="description" class="form-text"></textarea>
+                    <textarea id="description" name="description" class="form-text">{{product.description}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Key search </label>
-                    <textarea id="key_search" name="key_search" class="form-text"></textarea>
+                    <textarea id="key_search" name="key_search" class="form-text">{{product.key_search}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Giá (VNĐ) *</label>
-                    <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                    <input type="text" id="price" name="price" class="form-control" placeholder="Price" value="{{product.price}}">
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng *</label>
                 </div>
                 <div class="form-group">
                     <label for="">S:</label>
-                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" placeholder="Size S">
+                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" placeholder="Size S" value="{{getValueAtIndex product.remaining_products 0}}">
                 </div>
                 <div class="form-group">
                     <label for="">M:</label>
-                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" placeholder="Size M">
+                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" placeholder="Size M" value="{{getValueAtIndex product.remaining_products 1}}">
                 </div>
                 <div class="form-group">
                     <label for="">L:</label>
-                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" placeholder="Size L">
+                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" placeholder="Size L" value="{{getValueAtIndex product.remaining_products 2}}">
                 </div>
                 <div class="form-group">
                     <label for="">XL:</label>
-                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" placeholder="Size XL">
+                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" placeholder="Size XL" value="{{getValueAtIndex product.remaining_products 3}}">
                 </div>
                 <div class="form-group">
                     <label for="">XXL:</label>
-                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" placeholder="Size XXL">
+                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" placeholder="Size XXL" value="{{getValueAtIndex product.remaining_products 4}}">
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh *(link)</label>
-                    <input type="text" id="main_image" name="main_image" class="form-control" placeholder="Main image">
+                    <input type="text" id="main_image" name="main_image" class="form-control" placeholder="Main image" value="{{product.main_image}}">
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh khác</label>
-                    <input type="text" id="image_1" name="image_1" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_1" name="image_1" class="form-control" placeholder="Sub image" value="{{getValueAtIndex product.image_ 0}}">
                 </div>
                 <div class="form-group">
                     <label for=""></label>
-                    <input type="text" id="image_2" name="image_2" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_2" name="image_2" class="form-control" placeholder="Sub image" value="{{getValueAtIndex product.image_ 1}}">
                 </div>
                 <div class="form-group">
                     <label for=""></label>
-                    <input type="text" id="image_3" name="image_3" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_3" name="image_3" class="form-control" placeholder="Sub image" value="{{getValueAtIndex product.image_ 2}}">
                 </div>
                 <div class="form-group">
                     <label for="">Danh mục *</label>
-                    <select id="category" name="category" class="form-select">
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
-                        <option value="Trẻ em">Trẻ em</option>
+                    <select id="category" name="category" class="form-select" category="{{product.category}}">
+                        <option class="category_op" value="Nam">Nam</option>
+                        <option class="category_op" value="Nữ">Nữ</option>
+                        <option class="category_op" value="Trẻ em">Trẻ em</option>
                         <option class="category_op" value="Khác">Khác</option>
                     </select>
                 </div>
@@ -99,12 +99,25 @@
 </body>
 
 <script>
-    var addProduct_form = document.getElementById('add_product_form')
-    addProduct_form.onsubmit = function(event) {
-        var newProduct = {}
+    var category_ops = $('.category_op')
+    category_ops = Array.from(category_ops)
+    category_ops.forEach(category_op => {
+        if(category_op.value == $('#category').attr('category')){
+            category_op.setAttribute("selected", "selected");
+            console.log(category_op.value)
+        }
+    })
+    
+</script>
+
+<script>
+    var updateProduct_form = document.getElementById('update_product_form')
+    var product_id = updateProduct_form.getAttribute('product_id')
+    console.log(product_id)
+    updateProduct_form.onsubmit = function(event) {
         event.preventDefault();
         $.ajax({
-            url: '/admin/product-add',
+            url: '/admin/product-update/' + product_id,
             type: 'POST',
             data: {
                 name: $('#name').val(),
@@ -124,9 +137,9 @@
             }
         })
         .done(data => {
-            if(date.message) {
-                alert('Tao thanh cong')
-                window.location.reload()
+            if(data.message) {
+                alert('Cap nhap thanh cong')
+                window.location.href = '/admin/product'
             }else{
                 alert("That bai")
                 window.location.reload()
