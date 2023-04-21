@@ -1,7 +1,7 @@
 import Product from '../models/Product.js'; // tra ve bang users
 import User from '../models/User.js';
 import Order from '../models/Order.js';
-import e from 'express';
+
 
 
 class AdminController {
@@ -36,8 +36,6 @@ class AdminController {
     }
 
     add_product(req, res, next) {
-        console.log(req.body)
-        
         var newProduct = {
             name: req.body.name,
             price: req.body.price,
