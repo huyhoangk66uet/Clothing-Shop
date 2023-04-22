@@ -10,87 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <header>
-        <div class="header">
-            <div class="logo" style="display: flex; align-items: center;">
-                <a href="/homePage">
-                        <img style="width: 80px;" src="/img/delivery_fast.jpg" alt="LOGO">
-                </a>
-                <div class="category-item" >
-                    <div onclick="" class="category-item__home"><a href="/homePage">Cặc Shop</a></div>
-                </div>
-            </div>
-            <form class="search">
-                <input class="search__input" type="text" name="search" placeholder="Tìm kiếm sản phẩm">
-                <button class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
-            <div class="other">
-                <div class="other__authentication">
-                    <div class="user-item">
-                        <div class="user-item__parent" style="font-size: 15px; width: max-content; height:15px " >
-                            <div style="display: flex;">
-                                <li style="margin-right: 5px;"> <i class="fa-solid fa-user"></i></li>
-                                <li id="info_user"></li>
-                            </div>
-                        </div>
-                        <div class="user-item__child">
-                            <li><a href="/user" style="text-decoration: none; color:black">Thông tin tài khoản</a></li>
-                            <li><a href="/order" style="text-decoration: none; color:black">Quản lý đơn hàng</a></li>
-                            <li style="border-bottom: 1px solid rgb(0, 0, 0);"></li>
-                            <li onclick="logout()">Đăng xuất</li>
-                        </div>
-                    </div>
-                </div>
-                <div class="other__individual">
-                    <li> 
-                        <form action="/cart" method="get">
-                            <button type="submit" class="cart_button">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </form>
-                    </li>
-                </div>
-            </div>
-        </div>
-        <div style="background-color: rgb(222, 252, 252);">
-            <div class="category">
-                {{!-- <div class="category-item" >
-                    <div onclick="" class="category-item__home"><a href="/home">Trang chủ</a></div>
-                </div> --}}
-                <div class="category-item">
-                    <div class="category-item__parent" category="nam">Nam</div>
-                    <div class="category-item__child">
-                        <li class="category_child" classify="ao">Áo</li>
-                        <li class="category_child" classify="quan">Quần</li>
-                    </div>
-                </div>
-                <div class="category-item">
-                    <div class="category-item__parent" category="nu">Nữ</div>
-                    <div class="category-item__child">
-                        <li class="category_child" classify="ao">Áo</li>
-                        <li class="category_child" classify="quan">Quần</li>
-                        <li class="category_child" classify="vay">Váy</li>
-                    </div>
-                </div>
-                <div class="category-item">
-                    <div class="category-item__parent" category="tre_em">Trẻ em</div>
-                    <div class="category-item__child">
-                        <li class="category_child" classify="ao">Áo</li>
-                        <li class="category_child" classify="quan">Quần</li>
-                    </div>
-                </div>
-                <div class="category-item">
-                    <div class="category-item__parent" category="khac">Khác</div>
-                    <div class="category-item__child">
-                        <li class="category_child" classify="ao">Áo</li>
-                        <li class="category_child" classify="quan">Quần</li>
-                    </div>
-                </div>  
-            </div>
-        </div>
-        
-        
-    </header>
+    {{> header}}
     <div  class="content" page="{{page}}" category="{{category_}}">
         {{#if products}}
             {{#each products}}
@@ -150,15 +70,6 @@
 <footer>
 
 </footer>
-
-    <script>
-        
-        $('#info_user').text(window.localStorage.getItem('name'))
-
-        function logout() {
-            document.getElementById('logout').submit()
-        }
-    </script>
     <script>
 
         /////////////////

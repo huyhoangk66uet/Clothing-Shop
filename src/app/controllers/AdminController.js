@@ -31,6 +31,9 @@ class AdminController {
     showProduct_add(req, res, next) {
         res.render('./admin/product-add')
     }
+    showProduct_edit(req, res, next) {
+        res.render('./admin/product-edit')
+    }
     showCategory(req, res, next) {
         res.render('./admin/category')
     }

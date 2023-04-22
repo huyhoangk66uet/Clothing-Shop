@@ -8,6 +8,8 @@ router.get('/product', adminController.showProduct)
 
 router.get('/product-add', adminController.showProduct_add)
 
+router.get('/product-edit', adminController.showProduct_edit)
+
 router.delete('/customer/:id' , adminController.deleteCustomer);
 router.get('/customer', adminController.showCustomer)
 

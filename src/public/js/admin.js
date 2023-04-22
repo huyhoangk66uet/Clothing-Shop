@@ -23,6 +23,33 @@ function showTreeview() {
     document.querySelector(".treeview-sidebar").classList.toggle("showTreeview");
 }
 
+function removeProduct(event) {
+    var product_id = event.currentTarget.getAttribute("product_id")
+    console.log(product_id)
+    var ReactModalPortal = document.getElementById('confirm-delete')
+    ReactModalPortal.classList.remove('hide');
+    var confirm = document.getElementById('confirm')
+    var cancel = document.getElementById('cancel')
+    cancel.onclick = function(event) {
+        ReactModalPortal.classList.add('hide')
+    }
+    confirm.onclick = function(event) {
+        $.ajax({
+            url: '/admin/product/' + product_id,
+            type: 'DELETE',
+            data: {}
+        })
+        .done(function(data) {
+            if(data.message) {
+                window.location.reload();
+            }
+        })
+        .fail(function(err) {
+            console.log(err)
+        })
+    }
+}
+
 
 
 $(document).ready(function () {

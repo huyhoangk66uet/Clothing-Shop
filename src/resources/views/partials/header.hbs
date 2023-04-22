@@ -1,0 +1,77 @@
+<header>
+    <div class="category">
+        <div class="category-item" style="width: 40px;">
+            <div class="category-item__parent" category="nam">Nam</div>
+            <div class="category-item__child">
+                <li class="category_child" classify="ao">Áo</li>
+                <li class="category_child" classify="quan">Quần</li>
+            </div>
+        </div>
+        <div class="category-item" style="width: 25px;">
+            <div class="category-item__parent" category="nu">Nữ</div>
+            <div class="category-item__child">
+                <li class="category_child" classify="ao">Áo</li>
+                <li class="category_child" classify="quan">Quần</li>
+                <li class="category_child" classify="vay">Váy</li>
+            </div>
+        </div>
+        <div class="category-item" style="width: 80px;">
+            <div class="category-item__parent" category="tre_em">Trẻ em</div>
+            <div class="category-item__child">
+                <li class="category_child" classify="ao">Áo</li>
+                <li class="category_child" classify="quan">Quần</li>
+            </div>
+        </div>
+    </div>
+
+    <div class="logo">
+        <a href="/"><img src="./img/logo.png"></a></a>
+    </div>
+
+    <div class="search">
+        <input class="search__input" type="text" name="search" placeholder="Tìm kiếm sản phẩm">
+        <button class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="other" id="unauthenticated">
+        <div class="other__authentication">
+            <li><a href="/login">Đăng nhập</a></li>
+            <li><a href="/register">Đăng ký</a></li>
+        </div>
+        <div class="other__individual">
+            <li class="individual"> <a href="/login"> <i class="fa-solid fa-user"></i></li>
+            <li class="cart">
+                <form action="/cart" method="get">
+                    <button type="submit" class="cart_button">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </form>
+            </li>
+        </div>
+    </div>
+
+    <div class="other" id="authentication">
+        <div class="other__individual" style="margin-top: 15px;">
+            <li class="individual" onclick="showDropdown()">
+                <i class="fa-solid fa-user"></i>
+                <div class="individual__dropdown">
+                    <a class="individual__edit" href="/user">Thông tin tài khoản</a>
+                    <a onclick="logout()" class="individual__logout" href="/order">Đăng xuất</a>
+                </div>
+            </li>
+            <li class="cart">
+                <form action="/cart" method="get">
+                    <button type="submit" class="cart_button">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </form>
+            </li>
+        </div>
+    </div>
+</header>
+
+<script>
+    function showDropdown() {
+    document.querySelector(".individual__dropdown").classList.toggle("showDropdown");
+}
+</script>

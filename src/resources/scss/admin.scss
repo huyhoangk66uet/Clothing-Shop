@@ -577,4 +577,44 @@ border-bottom-right-radius: 5px;
     padding-left: 5px;
 }
 
+.modal {
+    width: 350px;
+    height: 150px;
+    top: 40vh;
+    left: 40vw;
+    background-color: #f3a37f;
+    border-radius: 10px;
+    position: fixed;
+}
+
+.modal-header {
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    color: yellow;
+}
+
+.modal-header span {
+    color: #1a1b1b;
+    padding-left: 10px;
+}
+
+.modal-body {
+    height: 60px;
+    margin-left: 10px;
+}
+
+.btn-default {
+    color: #222d32;
+    background-color: #ccc;
+    left: 200px;
+}
+
+.btn-danger {
+    color: #ccc;
+    background-color: red;
+    left: 210px;
+}
+
 
