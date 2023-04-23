@@ -71,6 +71,14 @@
 
 </footer>
     <script>
+        
+        $('#info_user').text(window.localStorage.getItem('name'))
+
+        function logout() {
+            document.getElementById('logout').submit()
+        }
+    </script>
+    <script>
 
         /////////////////
 
