@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="proflie.css">
-    <link rel="stylesheet" href="./themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
                     <div class="username">
                         <div class="avatar-name">Địt mẹ mày</div>
-                        <a href="#" class="change-profile">
+                        <a href="#" class="change-profile" onclick="loadBody("/info")">
                             <div class="change-button">
                                 <i class="ti-pencil pencil-icon"></i>
                                 Sửa hồ sơ
@@ -60,7 +60,9 @@
                     </div>
                 </div>
             </div>
-            <div class="detail">
+            <div class="detail" id="detail-main">
+                
+
                 <div id="profile" class="padding-detail">
                     <div class="detail-header">
                         <h1 class="detail-header-content">Hồ sơ của tôi</h1>
@@ -214,142 +216,7 @@
                     </div>
                 </div>
 
-                <div id="change-password" class="padding-detail">
-                    <div class="detail-header">
-                        <h1 class="detail-header-content">Thêm mật khẩu</h1>
-                    </div>
-                    <div class="container-content password-flex">
-                        <form action="">
-                            <div class="detail-content">
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label">
-                                                    <label for="password" class="label-content">Mật khẩu hiện tại</label>
-                                                </div>
-
-                                                <div class="password-input">
-                                                    <input type="password" id="password" class="input-content" autocomplete="off" name="password" value="">
-                                                </div>
-
-                                                <button class="forget-password">
-                                                    Quên mật khẩu
-                                                </button>
-                                            </div>
-
-                                            <div class="notice-content margin-left wrong-password">
-                                                <!-- Sai mật khẩu -->
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label">
-                                                    <label for="newPassword" class="label-content">Mật khẩu mới</label>
-                                                </div>
-
-                                                <div class="password-input">
-                                                    <input type="newPassword" id="newPassword" class="input-content" autocomplete="off" name="newPassword" value="">
-                                                </div>
-                                            </div>
-                                            <div class="notice-content margin-left wrong-new-password">
-                                                <!-- Mật khẩu phải có tối thiểu 6 ký tự -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label">
-                                                    <label for="newPasswordRepeat" class="label-content">Xác nhận mật khẩu</label>
-                                                </div>
-
-                                                <div class="password-input">
-                                                    <input type="newPasswordRepeat" id="newPasswordRepeat" class="input-content" autocomplete="off" name="newPasswordRepeat" value="">
-                                                </div>
-                                            </div>
-                                            <div class="notice-content margin-left wrong-new-password-repeat">
-                                                <!-- Mật khẩu không trùng khớp -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label password-space">
-                                                </div>
-                                                <div class="password-button">
-                                                    <button type="button" class="submit-button" aria-disabled="true" id="confirm-change-password">Xác nhận</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div id="change-email" class="padding-detail">
-                    <div class="detail-header">
-                        <h1 class="detail-header-content">Thay đổi địa chỉ email</h1>
-                    </div>
-                    <div class="container-content password-flex">
-                        <form action="">
-                            <div class="detail-content">
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label">
-                                                    <label for="password-confirm-email" class="label-content">Mật khẩu hiện tại</label>
-                                                </div>
-
-                                                <div class="password-input">
-                                                    <input type="password" id="password-confirm-email" class="input-content" autocomplete="off" name="password-confirm-email" value="">
-                                                </div>
-
-                                                <button class="forget-password">
-                                                    Quên mật khẩu
-                                                </button>
-                                            </div>
-                                            <div class="notice-content margin-left wrong-password">
-                                                <!-- Sai mật khẩu -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label">
-                                                    <label for="new-email" class="label-content">Địa chỉ email mới</label>
-                                                </div>
-
-                                                <div class="password-input">
-                                                    <input type="email" id="new-email" class="input-content" autocomplete="off" name="password-confirm-email" value="">
-                                                </div>
-                                            </div>
-                                            <div class="notice-content margin-left wrong-new-email">
-                                                <!-- Email không hợp lệ -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="password-container">
-                                        <div class="password-setup">
-                                            <div class="password-content">
-                                                <div class="password-label password-space">
-                                                </div>
-                                                <div class="password-button">
-                                                    <button type="button" class="submit-button" aria-disabled="true" id="confirm-change-email">Xác nhận</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -404,6 +271,22 @@
         }   
         for (const radioBtn of radioBtns) {
             radioBtn.addEventListener('click', setAriaCheck(radioBtn, radioBtns))
+        }
+    </script>
+
+    <!-- Load body -->
+    <script>
+        function loadBody(path) {
+            return function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", path, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                        document.getElementById("detail-name").innerHTML = xhr.responseText;
+                    }
+                    xhr.send();
+                }
+            }
         }
     </script>
 
