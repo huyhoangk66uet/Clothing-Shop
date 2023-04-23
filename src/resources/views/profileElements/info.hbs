@@ -39,7 +39,7 @@
                         <td class="second-column">
                             <div class="col-container">
                                 <div class="col-content">hahaha@gmail.com</div>
-                                <button class="col-btn email">Thay đổi</button>
+                                <a class="col-btn email" onclick="loadBody('email')">Thay đổi</a>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
                         <td class="second-column">
                             <div class="col-container">
                                 <div class="col-content">022649885</div>
-                                <button class="col-btn phone">Thay đổi</button>
+                                <a class="col-btn phone" onclick="loadBody('phone')">Thay đổi</a>
                             </div>
                         </td>
                     </tr>
@@ -62,7 +62,7 @@
                         </td>
                         <td class="second-column">
                             <div class="radio-group" role="radiogroup">
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false">
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="male">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -74,10 +74,9 @@
                                             Nam
                                         </div>
                                     </div>
-                                    <input type="hidden" name="gender" value="male" id="male">
                                 </div>
                                 
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false">
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="female">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -89,10 +88,9 @@
                                             Nữ
                                         </div>
                                     </div>
-                                    <input type="hidden" name="gender" value="female" id="female">
                                 </div>
                                 
-                                <div class="radio" tabindex="0" role="radio" aria-checked="true">
+                                <div class="radio" tabindex="0" role="radio" aria-checked="true" id="other">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -104,7 +102,6 @@
                                             Bê đê
                                         </div>
                                     </div>
-                                    <input type="hidden" name="gender" value="other" id="other">
                                 </div>
                             </div>
                         </td>

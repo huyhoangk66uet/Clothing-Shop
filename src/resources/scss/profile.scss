@@ -122,7 +122,7 @@ table {
 }
 .submit-button[aria-disabled="true"] {
     background: #facac0!important;
-    cursor: not-allowed;
+    cursor: not-allowed !important;
     box-shadow: none;
 }
 

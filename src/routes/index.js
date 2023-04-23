@@ -14,7 +14,7 @@ import adminRouter from './admin.router.js'
 export default function route(app) {
 
     app.use('/admin',MiddleWare.checkAuthentication, MiddleWare.checkAdmin, adminRouter)
-    app.use('/profile', profileRouter)
+    app.use('/profile',MiddleWare.checkAuthentication, profileRouter)
     app.use('/order', MiddleWare.checkAuthentication, orderRouter)
     app.use('/payment', MiddleWare.checkAuthentication, paymentRouter);
     app.use('/cart', MiddleWare.checkAuthentication, cartRouter);
