@@ -103,7 +103,7 @@ table {
 
 .submit-button[aria-disabled="true"] {
   background: #facac0 !important;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
   box-shadow: none; }
 
 a {
@@ -117,24 +117,9 @@ a {
 .hide {
   display: none; }
 
-/* Header */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #FFF;
-  z-index: 20; }
-
-header, nav {
-  display: block; }
-
-.site-header .header-container {
-  justify-content: space-between;
-  height: 80px;
-  position: relative;
-  align-items: center;
-  display: flex; }
+.main {
+  padding-top: 60px;
+  width: 100%; }
 
 /* Container */
 .container {
@@ -142,8 +127,7 @@ header, nav {
   padding: 1.25rem 0 3.125rem;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 46.5px;
-  width: 1200px; }
+  width: 100%; }
 
 /* Directory */
 .directory {
