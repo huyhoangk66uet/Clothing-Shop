@@ -1,13 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/3c35f3eeb3.js" crossorigin="anonymous"></script>
+  <title>Product</title>
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/product.css">
+
 </head>
+
 <body>
-    <div id="id_Product" _id = '{{product._id}}'>
+  {{> header}}
+  <div class="product">
+    <div class="contaner">
+
+
+      <div class="product-content">
+
+        <!--______________________Ảnh __________________-->
+        <div class="product-content-left">
+          <div class="product-content-left-big-img">
+            <img src="https://i.pinimg.com/564x/90/f4/c4/90f4c4dc0981b215d7b5661fbdedfbfe.jpg" alt="">
+          </div>
+          <div class="product-content-left-small-img">
+            <img src="https://i.pinimg.com/564x/90/f4/c4/90f4c4dc0981b215d7b5661fbdedfbfe.jpg" alt="">
+            <img src="https://i.pinimg.com/564x/aa/27/fc/aa27fc42623f55fd24f8cedbe1df19b0.jpg" alt="">
+            <img src="https://i.pinimg.com/564x/39/8b/6c/398b6c2864634f0308ece67f4e94cfcb.jpg" alt="">
+            <img src="https://i.pinimg.com/564x/c3/09/2b/c3092bad47ca6e13ff3a917b683578d1.jpg" alt="">
+          </div>
+        </div>
+        <!--_________________________Text____________________________--->
+        <div class="product-content-right">
+          <div class="product-content-right-product-name">
+            <h1>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</h1>
+          </div>
+          <div class="product-content-right-product-price">
+            <p>100.000<sup>đ</sup></p>
+          </div>
+          <div class="product-content-right-product-color">
+            <p style="font-weight: bold; font-size: 20px;">Màu sắc:</p>
+            <div class="product-color">
+              <span>Xanh cổ vịt</span>
+              <span>Đỏ nâu</span>
+              <span>Vàng</span>
+              <span>Hồng</span>
+              <span>Xanh min</span>
+            </div>
+            <p id="chooseColor" style="font-size: 12px; color:red;">*Vui lòng chọn màu</p>
+          </div>
+          <div class="product-content-right-product-size">
+            <p style="font-weight: bold;margin-top: 12px; font-size: 20px;">Size:</p>
+            <div class="size">
+              <span>S</span>
+              <span>M</span>
+              <span>L</span>
+              <span>XL</span>
+              <span>XXL</span>
+            </div>
+            <p id="chooseSize" style="font-size: 12px; color:red;">*Vui lòng chọn size</p>
+          </div>
+          <!--______________________Số lượng_______________________--->
+          <div class="quantity">
+            <p style="font-weight: bold; font-size: 20px;">Số lượng:</p>
+            <div class="quantity-adjustment">
+              <i class="fa-sharp fa-solid fa-minus" id="minus"></i>
+              <input type="number" id="amount_product" min="0" max="10" value="1">
+              <i class="fa-sharp fa-solid fa-plus" id="plus"></i>
+            </div>
+            <p id="quantityInStock">103 sản phẩm có sẵn</p>
+          </div>
+
+          <div class="product-content-right-product-button">
+            <button onclick=""><i class="fa-solid fa-cart-plus" style="padding-right: 6px;"></i>
+              <p>Thêm vào giỏ hàng</p>
+            </button>
+          </div>
+
+          <div class="product-content-right-bottom">
+            <div class="product-content-right-bottom-top open_content">
+              &#8744;
+            </div>
+
+            <div class="product-content-right-bottom-content-big">
+              <div class="product-content-right-bottom-content-title">
+                <div class="product-content-right-bottom-content-title-item chitiet">
+                  <p>Chi tiết</p>
+                </div>
+                <div class="product-content-right-bottom-content-title-item mo_ta">
+                  <p>Mô tả</p>
+                </div>
+              </div>
+
+              <div class="product-content-right-bottom-content">
+                <div class="product-content-right-bottom-content-chitiet">
+                  Chi tiết sản phẩm nè <br>
+                  ahihi
+                </div>
+                <div class="product-content-right-bottom-content-mota">
+                  Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223 <br>
+                  Thông tin chi tiết sản phẩm sản phẩm<br>
+                  - Size S 43 - 49 kg<br>
+                  - Size M 49 - 58 Kg<br>
+                  - Màu sắc : Trắng<br>
+                  - Chất liệu : vải lụa hoa nổi<br>
+                  - Hình ảnh : Kèm video ảnh thật trải sàn shop tự chụp<br>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div id="id_Product" _id = '{{product._id}}'>
         <img style="width: 450px;" src="{{product.main_image}}" alt="">
         <p>{{product.name}}</p>
         <p>{{product.description}}</p>
@@ -18,29 +129,121 @@
         {{!-- </a> --}}
         {{!-- <img src="{{product.main_image2}}" alt=""> --}}
         
-    </div>
+    </div>-->
 </body>
 
 <script>
-    function addToCart() {
-        console.log('onclick')
-            $.ajax({
-                url: '/product/addtocart',
-                timeout: 10000,
-                type: 'POST',
-                data: {
-                    _id: $('#id_Product').attr('_id'), 
-                    size: 'L'
-                }
-            })
-            .done(function(data) {
-                alert(data.message)
-            })
-            .fail(function(err) {
-                console.log(err)
-            }) 
-            .always(function(data) {
-            })
-        }
+  /*function addToCart() {
+      console.log('onclick')
+          $.ajax({
+              url: '/product/addtocart',
+              timeout: 10000,
+              type: 'POST',
+              data: {
+                  _id: $('#id_Product').attr('_id'), 
+                  size: 'L'
+              }
+          })
+          .done(function(data) {
+              alert(data.message)
+          })
+          .fail(function(err) {
+              console.log(err)
+          }) 
+          .always(function(data) {
+          })
+      }*/
+
+  //--------------------------------------Chon noi dung----------------------------------------------
+  const chitiet = document.querySelector(".chitiet")
+  const mo_ta = document.querySelector(".mo_ta")
+  const content_chitiet = document.querySelector(".product-content-right-bottom-content-chitiet")
+  const content_mo_ta = document.querySelector(".product-content-right-bottom-content-mota")
+
+  if (chitiet) {
+
+    chitiet.addEventListener("click", function () {
+      content_mo_ta.style.display = "none"
+      content_chitiet.style.display = "block"
+      chitiet.style.borderBottom = "2px solid black"
+      mo_ta.style.borderBottom = "1px solid #dddddd"
+    })
+  }
+
+  if (mo_ta) {
+    mo_ta.addEventListener("click", function () {
+      content_mo_ta.style.display = "block"
+      content_chitiet.style.display = "none"
+      chitiet.style.borderBottom = "1px solid #dddddd"
+      mo_ta.style.borderBottom = "2px solid black"
+    })
+  }
+
+  //---------------------------------Mở/đóng nội dung-----------------------------------------
+  const open_content = document.querySelector(".open_content")
+  const content = document.querySelector(".product-content-right-bottom-content-big")
+  if (open_content) {
+
+    open_content.addEventListener("click", function () {
+      if (content.style.display === "none") {
+        content.style.display = "block"
+      }
+      else {
+        content.style.display = "none"
+      }
+    })
+  }
+
+  //-------------------------------------Chuyển ảnh--------------------------------------------
+  const big_img = document.querySelector(".product-content-left-big-img img")
+  const small_imgs = document.querySelectorAll(".product-content-left-small-img img")
+  //console.log(big_img, small_imgs)
+  small_imgs.forEach(function (small_img) {
+    small_img.addEventListener("click", function () {
+      big_img.setAttribute("src", small_img.getAttribute("src"))
+    })
+  });
+
+  //-------------------------------------Tăng giảm số lượng------------------------------------
+  const plusIcon = document.getElementById("plus")
+  const minusIcon = document.getElementById("minus")
+  const amount = document.getElementById("amount_product")
+  //console.log(plusIcon, minusIcon, amount);
+  plusIcon.addEventListener("click", function () {
+    if (parseInt(amount.value) < parseInt(amount.max))
+      amount.value = parseInt(amount.value) + 1;
+  })
+  minusIcon.addEventListener("click", function () {
+    if (parseInt(amount.value) > 0)
+      amount.value = parseInt(amount.value) - 1;
+  })
+
+
+  //-------------------------------------Chọn màu---------------------------------------------
+  const colorList = document.querySelectorAll(".product-color span")
+  //console.log(colorList)
+  colorList.forEach(function (color1) {
+    color1.addEventListener("click", function () {
+      colorList.forEach(function (color2) {
+        color2.style = "color: black; border-color: #dddddd;";
+      })
+      color1.style = "color: red; border-color: red;";
+    })
+  })
+
+
+  //-------------------------------------Chọn size---------------------------------------------
+  const sizeList = document.querySelectorAll(".size span")
+  //console.log(colorList)
+  sizeList.forEach(function (size1) {
+    size1.addEventListener("click", function () {
+      sizeList.forEach(function (size2) {
+        size2.style = "color: black; border-color: #dddddd;";
+      })
+      size1.style = "color: red; border-color: red;";
+    })
+  })
+
 </script>
+
 </html>
