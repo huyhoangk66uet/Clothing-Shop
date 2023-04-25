@@ -26,6 +26,8 @@ class CartController {
             
             const getProductList = (productIds) => {
                 const promises = productIds.map((productId) => {
+                    console.log('+++++++++++++++++++++++++++')
+                    console.log(productId)
                   return Product.findById(productId);
                 });
                 return Promise.all(promises);
@@ -42,7 +44,7 @@ class CartController {
                     }
                 })
                 var remaining_product_list = products.map((product, index) => {
-                    return product.remaining_products[size_list_num[index]]
+                   return product.remaining_products[size_list_num[index]]
                 })
                 products = products.map(product => product.toObject())
                 res.render('./cart', {products, check_remaining, size_list, remaining_product_list})

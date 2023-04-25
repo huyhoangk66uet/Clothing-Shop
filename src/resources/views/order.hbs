@@ -1,14 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/3c35f3eeb3.js" crossorigin="anonymous"></script>
+    <title>Lịch sử mua hàng</title>
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/purchaseHistory.css">
 </head>
-<body>
-    ORDER_PAGE
-    <h1>chimchim</h1>
-    <h2>chimchim2</h2>
+
+<body style="background-color: #eee;">
+    {{> header}}
+    <div class="list-bill" id="list_bill">
+        <div class="bill">
+            <div class="bill-content">
+                <li>Mã hóa đơn: </li>
+                <li>Ngày thanh toán: </li>
+                <li>Thành tiền: </li>
+            </div>
+            <div class="bill-product">
+                <div class="bill-product-detail">
+                    <div class="bill-product-detail-img">
+                        <img src="images/image1.jpg" alt="">
+                    </div>
+                    <div class="bill-product-detail-information">
+                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
+                        <li>Phân loại hàng: be, M</li>
+                        <li>x1</li>
+                    </div>
+                    <div class="bill-product-detail-cost">
+                        <li><sup>đ</sup>100.000</li>
+                    </div>
+                </div>
+            </div>
+            <div class="bill-product">
+                <div class="bill-product-detail">
+                    <div class="bill-product-detail-img">
+                        <img src="images/image1.jpg" alt="">
+                    </div>
+                    <div class="bill-product-detail-information">
+                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
+                        <li>Phân loại hàng: be, M</li>
+                        <li>x1</li>
+                    </div>
+                    <div class="bill-product-detail-cost">
+                        <li><sup>đ</sup>100.000</li>
+                    </div>
+                </div>
+            </div>
+            <div class="bill-delivery">
+                <h3>Địa chỉ nhận hàng:</h3>
+                <li>Nguyễn Hạnh</li>
+                <li>0344997515</li>
+                <li>Ngõ 298, Ngọc Hồi, Văn Điển, Thanh Trì</li>
+            </div>
+        </div>
+        <div class="bill">
+            <div class="bill-content">
+                <li>Mã hóa đơn: </li>
+                <li>Ngày thanh toán: </li>
+                <li>Thành tiền: </li>
+            </div>
+            <div class="bill-product">
+                <div class="bill-product-detail">
+                    <div class="bill-product-detail-img">
+                        <img src="images/image1.jpg" alt="">
+                    </div>
+                    <div class="bill-product-detail-information">
+                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
+                        <li>Phân loại hàng: be, M</li>
+                        <li>x1</li>
+                    </div>
+                    <div class="bill-product-detail-cost">
+                        <li><sup>đ</sup>100.000</li>
+                    </div>
+                </div>
+            </div>
+            <div class="bill-product">
+                <div class="bill-product-detail">
+                    <div class="bill-product-detail-img">
+                        <img src="images/image1.jpg" alt="">
+                    </div>
+                    <div class="bill-product-detail-information">
+                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
+                        <li>Phân loại hàng: be, M</li>
+                        <li>x1</li>
+                    </div>
+                    <div class="bill-product-detail-cost">
+                        <li><sup>đ</sup>100.000</li>
+                    </div>
+                </div>
+            </div>
+            <div class="bill-delivery">
+                <h3>Địa chỉ nhận hàng:</h3>
+                <li>Nguyễn Hạnh</li>
+                <li>0344997515</li>
+                <li>Ngõ 298, Ngọc Hồi, Văn Điển, Thanh Trì</li>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+
+    // ------------------------------ mở chi tiết bill----------------------------------
+    const list_bill = document.querySelectorAll(".bill")
+    //console.log(list_bill);
+
+    list_bill.forEach(bill => {
+        var bill_delivery = bill.querySelector(".bill-delivery")
+        bill.addEventListener("click", function(){
+            if (bill_delivery.style.display === "none") {
+                bill_delivery.style.display = "inline-block";
+            } else {
+                bill_delivery.style.display = "none";
+            }
+        })
+    })
+
+</script>
+
 </html>

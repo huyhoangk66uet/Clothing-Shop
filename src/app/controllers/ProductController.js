@@ -12,13 +12,22 @@ class ProductController {
     // [GET] / product by id
     show(req, res) {
 
+        var check_out_auth = false
+        try{var token = req.cookies.token;
+            var ketqua = jwt.verify(token,'mk');
+        } catch {
+
+        }
+        if(!ketqua) {
+            check_out_auth = true
+        }
         Product.findOne({_id: req.params.id})
             // .populate('product_images')
             // .exec()
             .then(product => {    
                 product = product.toObject();
                 //console.log(product);
-                res.render('./product', {product})
+                res.render('./product', {product, check_out_auth})
             })
             .catch(err => {
                 res.send('Khong tim thay san pham')
