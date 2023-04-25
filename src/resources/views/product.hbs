@@ -40,7 +40,7 @@
           <div class="product-content-right-product-price">
             <p>{{product.price}}<sup>đ</sup></p>
           </div>
-          <div class="product-content-right-product-color">
+          {{!-- <div class="product-content-right-product-color">
             <p style="font-weight: bold; font-size: 20px;">Màu sắc:</p>
             <div class="product-color">
               <span>Xanh cổ vịt</span>
@@ -50,7 +50,7 @@
               <span>Xanh min</span>
             </div>
             <p id="chooseColor" style="font-size: 12px; color:red;">*Vui lòng chọn màu</p>
-          </div>
+          </div> --}}
           <div class="product-content-right-product-size">
             <p style="font-weight: bold;margin-top: 12px; font-size: 20px;">Size:</p>
             <div class="size">
@@ -117,18 +117,6 @@
       </div>
     </div>
   </div>
-  <!--<div id="id_Product" _id = '{{product._id}}'>
-        <img style="width: 450px;" src="{{product.main_image}}" alt="">
-        <p>{{product.name}}</p>
-        <p>{{product.description}}</p>
-        <p>{{product.price}}</p>
-        <p>{{product._id}}</p>
-        {{!-- <a href=""> --}}
-            <button onclick="addToCart()">Them vao gio hang</button>
-        {{!-- </a> --}}
-        {{!-- <img src="{{product.main_image2}}" alt=""> --}}
-        
-    </div>-->
 </body>
 
 <script>
@@ -199,7 +187,7 @@
 
 
   //-------------------------------------Chọn màu---------------------------------------------
-  const colorList = document.querySelectorAll(".product-color span")
+  /*const colorList = document.querySelectorAll(".product-color span")
   //console.log(colorList)
   colorList.forEach(function (color1) {
     color1.addEventListener("click", function () {
@@ -208,10 +196,11 @@
       })
       color1.style = "color: red; border-color: red;";
     })
-  })
+  })*/
 
 
   //-------------------------------------Chọn size---------------------------------------------
+  var selectedSize = '';
   const sizeList = document.querySelectorAll(".size span")
   //console.log(colorList)
   sizeList.forEach(function (size1) {
@@ -220,6 +209,7 @@
         size2.style = "color: black; border-color: #dddddd;";
       })
       size1.style = "color: red; border-color: red;";
+      selectedSize = size1.textContent;
     })
   })
 
@@ -232,7 +222,7 @@
               type: 'POST',
               data: {
                   _id: $('#id_Product').attr('_id'), 
-                  size: 'M'
+                  size: selectedSize
               }
           })
           .done(function(data) {
