@@ -32,7 +32,15 @@
                         <th><img style="width: 90px;" src="{{this.main_image}}" alt="img"></th>
                         <th>{{this.name}}</th>
                         <th>{{this.price}}đ</th>
-                        <th>{{this.remaining_products}}</th>
+                        <th>
+                            <ul>
+                                <li>S:{{getValueAtIndex this.remaining_products 0}}</li>
+                                <li>M:{{getValueAtIndex this.remaining_products 1}}</li>
+                                <li>L:{{getValueAtIndex this.remaining_products 2}}</li>
+                                <li>XL:{{getValueAtIndex this.remaining_products 3}}</li>
+                                <li>XXL:{{getValueAtIndex this.remaining_products 4}}</li>
+                            </ul>
+                        </th>
                         <th>{{this.category}}</th>
                         <th>
                             <a href="/admin/product-update/{{this._id}}"><button class="btn btn-edit">Sửa</button></a>
