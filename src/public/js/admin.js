@@ -49,3 +49,32 @@ $(document).ready(function () {
         "language": lang
     });
 });
+
+
+function removeItem(event, name, name_id) {
+    var name_id = event.currentTarget.getAttribute(name_id)
+    console.log(name_id)
+    var ReactModalPortal = document.getElementById('confirm-delete')
+    ReactModalPortal.classList.remove('hide');
+    var confirm = document.getElementById('confirm')
+    var cancel = document.getElementById('cancel')
+    cancel.onclick = function(event) {
+        ReactModalPortal.classList.add('hide')
+    }
+    confirm.onclick = function(event) {
+        $.ajax({
+            url: '/admin/'+ name+ '/' + name_id,
+            type: 'DELETE',
+            data: {}
+        })
+        .done(function(data) {
+            if(data.message) {
+                window.location.reload();
+            }
+        })
+        .fail(function(err) {
+            console.log(err)
+        })
+    }
+}
+

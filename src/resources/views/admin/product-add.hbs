@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HShop</title>
-    {{!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script> --}}
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-</head>
+{{> head-admin}}
 <body>
     
     {{> header-admin}}
@@ -27,7 +16,7 @@
             <form id="add_product_form" action="" method="POST">
                 <div class="form-group">
                     <label for="">Tên sản phẩm * </label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Name product">
+                    <input type="text" id="name" name="name" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">Mô tả sản phẩm </label>
@@ -39,46 +28,46 @@
                 </div>
                 <div class="form-group">
                     <label for="">Giá (VNĐ) *</label>
-                    <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                    <input type="text" id="price" name="price" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng *</label>
                 </div>
                 <div class="form-group">
                     <label for="">S:</label>
-                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" placeholder="Size S">
+                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">M:</label>
-                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" placeholder="Size M">
+                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">L:</label>
-                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" placeholder="Size L">
+                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">XL:</label>
-                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" placeholder="Size XL">
+                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">XXL:</label>
-                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" placeholder="Size XXL">
+                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh *(link)</label>
-                    <input type="text" id="main_image" name="main_image" class="form-control" placeholder="Main image">
+                    <input type="text" id="main_image" name="main_image" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh khác</label>
-                    <input type="text" id="image_1" name="image_1" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_1" name="image_1" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for=""></label>
-                    <input type="text" id="image_2" name="image_2" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_2" name="image_2" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for=""></label>
-                    <input type="text" id="image_3" name="image_3" class="form-control" placeholder="Sub image">
+                    <input type="text" id="image_3" name="image_3" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="">Danh mục *</label>
@@ -93,8 +82,6 @@
             </form>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="/js/admin.js"></script>
 </body>
 
