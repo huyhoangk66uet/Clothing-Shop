@@ -50,7 +50,7 @@
                         <div class="sub-directory">
                             <ul>
                                 <li><a class="dict-button" onclick="loadBody('info')">Hồ sơ</a></li>
-                                <li><a class="dict-button" onclick="loadBody('password')">Đổi mật khẩu</a></li>
+                                <li><a class="dict-button" onclick="loadBody('password')" href="/password">Đổi mật khẩu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -260,6 +260,7 @@
             }
         }
         function loadBody(name) {
+            alert("ok")
             const dynamicContent = document.querySelector('#dynamic-content');
             // Lấy dữ liệu từ server
             const __dirpath = 'http://192.168.1.30:8080'
