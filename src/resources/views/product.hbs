@@ -14,7 +14,7 @@
 
 <body>
   {{> header}}
-  <div class="product">
+  <div class="product" id="id_Product" _id = '{{product._id}}'>
     <div class="contaner">
 
 
@@ -23,24 +23,24 @@
         <!--______________________Ảnh __________________-->
         <div class="product-content-left">
           <div class="product-content-left-big-img">
-            <img src="https://i.pinimg.com/564x/90/f4/c4/90f4c4dc0981b215d7b5661fbdedfbfe.jpg" alt="">
+            <img src="{{product.main_image}}" alt="">
           </div>
           <div class="product-content-left-small-img">
-            <img src="https://i.pinimg.com/564x/90/f4/c4/90f4c4dc0981b215d7b5661fbdedfbfe.jpg" alt="">
-            <img src="https://i.pinimg.com/564x/aa/27/fc/aa27fc42623f55fd24f8cedbe1df19b0.jpg" alt="">
-            <img src="https://i.pinimg.com/564x/39/8b/6c/398b6c2864634f0308ece67f4e94cfcb.jpg" alt="">
-            <img src="https://i.pinimg.com/564x/c3/09/2b/c3092bad47ca6e13ff3a917b683578d1.jpg" alt="">
+            <img src="{{product.main_image}}" alt="">
+            <img src="{{getValueAtIndex product.image_ 0}}" alt="">
+            <img src="{{getValueAtIndex product.image_ 1}}" alt="">
+            <img src="{{getValueAtIndex product.image_ 2}}" alt="">
           </div>
         </div>
         <!--_________________________Text____________________________--->
         <div class="product-content-right">
           <div class="product-content-right-product-name">
-            <h1>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</h1>
+            <h1>{{product.name}}</h1>
           </div>
           <div class="product-content-right-product-price">
-            <p>100.000<sup>đ</sup></p>
+            <p>{{product.price}}<sup>đ</sup></p>
           </div>
-          <div class="product-content-right-product-color">
+          {{!-- <div class="product-content-right-product-color">
             <p style="font-weight: bold; font-size: 20px;">Màu sắc:</p>
             <div class="product-color">
               <span>Xanh cổ vịt</span>
@@ -50,7 +50,7 @@
               <span>Xanh min</span>
             </div>
             <p id="chooseColor" style="font-size: 12px; color:red;">*Vui lòng chọn màu</p>
-          </div>
+          </div> --}}
           <div class="product-content-right-product-size">
             <p style="font-weight: bold;margin-top: 12px; font-size: 20px;">Size:</p>
             <div class="size">
@@ -74,7 +74,7 @@
           </div>
 
           <div class="product-content-right-product-button">
-            <button onclick=""><i class="fa-solid fa-cart-plus" style="padding-right: 6px;"></i>
+            <button onclick="addToCart()"><i class="fa-solid fa-cart-plus" style="padding-right: 6px;"></i>
               <p>Thêm vào giỏ hàng</p>
             </button>
           </div>
@@ -96,8 +96,7 @@
 
               <div class="product-content-right-bottom-content">
                 <div class="product-content-right-bottom-content-chitiet">
-                  Chi tiết sản phẩm nè <br>
-                  ahihi
+                  {{product.description}}
                 </div>
                 <div class="product-content-right-bottom-content-mota">
                   Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223 <br>
@@ -118,41 +117,9 @@
       </div>
     </div>
   </div>
-  <!--<div id="id_Product" _id = '{{product._id}}'>
-        <img style="width: 450px;" src="{{product.main_image}}" alt="">
-        <p>{{product.name}}</p>
-        <p>{{product.description}}</p>
-        <p>{{product.price}}</p>
-        <p>{{product._id}}</p>
-        {{!-- <a href=""> --}}
-            <button onclick="addToCart()">Them vao gio hang</button>
-        {{!-- </a> --}}
-        {{!-- <img src="{{product.main_image2}}" alt=""> --}}
-        
-    </div>-->
 </body>
 
 <script>
-  /*function addToCart() {
-      console.log('onclick')
-          $.ajax({
-              url: '/product/addtocart',
-              timeout: 10000,
-              type: 'POST',
-              data: {
-                  _id: $('#id_Product').attr('_id'), 
-                  size: 'L'
-              }
-          })
-          .done(function(data) {
-              alert(data.message)
-          })
-          .fail(function(err) {
-              console.log(err)
-          }) 
-          .always(function(data) {
-          })
-      }*/
 
   //--------------------------------------Chon noi dung----------------------------------------------
   const chitiet = document.querySelector(".chitiet")
@@ -220,7 +187,7 @@
 
 
   //-------------------------------------Chọn màu---------------------------------------------
-  const colorList = document.querySelectorAll(".product-color span")
+  /*const colorList = document.querySelectorAll(".product-color span")
   //console.log(colorList)
   colorList.forEach(function (color1) {
     color1.addEventListener("click", function () {
@@ -229,10 +196,11 @@
       })
       color1.style = "color: red; border-color: red;";
     })
-  })
+  })*/
 
 
   //-------------------------------------Chọn size---------------------------------------------
+  var selectedSize = '';
   const sizeList = document.querySelectorAll(".size span")
   //console.log(colorList)
   sizeList.forEach(function (size1) {
@@ -241,8 +209,31 @@
         size2.style = "color: black; border-color: #dddddd;";
       })
       size1.style = "color: red; border-color: red;";
+      selectedSize = size1.textContent;
     })
   })
+
+
+  function addToCart() {
+      console.log('onclick')
+          $.ajax({
+              url: '/product/addtocart',
+              timeout: 10000,
+              type: 'POST',
+              data: {
+                  _id: $('#id_Product').attr('_id'), 
+                  size: selectedSize
+              }
+          })
+          .done(function(data) {
+              alert(data.message)
+          })
+          .fail(function(err) {
+              console.log(err)
+          }) 
+          .always(function(data) {
+          })
+      }
 
 </script>
 

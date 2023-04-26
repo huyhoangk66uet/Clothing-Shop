@@ -2,28 +2,6 @@
 function showDropdown() {
     document.querySelector(".individual__dropdown").classList.toggle("showDropdown");
 }
-function closeSidebar() {
-    document.querySelector(".sidebar").classList.toggle("closeSidebar");
-    elements = document.querySelectorAll(".sidebar-item");
-    elements.forEach(element => {
-        element.classList.toggle("closeSidebar-item");
-    });
-    elements = document.querySelectorAll(".sidebar-item > span");
-    elements.forEach(element => {
-        element.classList.toggle("closeTitle");
-    });
-    elements = document.querySelectorAll(".treeview-sidebar  a");
-    elements.forEach(element => {
-        element.classList.toggle("closeTitle");
-    });
-    document.querySelector(".content-wrapper").classList.toggle("pullContent");
-}
-
-function showTreeview() {
-    document.querySelector(".treeview-sidebar").classList.toggle("showTreeview");
-}
-
-
 
 $(document).ready(function () {
     var lang = {

@@ -123,10 +123,10 @@
         })
         .done(data => {
             if(data.message) {
-                alert('Cap nhap thanh cong')
+                alert('Cập nhật sản phẩm thành công')
                 window.location.href = '/admin/product'
             }else{
-                alert("That bai")
+                alert("Cập nhật sản phẩm thất bại")
                 window.location.reload()
             }
         })

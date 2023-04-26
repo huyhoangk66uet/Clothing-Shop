@@ -4,11 +4,32 @@ import Order from '../models/Order.js';
 
 
 
+async function someFunction() {
+    const result = await someAsyncFunction();
+    console.log(result);
+  }
+
 class AdminController {
-    show(req, res, next) {
-        productCount = Product.countDocuments();
-        res.render('./admin/home', {productCount : productCount})
-        
+    async show(req, res, next) {
+        try {
+            
+            
+            // Lấy số lượng sản phẩm
+            const productCount = await Product.countDocuments();      
+            // Lấy số lượng đơn hàng
+            const orderCount = await Order.countDocuments();
+            // Lấy số lượng khách hàng
+            const userCount = await User.countDocuments();
+            // Lấy số lượng đơn hàng đang giao
+            const orderUnfinishedCount  = await Order.countDocuments({ship_date: {$gte: new Date()}});
+            // lấy số lượng đơn hàng đã hoàn thành
+            const orderCompletedCount = orderCount - orderUnfinishedCount;
+            
+            res.render('./admin/home', { productCount, orderCount, userCount, orderUnfinishedCount, orderCompletedCount })
+          } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+          }
     }
 
     ////////////////////////////////

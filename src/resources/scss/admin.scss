@@ -55,7 +55,6 @@ a {
 
 .admin > i {
     font-size: 20px;
-    cursor: pointer;
 }
 
 .admin > span {
@@ -77,7 +76,7 @@ a {
     height: 100%;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    cursor: pointer ; 
 }
 
 .individual__info .image {
@@ -92,12 +91,13 @@ a {
 }
 
 .individual__dropdown{
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 50px;
     top: 0;
     background-color:rgb(194, 194, 194);
     position: relative;
     border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     display: none;
 }
 
@@ -105,28 +105,13 @@ a {
     display: block;
 }
 
-
-.individual__edit{
-    width: 150px;
-    height: 35px;
-    position: relative;
-    background-color: aliceblue;
-    top: 10px;
-    left: 20px;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-    line-height: 0px;
-    cursor: pointer;
-}
-
 .individual__logout{
     width: 150px;
     height: 35px;
     position: relative;
     background-color: aliceblue;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 15px;
     display: flex;
     justify-content: center;
     line-height: 0px;
@@ -148,21 +133,6 @@ a {
     z-index: 1;
 }
 
-.closeSidebar {
-    width: 50px;
-    animation: zoomOut 0.5s;
-}
-
-
-@keyframes zoomOut {
-    0% {
-        width: 200px;
-    }
-    100% {
-        width: 50px;
-    }
-}
-
 
 
 .sidebar:hover {
@@ -181,9 +151,6 @@ a {
     cursor: pointer;
 }
 
-.closeSidebar-item{
-    width: 50px;
-}
 
 .sidebar-item:hover {
     width: 200px;
@@ -195,16 +162,6 @@ a {
     width: 200px;
 }
 
-
-.sidebar:hover .sidebar-item > span{
-    display: block;
-}
-
-
-
-.sidebar:hover .content-wrapper{
-    left: 200px;
-}
 
 .sidebar-item {
     color: white;
@@ -219,47 +176,6 @@ a {
     justify-content: center;    
 }
 
-.treeview-sidebar {
-    height: 90px;
-    background-color: #494949;
-    display: none;
-}
-
-.showTreeview {
-    display: block;
-}
-
-.treeview-sidebar div{
-    display: flex;
-}
-
-.treeview-sidebar i {
-    height: 25px;
-    font-size: 10px;
-    color: #ccc;
-    margin-top: 5px;
-    margin-left: 20px;
-}
-
-.treeview-sidebar a {
-    font-size: 15px;
-    color: #ccc;
-    margin-left: 20px;
-}
-
-.sidebar:hover .treeview-sidebar a{
-    display: block;
-}
-
-
-.treeview-sidebar div:hover a {
-    color: white;
-}
-
-.closeTitle{
-    display: none
-}
-
 
 .content-wrapper {
     width: calc(100vw - 200px);
@@ -267,11 +183,6 @@ a {
     top: 50px;
     left: 200px;
     right: 0px;
-}
-
-.pullContent {
-    left: 50px;
-    width: calc(100vw - 50px);
 }
 
 .content-header{
@@ -577,4 +488,45 @@ border-bottom-right-radius: 5px;
     padding-left: 5px;
 }
 
+
+.modal {
+    width: 350px;
+    height: 150px;
+    top: 40vh;
+    left: 40vw;
+    background-color: #f3a37f;
+    border-radius: 10px;
+    position: fixed;
+  }
+  
+  .modal-header {
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    color: yellow;
+  }
+  
+  .modal-header span {
+    color: #1a1b1b;
+    padding-left: 10px;
+  }
+  
+  .modal-body {
+    height: 60px;
+    margin-left: 10px;
+  }
+  
+  .btn-default {
+    color: #222d32;
+    background-color: #ccc;
+    left: 200px;
+  }
+  
+  .btn-danger {
+    color: #ccc;
+    background-color: red;
+    left: 210px;
+  }
+  
 

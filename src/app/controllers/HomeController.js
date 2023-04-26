@@ -1,12 +1,22 @@
 // dua bang csdl sang controller de su ly
+import jwt from 'jsonwebtoken';
 import Product from '../models/Product.js'; // tra ve bang users
-//import jwt from 'jsonwebtoken';
+
 
 class HomeController {
     
     // [GET] /home
     show(req, res, next) {
 
+        var check_out_auth = false
+        try{var token = req.cookies.token;
+            var ketqua = jwt.verify(token,'mk');
+        } catch {
+
+        }
+        if(!ketqua) {
+            check_out_auth = true
+        }
         var page = parseInt(req.query.page) || 1;
         var perPage = 12;
         var start = (page - 1) * perPage;
@@ -19,7 +29,7 @@ class HomeController {
             .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
-                res.render('./home', {products, page, category_})
+                res.render('./home', {products, page, category_, check_out_auth})
             })
             .catch(err => {
                 res.status(400).json({ error: err })
@@ -32,7 +42,7 @@ class HomeController {
             .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
-                res.render('./home', {products, page, category_})
+                res.render('./home', {products, page, category_, check_out_auth})
             })
             .catch(err => {
                 res.status(400).json({ error: err })
@@ -44,13 +54,26 @@ class HomeController {
                 .then(products => {
                     products = products.map(product => product.toObject())
                     //console.log(products[0].image_[0])
-                    res.render('./home', {products, page})
+                    res.render('./home', {products, page, check_out_auth})
                 })
                 .catch(err => {
                     res.status(400).json({ error: err })
                 })
         }
         //res.render('./home')    
+    }
+
+    logout(req, res, next) {
+        console.log(req.session.user_name)
+        res.clearCookie('token');
+        req.session.destroy((err) => {
+            if(err) {
+                console.log(err);
+            } else {
+                //res.render('./home')
+                res.redirect('/')
+            }
+        })
     }
 
     home(req, res, next) {
