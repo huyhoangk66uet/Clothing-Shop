@@ -56,7 +56,7 @@
                 <i class="fa-solid fa-user"></i>
                 <div class="individual__dropdown">
                     <a class="individual__edit" href="/profile">Thông tin tài khoản</a>
-                    <a onclick="logout()" class="individual__logout">Đăng xuất</a>
+                    <a href="/logout" class="individual__logout">Đăng xuất</a>
                 </div>
             </li>
 
@@ -74,18 +74,14 @@
 <form action="/" method="GET" id="get_category">
         <input type="hidden" name="category" id="category_info">
 </form>
-<form action="/logout" method="get" id="logout"></form>
+
 
 <script>
     function showDropdown() {
     document.querySelector(".individual__dropdown").classList.toggle("showDropdown");
 }
 </script>
-<script>
-    function logout() {
-            document.getElementById('logout').submit()
-        }
-</script>
+
 <script>
 //// phan loai theo gioi tinh
         var form_category = document.getElementById('get_category')

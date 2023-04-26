@@ -1,6 +1,7 @@
 import Product from '../models/Product.js'; // tra ve bang users
 import User from '../models/User.js';
 import Order from '../models/Order.js';
+import Cart from '../models/Cart.js';
 
 
 
@@ -46,7 +47,15 @@ class AdminController {
     }
     deleteProduct(req, res, next) {
         var product_id = req.params.id;
-        Product.deleteOne({_id: product_id})
+        var ArrPromise = [
+        Product.deleteOne({_id: product_id}),
+        Cart.updateMany(
+            {$pull: { products: {
+                    product_id: product_id,
+                    }
+            }})
+        ]
+        Promise.all(ArrPromise)
         .then(() => res.json({
             message: true
         }))
