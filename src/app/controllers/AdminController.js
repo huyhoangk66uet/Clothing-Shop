@@ -164,13 +164,17 @@ class AdminController {
     }
     deleteCustomer(req, res, next) {
         var user_id = req.params.id;
-        User.deleteOne({_id: user_id})
+        var Array_promise = [
+        User.deleteOne({_id: user_id}),
+        Cart.deleteOne({user_id: user_id})]
+        Promise.all(Array_promise)
         .then(() => res.json({
             message: true
         }))
         .catch(err => res.json({
             message: false
         }))
+        
     }
     //////////////////////////////////////
     //////////////////////////////////////////
