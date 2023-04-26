@@ -54,7 +54,7 @@
           <div class="product-content-right-product-size">
             <p style="font-weight: bold;margin-top: 12px; font-size: 20px;">Size:</p>
             <div class="size">
-              <span>S</span>
+              <span class="selected_size">S</span>
               <span>M</span>
               <span>L</span>
               <span>XL</span>
@@ -67,13 +67,13 @@
             <p style="font-weight: bold; font-size: 20px;">Số lượng:</p>
             <div class="quantity-adjustment">
               <i class="fa-sharp fa-solid fa-minus" id="minus"></i>
-              <input type="number" id="amount_product" min="0" max="10" value="1">
+              <input type="number" id="amount_product" min="1" max="10" value="1">
               <i class="fa-sharp fa-solid fa-plus" id="plus"></i>
             </div>
             <p id="quantityInStock">103 sản phẩm có sẵn</p>
           </div>
 
-          <div class="product-content-right-product-button">
+          <div class="product-content-right-product-button" id="addtocart_button">
             <button onclick="addToCart()"><i class="fa-solid fa-cart-plus" style="padding-right: 6px;"></i>
               <p>Thêm vào giỏ hàng</p>
             </button>
@@ -118,6 +118,30 @@
     </div>
   </div>
 </body>
+
+<script>
+  $.ajax({
+                url: '/product/' + $('#id_Product').attr('_id'),
+                type: 'PUT',
+                data: {size: $('.selected_size')[0].innerText}
+            })
+            .done(data =>{
+              if(data.remainning <= 0) {
+                amount.min = 0
+                $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+                
+              } else {
+                amount.min = 1
+                $('#quantityInStock').text(data.remainning+ ' sản phẩm có sẵn')
+                
+              }
+              amount.value = amount.min
+              amount.max = data.remainning
+            })
+            .fail(err => {
+                console.log(err)
+            })
+</script>
 
 <script>
 
@@ -181,7 +205,7 @@
       amount.value = parseInt(amount.value) + 1;
   })
   minusIcon.addEventListener("click", function () {
-    if (parseInt(amount.value) > 0)
+    if (parseInt(amount.value) > parseInt(amount.min))
       amount.value = parseInt(amount.value) - 1;
   })
 
@@ -200,29 +224,49 @@
 
 
   //-------------------------------------Chọn size---------------------------------------------
-  var selectedSize = '';
+  //var selectedSize = 'S';
   const sizeList = document.querySelectorAll(".size span")
-  //console.log(colorList)
-  sizeList.forEach(function (size1) {
-    size1.addEventListener("click", function () {
-      sizeList.forEach(function (size2) {
-        size2.style = "color: black; border-color: #dddddd;";
+  sizeList.forEach(size => {
+    size.onclick = function(event) {
+      sizeList.forEach(size => {
+        size.classList.remove('selected_size')
       })
-      size1.style = "color: red; border-color: red;";
-      selectedSize = size1.textContent;
-    })
+      event.target.classList.add('selected_size')
+      $.ajax({
+                url: '/product/' + $('#id_Product').attr('_id'),
+                type: 'PUT',
+                data: {size: $('.selected_size')[0].innerText}
+            })
+            .done(data =>{
+              console.log(data.remainning)
+             if(data.remainning <= 0) {
+                amount.min = 0
+                $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+                
+              } else {
+                amount.min = 1
+                $('#quantityInStock').text(data.remainning+ ' sản phẩm có sẵn')
+          
+              }
+              amount.value = amount.min
+              amount.max = data.remainning
+            })
+            .fail(err => {
+                console.log(err)
+            })
+    }
   })
 
 
   function addToCart() {
-      console.log('onclick')
           $.ajax({
               url: '/product/addtocart',
               timeout: 10000,
               type: 'POST',
               data: {
                   _id: $('#id_Product').attr('_id'), 
-                  size: selectedSize
+                  size: $('.selected_size')[0].innerText,
+                  quantity: $('#amount_product').val()
               }
           })
           .done(function(data) {
@@ -233,7 +277,8 @@
           }) 
           .always(function(data) {
           })
-      }
+    
+  }
 
 </script>
 

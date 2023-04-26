@@ -1,10 +1,10 @@
-var check_remaining_products = function() {
-    var product_list = document.getElementsByClassName('item_product')
-    product_list = Array.from(product_list)
-    product_list.forEach(product => {
-        //console.log(product)
+var product__final_prices_list = $('.product__final-prices')
+    product__final_prices_list = Array.from(product__final_prices_list)
+    product__final_prices_list.forEach(product__final_prices => {
+        product__final_prices.textContent = 
+                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('product__real_prices')[0].textContent) * 
+                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('qty-input')[0].value) + ' ₫'
     })
-}
 
 
 var qty_decreases = document.getElementsByClassName('qty-decrease');
