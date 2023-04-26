@@ -41,8 +41,9 @@ class ProductController {
     addToCart(req, res, next) {
         var token = req.cookies.token;
         var ketqua = jwt.verify(token,'mk');
-        var product_size = {product_id: req.body._id,
-                            size: req.body.size}
+        var product_ = {product_id: req.body._id,
+                            size: req.body.size,
+                            quantity: req.body.quantity}
         //console.log(product_size)
         Cart.find({
             user_id: ketqua._id,
@@ -57,7 +58,7 @@ class ProductController {
             if(!cart.length){
                 Cart.updateOne(
                     {user_id: ketqua._id},
-                    {$push: {products: product_size}}
+                    {$push: {products: product_}}
                 ).then(data => {
                     res.json({
                         message: 'Da them vao gio hang'
@@ -75,9 +76,22 @@ class ProductController {
     }
 
     
-    test(req, res, next) {
-        console.log(req.query)
-        res.json({cc: req.query.q})
+    check_remainning(req, res, next) {
+        var size = req.body.size
+        if(size === 'S') {size = 0;}
+        else if(size === 'M') {size = 1;}
+        else if(size === 'L') {size = 2;}
+        else if(size === 'XL') {size = 3;}
+        else if(size === 'XXL') {size = 4;}
+        Product.findOne({_id: req.params.id})
+        .then(product => {
+            res.json({
+                remainning: product.remaining_products[size],
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 }
 

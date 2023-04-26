@@ -60,7 +60,8 @@
                                                         </a>
                                                         <div class="product_content">
                                                             <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
-                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../size_list}}</span>
+                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../size_list}}</span> <br>
+                                                            <span style="margin:0px; opacity: 0.6; ">XL: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../quantity_list}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,7 +76,7 @@
                                                             <span data-view-id="cart_main_quantity.decrease" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-decrease ">
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg" alt="decrease">
                                                             </span>
-                                                            <input type="tel" class="qty-input" value="1">
+                                                            <input type="tel" class="qty-input" value="{{getThe2ndParameter this ../products ../quantity_list}}">
                                                             <span data-view-id="cart_main_quantity.increase" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-increase ">
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg" alt="increase">
                                                             </span>
@@ -235,6 +236,13 @@
 <script src='/js/Cart_Logic.js'></script>
 <script>
 
+    var product__final_prices_list = $('.product__final-prices')
+    product__final_prices_list = Array.from(product__final_prices_list)
+    product__final_prices_list.forEach(product__final_prices => {
+        product__final_prices.textContent = 
+                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('product__real_prices')[0].textContent) * 
+                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('qty-input')[0].value) + ' ₫'
+    })
     //check_remaining_products()
 
 

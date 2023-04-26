@@ -16,7 +16,7 @@ class AdminController {
             
             
             // Lấy số lượng sản phẩm
-            const productCount = await Product.countDocuments();      
+            const productCount = await Product.countDocuments({isDelete: false});      
             // Lấy số lượng đơn hàng
             const orderCount = await Order.countDocuments();
             // Lấy số lượng khách hàng
@@ -35,7 +35,7 @@ class AdminController {
 
     ////////////////////////////////
     showProduct(req, res, next) {
-        Product.find({}) 
+        Product.find({isDelete: false}) 
                 .then(products => {
                     products = products.map(product => product.toObject())
                     //console.log(products[0].image_[0])
@@ -49,7 +49,8 @@ class AdminController {
         var product_id = req.params.id;
         var ArrPromise = [
         Product.updateOne({_id: product_id}, 
-                          {$set: {remaining_products: [0,0,0,0,0]}}),
+                          {$set: {remaining_products: [0,0,0,0,0],
+                                  isDelete: true}}),
         Cart.updateMany(
             {$pull: { products: {
                     product_id: product_id,
@@ -84,7 +85,8 @@ class AdminController {
             image_: [req.body.image_1,
                      req.body.image_2,
                      req.body.image_3],
-            key_search: req.body.key_search
+            key_search: req.body.key_search,
+            isDelete: false
         }
         Product.create(newProduct)
         .then(newProduct => {
@@ -132,7 +134,8 @@ class AdminController {
             image_: [req.body.image_1,
                      req.body.image_2,
                      req.body.image_3],
-            key_search: req.body.key_search
+            key_search: req.body.key_search,
+            isDelete: false
         }
         Product.updateOne({_id: product_id}, updateProduct)
         .then(product => {
