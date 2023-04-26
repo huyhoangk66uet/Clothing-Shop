@@ -17,9 +17,18 @@ class HomeController {
             check_out_auth = true
         }
 
-        res.render('./home', {check_out_auth})
+        Product.find({}) 
+                .then(products => {
+                    products = products.map(product => product.toObject())
+                    res.render('./home', {check_out_auth, products})
+                })
+                .catch(err => {
+                    res.status(400).json({ error: err })
+                })
+
            
     }
+
 
     logout(req, res, next) {
         console.log(req.session.user_name)

@@ -1,6 +1,6 @@
 // dua bang csdl sang controller de su ly
 import jwt from 'jsonwebtoken';
-import Product from '../models/Product.js'; // tra ve bang users
+import Product from '../models/Product.js'; 
 
 
 class HomeSearchController {

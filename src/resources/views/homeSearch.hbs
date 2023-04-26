@@ -16,8 +16,8 @@
 </head>
 
 <body>
-     {{> header}}
-    
+    {{> header}}
+
     <div class="content" page="{{page}}" category="{{category_}}">
         {{#if products}}
         {{#each products}}
@@ -40,8 +40,8 @@
                 <div class="product__price">{{this.price}} ₫</div>
 
                 {{!-- <div class="product__cart"><i class="fa-solid fa-cart-shopping"></i></div> --}}
+            </a>
         </div>
-        </a>
         {{/each}}
         {{else}}
         <p>Không tìm thấy sản phẩm</p>
@@ -76,56 +76,54 @@
 
 <script>
 
-        /////////////////
+    var page = document.getElementsByClassName('content')[0].getAttribute('page')
+    var category_ = document.getElementsByClassName('content')[0].getAttribute('category')
+    console.log(category_.length)
+    var pagination = document.getElementById('pagination')
+    if (page > 1) {
+        document.getElementById('page-item-1').innerText = parseInt(page) - 1
+        document.getElementById('page-item-2').innerText = page
+        document.getElementById('page-item-3').innerText = parseInt(page) + 1
 
-        var page = document.getElementsByClassName('content')[0].getAttribute('page')
-        var category_ = document.getElementsByClassName('content')[0].getAttribute('category')
-        console.log(category_.length)
-        var pagination = document.getElementById('pagination')
-        if(page > 1) {
-            document.getElementById('page-item-1').innerText = parseInt(page) - 1
-            document.getElementById('page-item-2').innerText = page
-            document.getElementById('page-item-3').innerText = parseInt(page) + 1
-
-        }
-        var page_links = document.getElementsByClassName('page-link')
-        page_links = Array.from(page_links)
-        if(category_.length === 0) {
-            page_links.forEach(page_link => {
-                page_link.href = '?page=' + page_link.innerText
-                if(page_link.innerText === page){
-                    page_link.setAttribute('style', 'background-color: rgba(211, 214, 214, 0.998);')
-                }
-            })
-        } else {
-            page_links.forEach(page_link => {
-                page_link.href = '?' + category_ +  '&page=' + page_link.innerText
-                if(page_link.innerText === page){
-                    page_link.setAttribute('style', 'background-color: rgba(211, 214, 214, 0.998);')
-                }
-            })
-        }
-        var next_page = document.getElementById('page-item-next')
-        if(category_.length === 0) {
-            next_page.href = '?page=' + (parseInt(page) + 1)
-        } else {
-            next_page.href = '?' + category_ +  '&page=' + (parseInt(page) + 1)
-        }
-        var previous_page = document.getElementById('page-item-previous')
-        if(category_.length === 0) {
-            if(page > 1) {
-                previous_page.href = '?page=' + (parseInt(page) - 1)
-            } else {
-                previous_page.href = '?page=1'
+    }
+    var page_links = document.getElementsByClassName('page-link')
+    page_links = Array.from(page_links)
+    if (category_.length === 0) {
+        page_links.forEach(page_link => {
+            page_link.href = '?page=' + page_link.innerText
+            if (page_link.innerText === page) {
+                page_link.setAttribute('style', 'background-color: rgba(211, 214, 214, 0.998);')
             }
-        } else {
-            if(page > 1) {
-                previous_page.href = '?' + category_ +  '&page=' + (parseInt(page) - 1)
-            } else {
-                previous_page.href = '?' + category_ +  '&page=1'
+        })
+    } else {
+        page_links.forEach(page_link => {
+            page_link.href = '?' + category_ + '&page=' + page_link.innerText
+            if (page_link.innerText === page) {
+                page_link.setAttribute('style', 'background-color: rgba(211, 214, 214, 0.998);')
             }
+        })
+    }
+    var next_page = document.getElementById('page-item-next')
+    if (category_.length === 0) {
+        next_page.href = '?page=' + (parseInt(page) + 1)
+    } else {
+        next_page.href = '?' + category_ + '&page=' + (parseInt(page) + 1)
+    }
+    var previous_page = document.getElementById('page-item-previous')
+    if (category_.length === 0) {
+        if (page > 1) {
+            previous_page.href = '?page=' + (parseInt(page) - 1)
+        } else {
+            previous_page.href = '?page=1'
         }
-    </script>
+    } else {
+        if (page > 1) {
+            previous_page.href = '?' + category_ + '&page=' + (parseInt(page) - 1)
+        } else {
+            previous_page.href = '?' + category_ + '&page=1'
+        }
+    }
+</script>
 <script>
     function slideShow({
         productId = '',
