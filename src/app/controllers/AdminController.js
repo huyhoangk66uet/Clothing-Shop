@@ -48,7 +48,8 @@ class AdminController {
     deleteProduct(req, res, next) {
         var product_id = req.params.id;
         var ArrPromise = [
-        Product.deleteOne({_id: product_id}),
+        Product.updateOne({_id: product_id}, 
+                          {$set: {remaining_products: [0,0,0,0,0]}}),
         Cart.updateMany(
             {$pull: { products: {
                     product_id: product_id,
