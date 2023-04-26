@@ -382,15 +382,15 @@
             delivery_type.innerHTML = event.target.parentElement.getElementsByClassName('shipping_type')[0].innerHTML;
             if(delivery_type.innerText === 'GIAO TIẾT KIỆM') {
                 document.getElementById('current-fee').innerText = 15000;
-                var today = new Date()
-                var ship_date = new Date()
+                //var today = new Date()
+                //var ship_date = new Date()
                 ship_date.setDate(today.getDate() + 5)
                 delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
                 update_unit_price();
             } else {
                 document.getElementById('current-fee').innerText = 25000;
-                var today = new Date()
-                var ship_date = new Date()
+                //var today = new Date()
+                //var ship_date = new Date()
                 ship_date.setDate(today.getDate() + 2)
                 delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
                 update_unit_price();
@@ -416,8 +416,8 @@
         formData['Tong_tien'] = total_price.innerText;
         payment_info = formData
         payment_info['product_list'] = product_list
-        payment_info['order_date'] = checkTime(today.getDate()) + '/' + checkTime((today.getMonth() + 1)) + '/' + today.getFullYear()
-        payment_info['ship_date'] = checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
+        payment_info['order_date'] = today
+        payment_info['ship_date'] = ship_date
         var payment_info_json = JSON.stringify(payment_info)
         $.ajax({
             url: '/payment/success',
@@ -450,7 +450,7 @@
         var home_page = document.getElementById('back_home_page')
         var order_page = document.getElementById('order_page')
         home_page.onclick = function(event) {
-            window.location.href = './homePage'
+            window.location.href = './'
         }
         order_page.onclick = function(event) {
             window.location.href = './order'

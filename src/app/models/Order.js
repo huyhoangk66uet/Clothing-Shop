@@ -16,8 +16,8 @@ const Order = new Schema({
     address: {type: String},
     phone_number: {type: Number},
     total_money: {type: Number},
-    order_date: {type: String},
-    ship_date: {type: String}
+    order_date: {type: Date},
+    ship_date: {type: Date}
   });
 // users la ten bang trong db, phai de so nhieu neu ko co no se tu tao bang moi trong db
 export default mongoose.model('orders', Order); 
