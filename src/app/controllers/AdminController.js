@@ -6,8 +6,11 @@ import Order from '../models/Order.js';
 
 class AdminController {
     show(req, res, next) {
-        res.render('./admin/home')
+        productCount = Product.countDocuments();
+        res.render('./admin/home', {productCount : productCount})
+        
     }
+
     ////////////////////////////////
     showProduct(req, res, next) {
         Product.find({}) 
