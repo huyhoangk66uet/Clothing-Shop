@@ -125,36 +125,6 @@
                 previous_page.href = '?' + category_ +  '&page=1'
             }
         }
-    //// phan loai theo gioi tinh
-        var form_category = document.getElementById('get_category')
-        var input_category = document.getElementById('category_info')
-        var input_classify = document.getElementById('classify_info')
-
-        var categorys = document.getElementsByClassName('category-item__parent')
-        categorys = Array.from(categorys)
-        categorys.forEach(category => {
-            category.onclick = function(event) {
-                var sex = event.target.getAttribute('category')
-                input_category.value = sex
-                form_category.submit()
-            }
-        })
-
-    //// phan loai theo loai hang
-
-        var category_childs = document.getElementsByClassName('category_child')
-        category_childs = Array.from(category_childs)
-        category_childs.forEach(category_child => {
-            category_child.onclick = function(event) {
-                var sex = event.target.parentElement.parentElement.getElementsByClassName('category-item__parent')[0].getAttribute('category')
-                var classify = event.target.getAttribute('classify')
-                console.log(sex + '/' + classify)
-                input_category.value = sex + '-' + classify
-                //input_classify.value = classify
-                form_category.submit()
-
-            }
-        })
     </script>
 <script>
     function slideShow({
