@@ -162,7 +162,7 @@ li {
   cursor: pointer; }
 
 .cart {
-  margin-left: 50px; }
+  margin-left: 40px; }
 
 .individual__logout {
   width: 150px;
@@ -176,9 +176,6 @@ li {
   line-height: 0px;
   cursor: pointer; }
 
-/* .cart {
-    margin-left: 40px;
-  } */
 .showDropdown {
   display: block; }
 
