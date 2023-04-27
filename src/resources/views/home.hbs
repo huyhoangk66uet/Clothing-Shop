@@ -22,9 +22,18 @@
     <div class="content">
         <div class="container container-welcome">
             <div class="item-carousel">
-                <img class="img-welcome" src="img/slider1.jpg" alt="">
-                <img class="img-welcome" src="img/slider2.jpg" alt="">
-                <img class="img-welcome" src="img/slider3.jpg" alt="">
+                <div class="welcome">
+                    <img class="welcome-img" src="img/slider1.jpg" alt="">
+                    <span class="welcome-content welcome1">Chào mừng đến với HShop</span>
+                </div>
+                <div class="welcome ">
+                    <img class="welcome-img" src="img/slider2.jpg" alt="">
+                    <span class="welcome-content welcome2">Chào mừng đến với HShop</span>
+                </div>
+                <div class="welcome ">
+                    <img class="welcome-img" src="img/slider3.jpg" alt="">
+                    <span class="welcome-content welcome3">Chào mừng đến với HShop</span>
+                </div>
             </div>
         </div>
         <div class="container container-outstanding">
@@ -34,9 +43,8 @@
             </div>
 
             <div class="product-carousel">
-                {{#if products}}
-                {{#each products}}
-                {{#if this.isOutstanding}}
+                {{#if outstandingProducts}}
+                {{#each outstandingProducts}}
                 <div class="product">
                     <a href="/product/{{this._id}}" style="text-decoration: none;">
                         <div class="product__image">
@@ -46,7 +54,6 @@
                         <div class="product__price">{{this.price}} ₫</div>
                     </a>
                 </div>
-                {{/if}}
                 {{/each}}
                 {{else}}
                 <p>Không tìm thấy sản phẩm</p>
@@ -61,8 +68,8 @@
             </div>
 
             <div class="product-carousel">
-                {{#if products}}
-                {{#each products}}
+                {{#if newProducts}}
+                {{#each newProducts}}
                 <div class="product">
                     <a href="/product/{{this._id}}" style="text-decoration: none;">
                         <div class="product__image">
@@ -97,7 +104,7 @@
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 autoplay: true,
-                autoplaySpeed: 2000,
+                autoplaySpeed: 4000,
                 adaptiveHeight: false,
                 prevArrow: '<button type="button" class="slick-prev"><</button>',
                 nextArrow: '<button type="button" class="slick-next">></button>',
