@@ -103,7 +103,7 @@
         function loadBody(name) {
             const dynamicContent = document.querySelector('#dynamic-content');
             // Lấy dữ liệu từ server
-            const __dirpath = 'http://192.168.1.30:8080'
+            const __dirpath = 'http://127.0.0.1:8080'
             const path = __dirpath + '/src/resources/views/profileElements/' + name + '.hbs'
             fetch(path)
                 .then(response => response.text())
