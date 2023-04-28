@@ -74,6 +74,7 @@ class AdminController {
         var newProduct = {
             name: req.body.name,
             price: req.body.price,
+            old_price: req.body.old_price,
             category: req.body.category,
             detail: req.body.detail,
             description: req.body.description,
@@ -125,6 +126,7 @@ class AdminController {
         var updateProduct = {
             name: req.body.name,
             price: req.body.price,
+            old_price: req.body.old_price,
             category: req.body.category,
             detail: req.body.detail,
             description: req.body.description,

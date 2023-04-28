@@ -14,7 +14,7 @@
 
 <body>
   {{> header}}
-  <div class="product" id="id_Product" _id = '{{product._id}}'>
+  <div class="product" id="id_Product" _id='{{product._id}}'>
     <div class="contaner">
 
 
@@ -38,7 +38,11 @@
             <h1>{{product.name}}</h1>
           </div>
           <div class="product-content-right-product-price">
-            <p>{{product.price}}<sup>đ</sup></p>
+            <p>{{product.price}}<sup>đ</sup>
+            {{#if (isNotNull product.old_price)}}
+            <span>{{product.old_price}}<sup>đ</sup></span>
+            {{/if}}
+            </p>
           </div>
           {{!-- <div class="product-content-right-product-color">
             <p style="font-weight: bold; font-size: 20px;">Màu sắc:</p>
@@ -115,26 +119,26 @@
 
 <script>
   $.ajax({
-                url: '/product/' + $('#id_Product').attr('_id'),
-                type: 'PUT',
-                data: {size: $('.selected_size')[0].innerText}
-            })
-            .done(data =>{
-              if(data.remainning <= 0) {
-                amount.min = 0
-                $('#quantityInStock').text('Sản phẩm tạm hết hàng')
-                
-              } else {
-                amount.min = 1
-                $('#quantityInStock').text(data.remainning+ ' sản phẩm có sẵn')
-                
-              }
-              amount.value = amount.min
-              amount.max = data.remainning
-            })
-            .fail(err => {
-                console.log(err)
-            })
+    url: '/product/' + $('#id_Product').attr('_id'),
+    type: 'PUT',
+    data: { size: $('.selected_size')[0].innerText }
+  })
+    .done(data => {
+      if (data.remainning <= 0) {
+        amount.min = 0
+        $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+
+      } else {
+        amount.min = 1
+        $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn')
+
+      }
+      amount.value = amount.min
+      amount.max = data.remainning
+    })
+    .fail(err => {
+      console.log(err)
+    })
 </script>
 
 <script>
@@ -221,57 +225,57 @@
   //var selectedSize = 'S';
   const sizeList = document.querySelectorAll(".size span")
   sizeList.forEach(size => {
-    size.onclick = function(event) {
+    size.onclick = function (event) {
       sizeList.forEach(size => {
         size.classList.remove('selected_size')
       })
       event.target.classList.add('selected_size')
       $.ajax({
-                url: '/product/' + $('#id_Product').attr('_id'),
-                type: 'PUT',
-                data: {size: $('.selected_size')[0].innerText}
-            })
-            .done(data =>{
-              console.log(data.remainning)
-             if(data.remainning <= 0) {
-                amount.min = 0
-                $('#quantityInStock').text('Sản phẩm tạm hết hàng')
-                
-              } else {
-                amount.min = 1
-                $('#quantityInStock').text(data.remainning+ ' sản phẩm có sẵn')
-          
-              }
-              amount.value = amount.min
-              amount.max = data.remainning
-            })
-            .fail(err => {
-                console.log(err)
-            })
+        url: '/product/' + $('#id_Product').attr('_id'),
+        type: 'PUT',
+        data: { size: $('.selected_size')[0].innerText }
+      })
+        .done(data => {
+          console.log(data.remainning)
+          if (data.remainning <= 0) {
+            amount.min = 0
+            $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+
+          } else {
+            amount.min = 1
+            $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn')
+
+          }
+          amount.value = amount.min
+          amount.max = data.remainning
+        })
+        .fail(err => {
+          console.log(err)
+        })
     }
   })
 
 
   function addToCart() {
-          $.ajax({
-              url: '/product/addtocart',
-              timeout: 10000,
-              type: 'POST',
-              data: {
-                  _id: $('#id_Product').attr('_id'), 
-                  size: $('.selected_size')[0].innerText,
-                  quantity: $('#amount_product').val()
-              }
-          })
-          .done(function(data) {
-              alert(data.message)
-          })
-          .fail(function(err) {
-              console.log(err)
-          }) 
-          .always(function(data) {
-          })
-    
+    $.ajax({
+      url: '/product/addtocart',
+      timeout: 10000,
+      type: 'POST',
+      data: {
+        _id: $('#id_Product').attr('_id'),
+        size: $('.selected_size')[0].innerText,
+        quantity: $('#amount_product').val()
+      }
+    })
+      .done(function (data) {
+        alert(data.message)
+      })
+      .fail(function (err) {
+        console.log(err)
+      })
+      .always(function (data) {
+      })
+
   }
 
 </script>

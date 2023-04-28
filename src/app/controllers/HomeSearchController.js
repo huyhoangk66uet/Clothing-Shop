@@ -63,19 +63,6 @@ class HomeSearchController {
         //res.render('./home')    
     }
 
-    // logout(req, res, next) {
-    //     console.log(req.session.user_name)
-    //     res.clearCookie('token');
-    //     req.session.destroy((err) => {
-    //         if(err) {
-    //             console.log(err);
-    //         } else {
-    //             //res.render('./home')
-    //             res.redirect('/')
-    //         }
-    //     })
-    // }
-
     home(req, res, next) {
 
         var page = parseInt(req.query.page) || 1;

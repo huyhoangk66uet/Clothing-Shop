@@ -51,7 +51,11 @@
                             <img src="{{this.main_image}}" alt="">
                         </div>
                         <div class="product__name">{{this.name}}</div>
-                        <div class="product__price">{{this.price}}<sup>đ</sup></div>
+                        <div class="product__price">{{this.price}}<sup>đ</sup>
+                            {{#if (isNotNull this.old_price)}}
+                               <span>{{this.old_price}}<sup>đ</sup></span>
+                            {{/if}}
+                        </div>
                     </a>
                 </div>
                 {{/each}}
@@ -76,7 +80,11 @@
                             <img src="{{this.main_image}}" alt="">
                         </div>
                         <div class="product__name">{{this.name}}</div>
-                        <div class="product__price">{{this.price}}<sup>đ</sup></div>
+                        <div class="product__price">{{this.price}}<sup>đ</sup>
+                            {{#if (isNotNull this.old_price)}}
+                               <span>{{this.old_price}}<sup>đ</sup></span>
+                            {{/if}}
+                        </div>
                     </a>
                 </div>
                 {{/each}}

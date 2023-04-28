@@ -31,8 +31,12 @@
                     <textarea id="key_search" name="key_search" class="form-text">{{product.key_search}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="">Giá (VNĐ) *</label>
+                    <label for="">Giá hiện tại (VNĐ) *</label>
                     <input type="text" id="price" name="price" class="form-control"  value="{{product.price}}">
+                </div>
+                <div class="form-group">
+                    <label for="">Giá cũ (VNĐ)</label>
+                    <input type="text" id="old_price" name="old_price" class="form-control"  value="{{product.old_price}}">
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng *</label>
@@ -127,6 +131,7 @@
             data: {
                 name: $('#name').val(),
                 price: $('#price').val(),
+                old_price: $('#old_price').val(),
                 detail: $('#detail').val(),
                 description: $('#description').val(),
                 key_search: $('#key_search').val(),

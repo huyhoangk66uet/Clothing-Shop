@@ -72,6 +72,13 @@ app.engine(
                   var today = new Date()
             
                   return (date > today)
+              },
+
+              isNotNull: function(a) {
+                  if(a === null){
+                    return false;
+                  }
+                  return true;
               }
             }}),
     );

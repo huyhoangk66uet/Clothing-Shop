@@ -19,6 +19,9 @@
     {{> header}}
 
     <div class="content" page="{{page}}" category="{{category_}}">
+        <div class="content-title">
+            <span>Kết quả tìm kiếm theo: {{category_}} </span>
+        </div>
         {{#if products}}
         {{#each products}}
         <div class="product"
@@ -33,13 +36,11 @@
                 </div>
 
                 <div class="product__name">{{this.name}}</div>
-                {{!-- <p class="card-text">{{this.description}}</p> --}}
-                <div>
-                    {{!-- <p>Chi con: {{this.remaining_products}} san pham</p> --}}
+                <div class="product__price">{{this.price}}<sup>đ</sup>
+                    {{#if (isNotNull this.old_price)}}
+                    <span>{{this.old_price}}<sup>đ</sup></span>
+                    {{/if}}
                 </div>
-                <div class="product__price">{{this.price}} ₫</div>
-
-                {{!-- <div class="product__cart"><i class="fa-solid fa-cart-shopping"></i></div> --}}
             </a>
         </div>
         {{/each}}
