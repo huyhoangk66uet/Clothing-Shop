@@ -19,6 +19,10 @@
                     <input type="text" id="name" name="name" class="form-control" >
                 </div>
                 <div class="form-group">
+                    <label for="">Chi tiết sản phẩm </label>
+                    <textarea id="detail" name="detail" class="form-text"></textarea>
+                </div>
+                <div class="form-group">
                     <label for="">Mô tả sản phẩm </label>
                     <textarea id="description" name="description" class="form-text"></textarea>
                 </div>
@@ -75,7 +79,13 @@
                         <option value="Nam">Nam</option>
                         <option value="Nữ">Nữ</option>
                         <option value="Trẻ em">Trẻ em</option>
-                        <option class="category_op" value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Sản phẩm nổi bật *</label>
+                    <select id="isOutstanding" name="isOutstanding" class="form-select">
+                        <option value="true">Có</option>
+                        <option value="false">Không</option>
                     </select>
                 </div>
                 <button class="btn-submit">Hoàn thành</button>
@@ -96,6 +106,7 @@
             data: {
                 name: $('#name').val(),
                 price: $('#price').val(),
+                detail: $('#detail').val(),
                 description: $('#description').val(),
                 key_search: $('#key_search').val(),
                 S_quantity: $('#S_quantity').val(),
@@ -107,15 +118,16 @@
                 image_1: $('#image_1').val(),
                 image_2: $('#image_2').val(),
                 image_3: $('#image_3').val(),
-                category: $('#category').val()
+                category: $('#category').val(),
+                isOutstanding:$('#isOutstanding').val()
             }
         })
         .done(data => {
             if(data.message) {
-                alert('Tao thanh cong')
+                alert('Thêm sản phẩm thành công')
                 window.location.reload()
             }else{
-                alert("That bai")
+                alert("Thêm sản phẩm thất bại")
                 window.location.reload()
             }
         })

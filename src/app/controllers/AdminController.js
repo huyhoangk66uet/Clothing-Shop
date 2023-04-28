@@ -75,6 +75,7 @@ class AdminController {
             name: req.body.name,
             price: req.body.price,
             category: req.body.category,
+            detail: req.body.detail,
             description: req.body.description,
             main_image: req.body.main_image,
             remaining_products: [req.body.S_quantity, 
@@ -86,7 +87,8 @@ class AdminController {
                      req.body.image_2,
                      req.body.image_3],
             key_search: req.body.key_search,
-            isDelete: false
+            isDelete: false,
+            isOutstanding: req.body.isOutstanding
         }
         Product.create(newProduct)
         .then(newProduct => {
@@ -124,6 +126,7 @@ class AdminController {
             name: req.body.name,
             price: req.body.price,
             category: req.body.category,
+            detail: req.body.detail,
             description: req.body.description,
             main_image: req.body.main_image,
             remaining_products: [req.body.S_quantity, 
@@ -135,7 +138,8 @@ class AdminController {
                      req.body.image_2,
                      req.body.image_3],
             key_search: req.body.key_search,
-            isDelete: false
+            isDelete: false,
+            isOutstanding: req.body.isOutstanding
         }
         Product.updateOne({_id: product_id}, updateProduct)
         .then(product => {
