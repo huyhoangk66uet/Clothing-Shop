@@ -12,7 +12,7 @@
                         </td>
                         <td class="second-column">
                             <div class="table-input__outer">
-                                <input type="text" class="table-input__inner" value="Địt mẹ mày" readonly>
+                                <input type="text" class="table-input__inner" id="username" value="" readonly>
                             </div>
                             <div class="table-input__content">
                                 Tên Đăng nhập không thể thay đổi
@@ -27,7 +27,7 @@
                         </td>
                         <td class="second-column">
                             <div class="table-input__outer">
-                                <input type="text" placeholder class="table-input__inner" value="">
+                                <input type="text" placeholder class="table-input__inner" id="fullname" value="">
                             </div>
                         </td>
                     </tr>
@@ -38,7 +38,7 @@
                         </td>
                         <td class="second-column">
                             <div class="col-container">
-                                <div class="col-content">hahaha@gmail.com</div>
+                                <div class="col-content" id="email"></div>
                                 <a class="col-btn email" onclick="loadBody('email')">Thay đổi</a>
                             </div>
                         </td>
@@ -50,7 +50,7 @@
                         </td>
                         <td class="second-column">
                             <div class="col-container">
-                                <div class="col-content">022649885</div>
+                                <div class="col-content" id="phone"></div>
                                 <a class="col-btn phone" onclick="loadBody('phone')">Thay đổi</a>
                             </div>
                         </td>
@@ -112,7 +112,11 @@
                             <label for="birthday">Ngày sinh</label>
                         </td>
                         <td class="second-column">
-                            <input type="date" id="birthday" name="birthday">
+                            const cur_birthday = document.getElementById('birthday');
+const birthdayStr = "{{birthday}}";
+const parts = birthdayStr.split('-');
+const dateStr = `${parts[2]}-${parts[1]}-${parts[0]}`;
+cur_birthday.value = dateStr;
                         </td>
                     </tr>
 
