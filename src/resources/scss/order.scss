@@ -13,7 +13,7 @@
   
   .bill {
     border: 0.5px solid #eee;
-    display: inline-block;
+    // display: inline-block;
     width: 100%;
     padding-bottom: 6px;
   }
@@ -25,6 +25,7 @@
     border: 0.5px solid #fff8e4;
     align-items: center;
     background-color: #fff8e4;
+    font-size: 20px;
   }
   
   .bill-content>li {
@@ -82,7 +83,7 @@
   }
   
   .bill-product-detail-cost {
-    font-size: 16px;
+    font-size: 18px;
     color: #ee4d2d;
     display: flex;
     justify-content: center;
@@ -91,7 +92,7 @@
   }
   
   .bill-product-detail-cost>li>sup {
-    font-size: 12px;
+    font-size: 15px;
   }
   
   .bill-delivery {

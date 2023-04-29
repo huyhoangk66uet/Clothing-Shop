@@ -197,15 +197,16 @@ li {
   margin-right: 6px; }
 
 .product-content-right-bottom-content {
-  padding-top: 30px;
   font-family: var(--main-text-font);
-  font-size: 12px; }
+  font-size: 15px; }
 
 .product-content-right-bottom-content-chitiet {
-  display: block; }
+  display: block;
+  white-space: pre-wrap; }
 
 .product-content-right-bottom-content-mota {
-  display: none; }
+  display: none;
+  white-space: pre-wrap; }
 
 .selected_size {
   color: #ee4d2d;

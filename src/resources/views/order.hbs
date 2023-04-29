@@ -22,9 +22,9 @@
         {{#each orders}}
         <div class="bill">
             <div class="bill-content">
-                <li>Mã hóa đơn: {{this._id}}</li>
-                <li>Ngày thanh toán: <span class="paymentDate">{{this.ship_date}}</span></li>
-                <li>Thành tiền: <span style="color:red;"><sup>đ</sup>{{this.total_money}}</span></li>
+                <div style="width: 31vw">Mã hóa đơn: {{this._id}}</div>
+                <div style="width: 31vw">Ngày thanh toán: <span class="paymentDate">{{this.ship_date}}</span></div>
+                <div >Thành tiền: <span style="color:red;">{{this.total_money}}<sup>đ</sup></span></div>
             </div>
             {{#each product_list}}
             <div class="bill-product">
@@ -39,7 +39,7 @@
                         <li>x{{this.product_qty}}</li>
                     </div>
                     <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>{{this.product_price}}</li>
+                        <li>{{this.product_price}}<sup>đ</sup></li>
                     </div>
                 </div>
             </div>

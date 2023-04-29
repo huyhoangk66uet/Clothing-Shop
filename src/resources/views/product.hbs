@@ -39,9 +39,9 @@
           </div>
           <div class="product-content-right-product-price">
             <p>{{product.price}}<sup>đ</sup>
-            {{#if (isNotNull product.old_price)}}
-            <span>{{product.old_price}}<sup>đ</sup></span>
-            {{/if}}
+              {{#if (isNotNull product.old_price)}}
+              <span>{{product.old_price}}<sup>đ</sup></span>
+              {{/if}}
             </p>
           </div>
           {{!-- <div class="product-content-right-product-color">
@@ -100,10 +100,10 @@
 
               <div class="product-content-right-bottom-content">
                 <div class="product-content-right-bottom-content-chitiet">
-                  {{product.detail}}
+                  <p>{{product.detail}}</p>
                 </div>
                 <div class="product-content-right-bottom-content-mota">
-                  {{product.description}}
+                  <p>{{product.description}}</p>
                 </div>
               </div>
 
