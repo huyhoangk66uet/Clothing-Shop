@@ -91,12 +91,13 @@ class PaymentController {
                 payment_method: payment_info.payment_method,
                 shipping_method: payment_info.shipping_method,
                 user_name: payment_info.user_name,
-                phone_number: payment_info.sdt,
                 address: address,
+                phone_number: payment_info.sdt,
                 total_money: payment_info.Tong_tien,
                 order_date: payment_info.order_date,
                 ship_date: payment_info.ship_date
             }
+        console.log(Order)
         Order.create(order_data)
         .then(newOrder => {
             console.log('Tao don hang thanh cong')
@@ -112,6 +113,7 @@ class PaymentController {
             
         }) 
         .catch(err => {
+            console.log('Không tạo được đơn hàng')
             console.log(err)
         })
     
