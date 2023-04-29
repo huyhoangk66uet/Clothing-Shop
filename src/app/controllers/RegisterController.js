@@ -1,5 +1,8 @@
 import Users from '../models/User.js'; // tra ve bang users
 import Carts from '../models/Cart.js';
+import User from '../models/User.js';
+//import { Promise } from 'mongoose';
+//import { data } from 'jquery';
 
 class RegisterController {
     // [GET] /:slug
@@ -25,17 +28,26 @@ class RegisterController {
             email: req.body.email,
             password: req.body.password,
             phone_number: req.body.phone_number,
-            address: req.body.address,
+            user_name: req.body.user_name,
             role: 'user'
         }
-        Users.findOne({
-            email: data_user.email,
-        })
+
+        var ArrPromise = [
+        Users.findOne({email: data_user.email}),
+        Users.findOne({user_name: data_user.user_name})
+        ]
+
+        Promise.all(ArrPromise)
         .then(data => {
-            if(data) {
-                // tao that bai
+            if(data[0]) {
                 res.json({
-                    isCreate: false
+                    isCreate: false,
+                    message: 'Email nay da duoc su dung'
+                })
+            } else if(data[1]){
+                res.json({
+                    isCreate: false,
+                    message: 'User name nay da duoc su dung'
                 })
             } else {
                 Users.create(data_user)
@@ -50,8 +62,8 @@ class RegisterController {
                 })
             }
         })
-        // .then(data => res.render('./login'))
         .catch(err => res.status(500).send('Loi ben server'))
+        
     }
 
 

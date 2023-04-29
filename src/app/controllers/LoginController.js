@@ -26,7 +26,8 @@ class LoginController {
         }
 
         Users.findOne({
-            email: data_user.email,
+            $or:[{email: data_user.email},
+                 {user_name: data_user.email}],
             password: data_user.password
         })
         .then(data => {

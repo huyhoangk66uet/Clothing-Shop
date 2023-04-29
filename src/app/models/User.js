@@ -8,7 +8,7 @@ const User = new Schema({
     email: { type: String },
     password: { type: String},
     phone_number: {type: Number},
-    address: {type: String},
+    user_name: {type: String},
     role: {type: String}
   });
 // users la ten bang trong db, phai de so nhieu neu ko co no se tu tao bang moi trong db

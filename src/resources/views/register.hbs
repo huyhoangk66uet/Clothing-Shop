@@ -19,11 +19,16 @@
                 <p>Already have an account? <a href="./login">Login</a></p>
 
                 <div id="error_login" style="background-color: red; display: none">
-                    Email nay da duoc su dung!!!
+                    Email/User name nay da duoc su dung!!!
                 </div>
 
                 <form action="/register" id="input_form" method="POST">
                     <div class="inputs_login_register_form">
+                        <div class="form_group">
+                            <input id="full_name" name="full_name" rules="required" type="text" placeholder="Full name">
+                            <p class="form_mess"></p>
+                        </div>
+                        <br>
                         <div class="form_group">
                             <input id="user_name" name="user_name" rules="required" type="text" placeholder="User name">
                             <p class="form_mess"></p>
@@ -44,10 +49,10 @@
                             <p class="form_mess"></p>
                         </div>
                         <br>
-                        <div class="form_group">
+                        {{!-- <div class="form_group">
                             <input id="Tinh" name="Tinh" rules="required" type="text" placeholder="Tinh/Thanh pho">
                             <p class="form_mess"></p>
-                        </div>
+                        </div> --}}
                         <br>
                         <!-- <br>
                         <div class="form_group">
@@ -78,11 +83,11 @@
                 url: '/register',
                 type: 'POST',
                 data: {
-                    name: $('#user_name').val(),
+                    name: $('#full_name').val(),
                     email: $('#email').val(),
                     password: $('#password').val(),
                     phone_number: $('#sdt').val(),
-                    address: $('#Tinh').val()
+                    user_name: $('#user_name').val()
                 }
             })
             .done(function(data) {
@@ -90,6 +95,7 @@
                 if (data.isCreate) {
                     window.location.href = './login';
                 } else {
+                    $('#error_login').text(data.message)
                     $('#error_login').show();                
                 }        
             })
