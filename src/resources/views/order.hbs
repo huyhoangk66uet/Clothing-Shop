@@ -9,6 +9,7 @@
     <title>Lịch sử mua hàng</title>
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/order.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -74,12 +75,12 @@
     })
 
     //-----------------Định dạng ngày----------------------------
-    const paymentDate = new Date();
-    const formattedDate = paymentDate.toLocaleString();
     const paymentDate_list = document.querySelectorAll(".paymentDate");
     console.log(paymentDate_list);
     paymentDate_list.forEach(function(paymentDate) {
-        paymentDate.innerHTML = formattedDate;
+        var date = moment(paymentDate.innerHTML).format('HH:mm:ss DD/MM/YYYY');
+        console.log(date);
+        paymentDate.innerHTML = date;
     })
 
 </script>

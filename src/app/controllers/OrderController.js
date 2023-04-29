@@ -41,7 +41,7 @@ class OrderController {
                                 orders[i].product_list[j].product_name = products[i][j].name
                                 orders[i].product_list[j].product_price = products[i][j].price
                                 orders[i].product_list[j].product_main_image = products[i][j].main_image
-                                console.log(orders[i].product_list[j])
+                                //console.log(orders[i].product_list[j])
                             }
                             //console.log(orders[i].product_list)
                         }
