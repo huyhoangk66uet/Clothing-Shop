@@ -9,97 +9,51 @@
     <title>Lịch sử mua hàng</title>
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/order.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body style="background-color: #eee;">
     {{> header}}
     <div class="list-bill" id="list_bill">
+        {{#if orders}}
+        {{#each orders}}
         <div class="bill">
             <div class="bill-content">
-                <li>Mã hóa đơn: </li>
-                <li>Ngày thanh toán: </li>
-                <li>Thành tiền: </li>
+                <li>Mã hóa đơn: {{this._id}}</li>
+                <li>Ngày thanh toán: <span class="paymentDate">{{this.ship_date}}</span></li>
+                <li>Thành tiền: <span style="color:red;"><sup>đ</sup>{{this.total_money}}</span></li>
             </div>
+            {{#each product_list}}
             <div class="bill-product">
                 <div class="bill-product-detail">
                     <div class="bill-product-detail-img">
-                        <img src="images/image1.jpg" alt="">
+                        <img src="{{this.product_main_image}}" alt="">
                     </div>
                     <div class="bill-product-detail-information">
-                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
-                        <li>Phân loại hàng: be, M</li>
-                        <li>x1</li>
+                        <li><a href="/product/{{this.product_id}}" style="text-decoration:none; color:black;">
+                                {{this.product_name}}</a></li>
+                        <li>Phân loại hàng: {{this.product_size}}</li>
+                        <li>x{{this.product_qty}}</li>
                     </div>
                     <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>100.000</li>
+                        <li><sup>đ</sup>{{this.product_price}}</li>
                     </div>
                 </div>
             </div>
-            <div class="bill-product">
-                <div class="bill-product-detail">
-                    <div class="bill-product-detail-img">
-                        <img src="images/image1.jpg" alt="">
-                    </div>
-                    <div class="bill-product-detail-information">
-                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
-                        <li>Phân loại hàng: be, M</li>
-                        <li>x1</li>
-                    </div>
-                    <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>100.000</li>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
             <div class="bill-delivery">
                 <h3>Địa chỉ nhận hàng:</h3>
-                <li>Nguyễn Hạnh</li>
-                <li>0344997515</li>
-                <li>Ngõ 298, Ngọc Hồi, Văn Điển, Thanh Trì</li>
+                <li style="color: black; font-size: 16px;">{{this.user_name}}</li>
+                <li>{{this.phone_number}}</li>
+                <li>{{this.address}}</li>
             </div>
         </div>
-        <div class="bill">
-            <div class="bill-content">
-                <li>Mã hóa đơn: </li>
-                <li>Ngày thanh toán: </li>
-                <li>Thành tiền: </li>
-            </div>
-            <div class="bill-product">
-                <div class="bill-product-detail">
-                    <div class="bill-product-detail-img">
-                        <img src="images/image1.jpg" alt="">
-                    </div>
-                    <div class="bill-product-detail-information">
-                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
-                        <li>Phân loại hàng: be, M</li>
-                        <li>x1</li>
-                    </div>
-                    <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>100.000</li>
-                    </div>
-                </div>
-            </div>
-            <div class="bill-product">
-                <div class="bill-product-detail">
-                    <div class="bill-product-detail-img">
-                        <img src="images/image1.jpg" alt="">
-                    </div>
-                    <div class="bill-product-detail-information">
-                        <li>Đầm Xốp Mềm Tiểu Thư Giả Set Cột Nơ Siêu Xinh Phong Cách Hàn Quốc Đ9223</li>
-                        <li>Phân loại hàng: be, M</li>
-                        <li>x1</li>
-                    </div>
-                    <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>100.000</li>
-                    </div>
-                </div>
-            </div>
-            <div class="bill-delivery">
-                <h3>Địa chỉ nhận hàng:</h3>
-                <li>Nguyễn Hạnh</li>
-                <li>0344997515</li>
-                <li>Ngõ 298, Ngọc Hồi, Văn Điển, Thanh Trì</li>
-            </div>
-        </div>
+        {{/each}}
+        {{else}}
+        <p>Bạn chưa đặt đơn hàng nào.</p>
+        {{/if}}
     </div>
 </body>
 <script>
@@ -110,13 +64,22 @@
 
     list_bill.forEach(bill => {
         var bill_delivery = bill.querySelector(".bill-delivery")
-        bill.addEventListener("click", function(){
+        bill.addEventListener("click", function () {
             if (bill_delivery.style.display === "none") {
                 bill_delivery.style.display = "inline-block";
             } else {
                 bill_delivery.style.display = "none";
             }
         })
+    })
+
+    //-----------------Định dạng ngày----------------------------
+    const paymentDate = new Date();
+    const formattedDate = paymentDate.toLocaleString();
+    const paymentDate_list = document.querySelectorAll(".paymentDate");
+    console.log(paymentDate_list);
+    paymentDate_list.forEach(function(paymentDate) {
+        paymentDate.innerHTML = formattedDate;
     })
 
 </script>
