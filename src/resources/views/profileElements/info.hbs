@@ -17,7 +17,7 @@
                             <div class="table-input__content">
                                 Tên Đăng nhập không thể thay đổi
                             </div>
-                            
+
                         </td>
                     </tr>
 
@@ -62,7 +62,7 @@
                         </td>
                         <td class="second-column">
                             <div class="radio-group" role="radiogroup">
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="male">
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Male">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -75,8 +75,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="female">
+
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Female">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -89,8 +89,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="radio" tabindex="0" role="radio" aria-checked="true" id="other">
+
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Other">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -112,20 +112,17 @@
                             <label for="birthday">Ngày sinh</label>
                         </td>
                         <td class="second-column">
-                            const cur_birthday = document.getElementById('birthday');
-const birthdayStr = "{{birthday}}";
-const parts = birthdayStr.split('-');
-const dateStr = `${parts[2]}-${parts[1]}-${parts[0]}`;
-cur_birthday.value = dateStr;
+                            <input type="date" id="birthday" name="birthday">
                         </td>
                     </tr>
 
                     <tr>
                         <td class="first-column">
-                            
+
                         </td>
                         <td class="second-column">
-                            <button type="button" class="submit-button" aria-disabled="false" id="save-button">Lưu</button>
+                            <button type="button" class="submit-button" aria-disabled="false"
+                                id="save-button">Lưu</button>
                         </td>
                     </tr>
                 </table>
@@ -135,14 +132,16 @@ cur_birthday.value = dateStr;
         <div class="change-image-container">
             <div class="change-image">
                 <div class="image-container">
-                    <div class="image" style="background-image: url(https://wiki.tino.org/wp-content/uploads/2021/07/word-image-1467.png);"></div>
+                    <div class="image">
+                        <img src="" alt="Your Avatar" id="avatar">
+                    </div>
                 </div>
-                
+
                 <label for="file-upload" class="choose-image-button dict-button">
                     Chọn ảnh
                 </label>
                 <input type="file" class="choose-image" id="file-upload" accept=".jpg, .jpeg, .png">
-                
+
                 <div class="change-content-container">
                     <div class="change-content">Dung lượng file tối đa 1MB</div>
                     <div class="change-content">Định dạng: .JPEG, .PNG</div>

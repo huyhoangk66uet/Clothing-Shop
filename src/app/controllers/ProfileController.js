@@ -16,11 +16,12 @@ class ProfileController {
                     const username = profile.username;
                     const email = profile.email;
                     const password = profile.password;
-                    // const avatar = Image.bufferToImage(profile.avatar);
+                    const avatar = Image.bufferToImage(profile.avatar);
+                    const avatarUrl = Image.createUrl(avatar);
                     const phone_number = profile.phone_number;
                     const gender = profile.gender;
                     const birthday = profile.birthday;
-                    res.render('profile', { fullname, username, email, password, phone_number, gender, birthday });
+                    res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday });
                 }
                 else {
                     console.log('User profile not found');

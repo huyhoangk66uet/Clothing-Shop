@@ -217,16 +217,16 @@
                     // Set phone
                     const cur_phone = document.getElementById('phone');
                     cur_phone.innerHTML = '0' + '{{phone_number}}';
-                    // Change format to dd//mm//yyyy
-                    const birthdayInput = document.getElementById("birthday-input");
-                    
                     // Set birthday
                     const cur_birthday = document.getElementById('birthday');
                     const birthdayStr = new Date('{{birthday}}');
                     cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
-
-
-
+                    // Set gender
+                    const radioBtn = document.getElementById('{{gender}}');
+                    radioBtn.setAttribute('aria-checked', 'true');
+                    // Set avatar 
+                    const avatar = document.getElementById('avatar');
+                    // avatar.src = "{{avatarUrl}}";
                 })
                 .catch(error => console.error(error));
         }
