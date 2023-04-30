@@ -215,22 +215,21 @@
                     cur_email.innerHTML = '{{email}}';
                     // Set phone
                     const cur_phone = document.getElementById('phone');
-                    const phone = {{ phone_number }
-                };
-            if (phone != 0)
-                cur_phone.innerHTML = '0' + '{{phone_number}}';
-            // Set birthday
-            const cur_birthday = document.getElementById('birthday');
-            const birthdayStr = new Date('{{birthday}}');
-            cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
-            // Set gender
-            const radioBtn = document.getElementById('{{gender}}');
-            radioBtn.setAttribute('aria-checked', 'true');
-            // Set avatar 
-            const avatar = document.getElementById('avatar');
-            avatar.src = "{{avatarUrl}}";
-            checkImage();
-            const intervalId = checkInfoForm();
+                    const phone = {{ phone_number }};
+                    if (phone != 0)
+                        cur_phone.innerHTML = '0' + '{{phone_number}}';
+                    // Set birthday
+                    const cur_birthday = document.getElementById('birthday');
+                    const birthdayStr = new Date('{{birthday}}');
+                    cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
+                    // Set gender
+                    const radioBtn = document.getElementById('{{gender}}');
+                    radioBtn.setAttribute('aria-checked', 'true');
+                    // Set avatar 
+                    const avatar = document.getElementById('avatar');
+                    avatar.src = "{{avatarUrl}}";
+                    checkImage();
+                    const intervalId = checkInfoForm();
         })
                 .catch (error => console.error(error));
         }
