@@ -26,7 +26,7 @@
                 <div class="avatar">
                     <a href="/profile" class="avatar-place">
                         <div class="image-place">
-                            <img src="https://wiki.tino.org/wp-content/uploads/2021/07/word-image-1467.png"
+                            <img src="{{avatarUrl}}"
                                 alt="Your avatar" class="avatar-image">
                         </div>
                     </a>
@@ -226,7 +226,10 @@
                     radioBtn.setAttribute('aria-checked', 'true');
                     // Set avatar 
                     const avatar = document.getElementById('avatar');
-                    // avatar.src = "{{avatarUrl}}";
+                    avatar.src = "{{avatarUrl}}";
+                    console.log('hehe');
+                    console.log('{{avatarUrl}}');
+                    console.log('haha');
                 })
                 .catch(error => console.error(error));
         }

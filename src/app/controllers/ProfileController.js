@@ -16,12 +16,17 @@ class ProfileController {
                     const username = profile.username;
                     const email = profile.email;
                     const password = profile.password;
-                    const avatar = Image.bufferToImage(profile.avatar);
-                    const avatarUrl = Image.createUrl(avatar);
-                    const phone_number = profile.phone_number;
-                    const gender = profile.gender;
-                    const birthday = profile.birthday;
-                    res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday });
+                    Image.bufferToImage(profile.avatar)
+                        .then((avatar) => {
+                            const avatarUrl = Image.createUrl(avatar);
+                            const phone_number = profile.phone_number;
+                            const gender = profile.gender;
+                            const birthday = profile.birthday;
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday });
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 }
                 else {
                     console.log('User profile not found');
