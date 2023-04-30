@@ -3,7 +3,7 @@
         <h1 class="detail-header-content">Hồ sơ của tôi</h1>
     </div>
     <div class="container-content">
-        <form action="" class="container-form">
+        <form action="" class="container-form info-form">
             <div class="detail-content">
                 <table class="table-content">
                     <tr>
@@ -28,6 +28,8 @@
                         <td class="second-column">
                             <div class="table-input__outer">
                                 <input type="text" placeholder class="table-input__inner" id="fullname" value="">
+                            </div>
+                            <div class="table-input__content error fullname">
                             </div>
                         </td>
                     </tr>
@@ -112,7 +114,11 @@
                             <label for="birthday">Ngày sinh</label>
                         </td>
                         <td class="second-column">
-                            <input type="date" id="birthday" name="birthday">
+                            <div class="table-input__outer">
+                                <input type="date" id="birthday" name="birthday">
+                            </div>
+                            <div class="table-input__content error birthday">
+                            </div>
                         </td>
                     </tr>
 
@@ -140,7 +146,7 @@
                 <label for="file-upload" class="choose-image-button dict-button">
                     Chọn ảnh
                 </label>
-                <input type="file" class="choose-image" id="file-upload" accept=".jpg, .jpeg, .png">
+                <input type="file" class="choose-image" id="file-upload" accept=".jpg, .jpeg, .png" max-size="1MB">
 
                 <div class="change-content-container">
                     <div class="change-content">Dung lượng file tối đa 1MB</div>
@@ -150,3 +156,4 @@
         </div>
     </div>
 </div>
+

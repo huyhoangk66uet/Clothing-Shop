@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/header.css">
@@ -26,8 +26,7 @@
                 <div class="avatar">
                     <a href="/profile" class="avatar-place">
                         <div class="image-place">
-                            <img src="{{avatarUrl}}"
-                                alt="Your avatar" class="avatar-image">
+                            <img src="{{avatarUrl}}" alt="Your avatar" class="avatar-image">
                         </div>
                     </a>
 
@@ -216,25 +215,99 @@
                     cur_email.innerHTML = '{{email}}';
                     // Set phone
                     const cur_phone = document.getElementById('phone');
-                    cur_phone.innerHTML = '0' + '{{phone_number}}';
-                    // Set birthday
-                    const cur_birthday = document.getElementById('birthday');
-                    const birthdayStr = new Date('{{birthday}}');
-                    cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
-                    // Set gender
-                    const radioBtn = document.getElementById('{{gender}}');
-                    radioBtn.setAttribute('aria-checked', 'true');
-                    // Set avatar 
-                    const avatar = document.getElementById('avatar');
-                    avatar.src = "{{avatarUrl}}";
-                    console.log('hehe');
-                    console.log('{{avatarUrl}}');
-                    console.log('haha');
-                })
-                .catch(error => console.error(error));
+                    const phone = {{ phone_number }
+                };
+            if (phone != 0)
+                cur_phone.innerHTML = '0' + '{{phone_number}}';
+            // Set birthday
+            const cur_birthday = document.getElementById('birthday');
+            const birthdayStr = new Date('{{birthday}}');
+            cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
+            // Set gender
+            const radioBtn = document.getElementById('{{gender}}');
+            radioBtn.setAttribute('aria-checked', 'true');
+            // Set avatar 
+            const avatar = document.getElementById('avatar');
+            avatar.src = "{{avatarUrl}}";
+            checkImage();
+            const intervalId = checkInfoForm();
+        })
+                .catch (error => console.error(error));
+        }
+    </script>
+    <!--Check info form--->
+    <script src="../../public/js/profile_form.js"></script>
+    <script>
+        function checkInfoForm() {
+            setInterval(function () {
+                ValidationForm('info-form');
+            }, 500)
         }
     </script>
 
+    <!--Submit info form--->
+    <script>
+        function submitInfoForm(intervalId) {
+            $('.info-form').submit(function (event) {
+                event.preventDefault();
+                const isErr = ValidationForm('info-form');
+                if (!isErr) {
+                    clearInterval(intervalId);
+                    const form = document.querySelector('info-form');
+                    const inputs = form.querySelectorAll('input');
+                    $.ajax({
+                        url: '/profile/save-info',
+                        method: 'PUT',
+                        data: {
+                            fullname: inputs.getElementById('fullname').value,
+                            birthday: inputs.getElementById('birthday').value;
+                            avatar: form.getElementById('avatar').src;
+                        }
+                    })
+                    .done(function (response) {
+                        // Xử lý kết quả trả về từ server
+                        console.log(response);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        // Xử lý lỗi khi gửi form
+                        console.error(errorThrown);
+                    });
+                }
+            })
+        }
+    </script>
+    <!--Check image--->
+    <script>
+        function checkImage() {
+            const avatar = document.getElementById('avatar');
+            const fileUpload = document.getElementById('file-upload');
+
+            fileUpload.addEventListener("change", (event) => {
+                // Kiểm tra định dạng ảnh
+                const file = event.target.files[0];
+                const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+                if (!validImageTypes.includes(file.type)) {
+                    alert("Vui lòng chọn đúng định dạng ảnh (.jpeg, .png, .jpg)");
+                    return;
+                }
+
+                // Kiểm tra dung lượng ảnh
+                const maxSize = 1 * 1024 * 1024; // 1MB
+                if (file.size > maxSize) {
+                    alert("Vui lòng chọn ảnh có dung lượng tối đa là 1MB");
+                    return;
+                }
+
+                // Hiển thị ảnh lên giao diện
+                const reader = new FileReader();
+                reader.onload = () => {
+                    avatar.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
