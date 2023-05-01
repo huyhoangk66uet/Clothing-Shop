@@ -22,9 +22,9 @@
         {{#each orders}}
         <div class="bill">
             <div class="bill-content">
-                <li>Mã hóa đơn: {{this._id}}</li>
+                <li>Mã đơn hàng: {{this._id}}</li>
                 <li>Ngày thanh toán: <span class="paymentDate">{{this.ship_date}}</span></li>
-                <li>Thành tiền: <span style="color:red;"><sup>đ</sup>{{this.total_money}}</span></li>
+                <li>Thành tiền: <span class="money" style="color:red;">{{this.total_money}}</span></li>
             </div>
             {{#each product_list}}
             <div class="bill-product">
@@ -39,16 +39,36 @@
                         <li>x{{this.product_qty}}</li>
                     </div>
                     <div class="bill-product-detail-cost">
-                        <li><sup>đ</sup>{{this.product_price}}</li>
+                        <li class="money">{{this.product_price}}</li>
                     </div>
                 </div>
             </div>
             {{/each}}
-            <div class="bill-delivery">
-                <h3>Địa chỉ nhận hàng:</h3>
-                <li style="color: black; font-size: 16px;">{{this.user_name}}</li>
-                <li>{{this.phone_number}}</li>
-                <li>{{this.address}}</li>
+            <div class="bill-detail">
+                <div class="bill-delivery">
+                    <h3>Địa chỉ nhận hàng:</h3>
+                    <li style="color: black; font-size: 18px;">{{this.user_name}}</li>
+                    <li>(+84) {{this.phone_number}}</li>
+                    <li>{{this.address}}</li>
+                </div>
+                <table class="bill-cost">
+                    <tr>
+                        <td class="col-1">Tổng tiền hàng</td>
+                        <td class="col-2 money">{{this.total_amount}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1">Phí vận chuyển</td>
+                        <td class="col-2 money">{{this.shipping_cost}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1">Thành tiền</td>
+                        <td class="col-2 money subtotal">{{this.total_money}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-1">Phương thức thanh toán</td>
+                        <td class="col-2">{{this.payment_method}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
         {{/each}}
@@ -64,23 +84,35 @@
     //console.log(list_bill);
 
     list_bill.forEach(bill => {
-        var bill_delivery = bill.querySelector(".bill-delivery")
+        var bill_detail = bill.querySelector(".bill-detail")
         bill.addEventListener("click", function () {
-            if (bill_delivery.style.display === "none") {
-                bill_delivery.style.display = "inline-block";
+            if (bill_detail.style.display === "none") {
+                bill_detail.style.display = "flex";
             } else {
-                bill_delivery.style.display = "none";
+                bill_detail.style.display = "none";
             }
         })
     })
 
     //-----------------Định dạng ngày----------------------------
     const paymentDate_list = document.querySelectorAll(".paymentDate");
-    console.log(paymentDate_list);
-    paymentDate_list.forEach(function(paymentDate) {
-        var date = moment(paymentDate.innerHTML).format('HH:mm:ss DD/MM/YYYY');
-        console.log(date);
+    //console.log(paymentDate_list);
+    paymentDate_list.forEach(function (paymentDate) {
+        var date = moment(paymentDate.innerHTML).format('HH:mm DD/MM/YYYY');
+        // console.log(date);
         paymentDate.innerHTML = date;
+    })
+
+    //-----------------Định dạng giá----------------------------
+    const money_list = document.querySelectorAll(".money")
+    console.log(money_list);
+    money_list.forEach(function (money) {
+        const value = parseFloat(money.innerHTML.replace(/\./g, "").replace(",", ".")); // chuyển đổi giá trị thành số, xóa dấu phân cách thập phân cũng như dấu nghìn trong chuỗi
+        if (isNaN(value)) return; // bỏ qua nếu giá trị không phải là số
+        const formatted_money = "&nbsp;₫" + value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+            .replace('₫', '');// định dạng lại giá
+        money.innerHTML = formatted_money; // cập nhật giá trị trong DOM
+        console.log(money.innerHTML)
     })
 
 </script>

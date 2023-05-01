@@ -43,7 +43,12 @@ class OrderController {
                                 orders[i].product_list[j].product_main_image = products[i][j].main_image
                                 //console.log(orders[i].product_list[j])
                             }
-                            //console.log(orders[i].product_list)
+                            if( orders[i].shipping_method === "Giao sieu toc") {
+                                orders[i].shipping_cost = 25000
+                            } else {
+                                orders[i].shipping_cost = 15000
+                            }
+                            orders[i].total_amount = orders[i].total_money - orders[i].shipping_cost
                         }
                         res.render('./order', { orders })
                     })
