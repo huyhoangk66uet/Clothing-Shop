@@ -25,7 +25,7 @@ class ProfileController {
                             const phone_number = profile.phone_number;
                             const gender = profile.gender;
                             const birthday = profile.birthday;
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info'});
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info' });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -33,7 +33,7 @@ class ProfileController {
                 }
                 else {
                     console.log('User profile not found');
-                    res.render('profile', {bodyName: 'info'});
+                    res.render('profile', { bodyName: 'info' });
                 }
             })
             .catch(err => {
@@ -59,7 +59,7 @@ class ProfileController {
                             const phone_number = profile.phone_number;
                             const gender = profile.gender;
                             const birthday = profile.birthday;
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password'});
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password' });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -67,7 +67,7 @@ class ProfileController {
                 }
                 else {
                     console.log('User profile not found');
-                    res.render('profile', {bodyName: 'password'});
+                    res.render('profile', { bodyName: 'password' });
                 }
             })
             .catch(err => {
@@ -105,6 +105,67 @@ class ProfileController {
                     if (password == realPassword) {
                         Profile.findByIdAndUpdate(_id, { password: newPassword })
                             .then(() => res.json({ message: 'Success' }));
+                    }
+                    else {
+                        res.json({ message: 'Mật khẩu không đúng' });
+                    }
+                }
+                else {
+                    res.json({ message: 'Không tìm thấy đối tượng' });
+                }
+            })
+    }
+
+    changeEmail(req, res, next) {
+        const token = req.cookies.token;
+        const result = jwt.verify(token, 'mk');
+        const _id = result._id;
+        const password = req.body.password;
+        const email = req.body.email;
+        Profile.findById(_id)
+            .then((profile) => {
+                if (profile) {
+                    const realPassword = profile.password;
+                    if (password == realPassword) {
+                        const realEmail = profile.email;
+                        if (realEmail != email.trim()) {
+                            Profile.findByIdAndUpdate(_id, { email: email.trim() })
+                                .then(() => res.json({ message: 'Success' }));
+                        }
+                        else {
+                            res.json({ message: 'Duplicate' });
+                        }
+
+                    }
+                    else {
+                        res.json({ message: 'Mật khẩu không đúng' });
+                    }
+                }
+                else {
+                    res.json({ message: 'Không tìm thấy đối tượng' });
+                }
+            })
+    }
+
+    changePhone(req, res, next) {
+        const token = req.cookies.token;
+        const result = jwt.verify(token, 'mk');
+        const _id = result._id;
+        const password = req.body.password;
+        const phone_number = parseInt(req.body.phone_number);
+        Profile.findById(_id)
+            .then((profile) => {
+                if (profile) {
+                    const realPassword = profile.password;
+                    const realPhone = profile.phone_number;
+                    if (password == realPassword) {
+                        if (realPhone != phone_number) {
+                            Profile.findByIdAndUpdate(_id, { phone_number: phone_number })
+                                .then(() => res.json({ message: 'Success' }));
+                        }
+                        else {
+                            res.json({ message: 'Duplicate'});
+                        }
                     }
                     else {
                         res.json({ message: 'Mật khẩu không đúng' });

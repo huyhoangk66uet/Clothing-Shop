@@ -13,7 +13,7 @@ const validatorRules = {
             : 'Độ dài mật khẩu phải từ 6-20 ký tự, và không có ký tự đặc biệt';
     },
     phoneNumber: function (value) {
-        const regex = /^(0|\+84)([1-9][0-9]{8})$/;
+        const regex = /^0\d{9}$/;
         return regex.test(value) ? undefined : 'Số điện thoại không hợp lệ';
     },
     dateOfBirth: function (value) {
@@ -171,8 +171,11 @@ function ValidationForm(formName) {
     const formElement = document.querySelector(formName);
     var isError = false;
     if (formElement) {
-        const inputs = formElement.querySelectorAll('.input');
+        const inputs = formElement.querySelectorAll('input');
         for (const input of inputs) {
+            if (input.readOnly) {
+                continue ;
+            }
             let msg;
             if (ValidationElement(formName, input, msg)) {
                 isError = true;
