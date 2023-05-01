@@ -29,7 +29,7 @@ class HomeSearchController {
             .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
-                res.render('./homeSearch', {products, page, category_, check_out_auth})
+                res.render('./homeSearch', {products, page, category_,key_search, check_out_auth})
             })
             .catch(err => {
                 res.status(400).json({ error: err })
@@ -42,7 +42,7 @@ class HomeSearchController {
             .limit(perPage)
             .then(products => {
                 products = products.map(product => product.toObject())
-                res.render('./homeSearch', {products, page, category_, check_out_auth})
+                res.render('./homeSearch', {products, page, category_, key_search, check_out_auth})
             })
             .catch(err => {
                 res.status(400).json({ error: err })

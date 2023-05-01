@@ -16,7 +16,7 @@ class CartController {
         .then(cart => {
             var products_id = cart.products.map(product => product.product_id)
             var size_list = cart.products.map(product => product.size)
-            var quantity_list = cart.products.map(product => product.quantity)
+            //var quantity_list = cart.products.map(product => product.quantity)
             var size_list_num = cart.products.map(product => {
                 if(product.size === 'S') return 0;
                 else if(product.size === 'M') return 1;
@@ -46,6 +46,13 @@ class CartController {
                 })
                 var remaining_product_list = products.map((product, index) => {
                    return product.remaining_products[size_list_num[index]]
+                })
+                var quantity_list = cart.products.map((product, index) => {
+                    if(product.quantity > remaining_product_list[index]) {
+                        return remaining_product_list[index]
+                    } else {
+                        return product.quantity
+                    }
                 })
                 products = products.map(product => product.toObject())
                 res.render('./cart', {products, check_remaining, size_list, remaining_product_list, quantity_list})

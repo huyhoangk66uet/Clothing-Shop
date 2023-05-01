@@ -1,25 +1,25 @@
 <header>
     <div class="category">
         <div class="category-item">
-            <div class="category-item__parent " category="nam">Nam</div>
+            <div class="category-item__parent " category="nam" >Nam</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao">Áo</li>
-                <li class="category_child" classify="quan">Quần</li>
+                <li class="category_child" classify="ao" >Áo</li>
+                <li class="category_child" classify="quan" >Quần</li>
             </div>
         </div>
         <div class="category-item">
-            <div class="category-item__parent" category="nu">Nữ</div>
+            <div class="category-item__parent" category="nu" >Nữ</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao">Áo</li>
-                <li class="category_child" classify="quan">Quần</li>
-                <li class="category_child" classify="vay">Váy</li>
+                <li class="category_child" classify="ao" >Áo</li>
+                <li class="category_child" classify="quan" >Quần</li>
+                <li class="category_child" classify="vay" >Váy</li>
             </div>
         </div>
         <div class="category-item">
-            <div class="category-item__parent" category="tre_em">Trẻ em</div>
+            <div class="category-item__parent" category="tre_em" >Trẻ em</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao">Áo</li>
-                <li class="category_child" classify="quan">Quần</li>
+                <li class="category_child" classify="ao" >Áo</li>
+                <li class="category_child" classify="quan" >Quần</li>
             </div>
         </div>
     </div>
@@ -86,6 +86,7 @@
 //// phan loai theo gioi tinh
         var form_category = document.getElementById('get_category')
         var input_category = document.getElementById('category_info')
+        var input_category_tv = document.getElementById('category_info_tv')
         var input_classify = document.getElementById('classify_info')
 
         var categorys = document.getElementsByClassName('category-item__parent')
@@ -94,7 +95,9 @@
             category.onclick = function(event) {
                 var sex = event.target.getAttribute('category')
                 input_category.value = sex
+                input_category_tv = event.target.getAttribute('category_')
                 form_category.submit()
+
             }
         })
 

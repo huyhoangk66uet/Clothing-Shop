@@ -383,14 +383,14 @@
             if(delivery_type.innerText === 'GIAO TIẾT KIỆM') {
                 document.getElementById('current-fee').innerText = 15000;
                 //var today = new Date()
-                //var ship_date = new Date()
+                ship_date = new Date()
                 ship_date.setDate(today.getDate() + 5)
                 delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
                 update_unit_price();
             } else {
                 document.getElementById('current-fee').innerText = 25000;
                 //var today = new Date()
-                //var ship_date = new Date()
+                ship_date = new Date()
                 ship_date.setDate(today.getDate() + 2)
                 delivery_time.innerText = 'Giao Trước ' + checkTime(ship_date.getDate()) + '/' + checkTime((ship_date.getMonth() + 1)) + '/' + ship_date.getFullYear()
                 update_unit_price();

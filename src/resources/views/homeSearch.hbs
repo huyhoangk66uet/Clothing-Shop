@@ -17,11 +17,10 @@
 
 <body>
     {{> header}}
-
+    <div class="title">
+        <span>Kết quả tìm kiếm theo: {{key_search}} </span>
+    </div>
     <div class="content" page="{{page}}" category="{{category_}}">
-        <div class="content-title">
-            <span>Kết quả tìm kiếm theo: {{category_}} </span>
-        </div>
         {{#if products}}
         {{#each products}}
         <div class="product"
