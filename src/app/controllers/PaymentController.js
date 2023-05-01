@@ -84,7 +84,7 @@ class PaymentController {
             })
         }
         //res.render('./paymentSuccess')
-        var address = payment_info.Dia_chi + '/' + payment_info.Huyen + '/' + payment_info.Tinh 
+        var address = payment_info.Dia_chi + ', ' + payment_info.Huyen + ', ' + payment_info.Tinh 
         var order_data = {
                 user_id: ketqua._id,
                 product_list: payment_info.product_list,
