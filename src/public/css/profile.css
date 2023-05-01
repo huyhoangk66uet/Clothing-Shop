@@ -52,7 +52,7 @@ button, input {
   font-size: 13px; }
 
 .notice-content {
-  color: red;
+  color: red !important;
   margin: 0;
   padding: 4px 0 0;
   font-size: 13px;
@@ -149,8 +149,8 @@ a {
 
 .avatar .avatar-place .image-place {
   display: inline-block;
-  width: 1.875rem;
-  height: 1.875rem;
+  width: 100%;
+  height: 100%;
   position: relative;
   border-radius: 50%;
   border: 0.0625rem solid rgba(0, 0, 0, 0.09);

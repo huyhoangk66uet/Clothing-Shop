@@ -17,14 +17,15 @@ const validatorRules = {
         return regex.test(value) ? undefined : 'Số điện thoại không hợp lệ';
     },
     dateOfBirth: function (value) {
-        const regex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
         const match = value.match(regex);
         if (!match) {
             return 'Ngày sinh không hợp lệ';
         }
-        const day = parseInt(match[1]);
-        const month = parseInt(match[2]);
-        const year = parseInt(match[3]);
+        const parts = value.split('-');
+        const day = parseInt(parts[2]);
+        const month = parseInt(parts[1]);
+        const year = parseInt(parts[0]);
         if (isNaN(day) || isNaN(month) || isNaN(year)) {
             return 'Ngày sinh không hợp lệ';
         }
@@ -43,8 +44,10 @@ const validatorRules = {
         return regex.test(value) ? undefined : 'Mã xác nhận phải có 6 chữ số';
     },
     fullname: function (value) {
-        const regex = /^[^\d\W_]+$/u;
+        const regex = /^[\p{L}\s]+$/u;
         const str = value.trim();
+        // console.log('haha');
+        // console.log(str);
         if (!str) {
             return 'Họ và tên không được để trống';
         }
@@ -55,20 +58,23 @@ const validatorRules = {
     },
 };
 
-function RenderError(form, name, msg) {
-    const err = form.querySelector(name);
-    err.innerHTML = msg;
+function RenderError(formName, name, msg) {
+    const formElement = document.querySelector(formName);
+    // console.log(name);
+    // console.log(msg);
+    const err = formElement.querySelector('.notice-content.' + name);
+    err.innerHTML = msg ? msg : '';
     if (!msg) {
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 function ValidationForm(formName) {
     const formElement = document.querySelector(formName);
-    const isError = false;
+    var isError = false;
     if (formElement) {
-        const inputs = formElement.querySelectorAll('input');
+        const inputs = formElement.querySelectorAll('.input');
         for (const input of inputs) {
             let msg;
             switch (input.type) {
@@ -77,12 +83,12 @@ function ValidationForm(formName) {
                     const value = input.value;
                     const name = input.name;
                     msg = validatorRules.required(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                         break;
                     }
                     msg = validatorRules.password(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                     }
                     break;
@@ -92,12 +98,12 @@ function ValidationForm(formName) {
                     const value = input.value;
                     const name = input.name;
                     msg = validatorRules.required(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                         break;
                     }
                     msg = validatorRules.email(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                     }
                     break;
@@ -106,8 +112,9 @@ function ValidationForm(formName) {
                 case 'date': {
                     const value = input.value;
                     const name = input.name;
+                    // console.log(value);
                     msg = validatorRules.dateOfBirth(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                     }
                     break;
@@ -117,12 +124,12 @@ function ValidationForm(formName) {
                     const value = input.value;
                     const name = input.name;
                     msg = validatorRules.required(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                         break;
                     }
                     msg = validatorRules.confirmationCode(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                     }
                     break;
@@ -132,12 +139,12 @@ function ValidationForm(formName) {
                     const value = input.value;
                     const name = input.name;
                     msg = validatorRules.required(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                         break;
                     }
                     msg = validatorRules.phoneNumber(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                     }
                     break;
@@ -147,13 +154,15 @@ function ValidationForm(formName) {
                     const value = input.value;
                     const name = input.name;
                     msg = validatorRules.required(value);
-                    if (RenderError(formElement, name, msg)) {
+                    if (RenderError(formName, name, msg)) {
                         isError = true;
                         break;
                     }
-                    if (input.id == 'fullname')
+                    if (input.id == 'fullname') {
                         msg = validatorRules.fullname(value);
-                    if (RenderError(formElement, name, msg)) {
+                    }
+                    if (RenderError(formName, name, msg)) {
+                        // console.log('heheh');
                         isError = true;
                     }
                     break;

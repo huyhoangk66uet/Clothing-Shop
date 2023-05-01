@@ -26,7 +26,7 @@
                 <div class="avatar">
                     <a href="/profile" class="avatar-place">
                         <div class="image-place">
-                            <img src="{{avatarUrl}}" alt="Your avatar" class="avatar-image">
+                            <img src="{{avatarUrl}}" alt="Your avatar" class="avatar-image" id="avatar-icon">
                         </div>
                     </a>
 
@@ -114,7 +114,7 @@
                         dynamicContent.appendChild(newElement)
                         removeChild();
                         // Thay đổi URL trên thanh địa chỉ
-                        addEventsToNewElements();
+                        // addEventsToNewElements();
                         history.pushState({}, '', '/profile/' + name);
                         dynamicContent.setAttribute('data-name', name);
 
@@ -227,19 +227,21 @@
                     radioBtn.setAttribute('aria-checked', 'true');
                     // Set avatar 
                     const avatar = document.getElementById('avatar');
-                    avatar.src = "{{avatarUrl}}";
+                    const avatarIcon = document.getElementById('avatar-icon');
+                    avatar.src = avatarIcon.src;
                     checkImage();
                     const intervalId = checkInfoForm();
+                    submitInfoForm(intervalId);
         })
                 .catch (error => console.error(error));
         }
     </script>
     <!--Check info form--->
-    <script src="../../public/js/profile_form.js"></script>
+    <script src="/js/profile_form.js"></script>
     <script>
         function checkInfoForm() {
             setInterval(function () {
-                ValidationForm('info-form');
+                ValidationForm('#info-form');
             }, 500)
         }
     </script>
@@ -247,30 +249,45 @@
     <!--Submit info form--->
     <script>
         function submitInfoForm(intervalId) {
-            $('.info-form').submit(function (event) {
+            $('#info-form').submit(function (event) {
                 event.preventDefault();
-                const isErr = ValidationForm('info-form');
+                const isErr = ValidationForm('#info-form');
+                // console.log('hehehe')
                 if (!isErr) {
                     clearInterval(intervalId);
-                    const form = document.querySelector('info-form');
-                    const inputs = form.querySelectorAll('input');
+                    const form = document.querySelector('#info-form');
+                    const inputs = form.querySelectorAll('.input');
+                    const fullname = form.querySelector('.input#fullname').value;
+                    const birthday = form.querySelector('.input#birthday').value;
+                    const radiogroup = form.querySelectorAll('.radio');
+                    var gender;
+                    for (const radio of radiogroup) {
+                        if (radio.getAttribute('aria-checked') == 'true') {
+                            gender = radio.id;
+                            break;
+                        }
+                    }
+                    const src = document.querySelector('#avatar').src;
+                    const base64String = src.split(';base64,').pop();
+                    const avatar = base64String;
                     $.ajax({
                         url: '/profile/save-info',
                         method: 'PUT',
                         data: {
-                            fullname: inputs.getElementById('fullname').value,
-                            birthday: inputs.getElementById('birthday').value;
-                            avatar: form.getElementById('avatar').src;
+                            fullname: fullname,
+                            birthday: birthday,
+                            gender: gender,
+                            avatar: avatar
                         }
                     })
-                    .done(function (response) {
-                        // Xử lý kết quả trả về từ server
-                        console.log(response);
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        // Xử lý lỗi khi gửi form
-                        console.error(errorThrown);
-                    });
+                        .done(function (response) {
+                            // Xử lý kết quả trả về từ server
+                            console.log(response);
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            // Xử lý lỗi khi gửi form
+                            console.error(errorThrown);
+                        });
                 }
             })
         }
@@ -281,30 +298,42 @@
             const avatar = document.getElementById('avatar');
             const fileUpload = document.getElementById('file-upload');
 
-            fileUpload.addEventListener("change", (event) => {
-                // Kiểm tra định dạng ảnh
+            fileUpload.addEventListener('change', (event) => {
                 const file = event.target.files[0];
-                const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+                console.log(file);
+
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
                 if (!validImageTypes.includes(file.type)) {
-                    alert("Vui lòng chọn đúng định dạng ảnh (.jpeg, .png, .jpg)");
+                    alert('Vui lòng chọn đúng định dạng ảnh (.jpeg, .png, .jpg)');
                     return;
                 }
 
-                // Kiểm tra dung lượng ảnh
                 const maxSize = 1 * 1024 * 1024; // 1MB
                 if (file.size > maxSize) {
-                    alert("Vui lòng chọn ảnh có dung lượng tối đa là 1MB");
+                    alert('Vui lòng chọn ảnh có dung lượng tối đa là 1MB');
                     return;
                 }
 
-                // Hiển thị ảnh lên giao diện
                 const reader = new FileReader();
                 reader.onload = () => {
-                    avatar.src = reader.result;
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const scale = Math.min(1024 / img.width, 1024 / img.height); // giới hạn kích thước ảnh là 1024x1024
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        const quality = 0.3; // Đặt chất lượng ảnh là 30%
+                        const base64 = canvas.toDataURL('image/jpeg', quality);
+                        avatar.src = base64;
+                    };
+                    img.src = reader.result;
                 };
                 reader.readAsDataURL(file);
             });
         }
+
 
     </script>
 

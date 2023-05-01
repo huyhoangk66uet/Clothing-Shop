@@ -3,7 +3,7 @@
         <h1 class="detail-header-content">Hồ sơ của tôi</h1>
     </div>
     <div class="container-content">
-        <form action="" class="container-form info-form">
+        <form action="/profile/save-info" class="container-form" id="info-form" method="post">
             <div class="detail-content">
                 <table class="table-content">
                     <tr>
@@ -23,13 +23,13 @@
 
                     <tr>
                         <td class="first-column">
-                            <label for="">Tên</label>
+                            <label for="fullname">Tên</label>
                         </td>
                         <td class="second-column">
                             <div class="table-input__outer">
-                                <input type="text" placeholder class="table-input__inner" id="fullname" value="">
+                                <input type="text" placeholder class="table-input__inner input" id="fullname" name="fullname" value="">
                             </div>
-                            <div class="table-input__content error fullname">
+                            <div class="table-input__content notice-content fullname">
                             </div>
                         </td>
                     </tr>
@@ -114,10 +114,8 @@
                             <label for="birthday">Ngày sinh</label>
                         </td>
                         <td class="second-column">
-                            <div class="table-input__outer">
-                                <input type="date" id="birthday" name="birthday">
-                            </div>
-                            <div class="table-input__content error birthday">
+                            <input type="date" id="birthday" name="birthday" class="input">
+                            <div class="table-input__content notice-content birthday">
                             </div>
                         </td>
                     </tr>
@@ -127,7 +125,7 @@
 
                         </td>
                         <td class="second-column">
-                            <button type="button" class="submit-button" aria-disabled="false"
+                            <button type="submit" class="submit-button" aria-disabled="false"
                                 id="save-button">Lưu</button>
                         </td>
                     </tr>
