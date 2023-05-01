@@ -13,10 +13,10 @@ class ImageProcess {
             // console.log('hahaha')
             const __dirname = path.dirname(new URL(import.meta.url).pathname).substring(1);
             buffer = await this.imageToBuffer(fs.readFileSync(path.join(__dirname, '../img/word-image-1467.png')));
-            const nbuffer = await sharp(buffer).png({ quality: 30 }).toBuffer();
+            const nbuffer = await sharp(buffer).png({ quality: 10 }).toBuffer();
             return nbuffer;
         }
-        const nbuffer = await sharp(buffer).png({ quality: 100 }).toBuffer();
+        const nbuffer = await sharp(buffer).png({ quality: 50 }).toBuffer();
         return nbuffer;
     }
     base64ToBuffer(base64String) {

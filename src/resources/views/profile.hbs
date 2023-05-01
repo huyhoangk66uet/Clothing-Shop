@@ -49,7 +49,7 @@
                         <div class="sub-directory">
                             <ul>
                                 <li><a class="dict-button" onclick="loadInfo()">Hồ sơ</a></li>
-                                <li><a class="dict-button" onclick="loadBody('password')">Đổi mật khẩu</a></li>
+                                <li><a class="dict-button" onclick="loadPassword()">Đổi mật khẩu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="detail" id="dynamic-content" data-name="info">
+            <div class="detail" id="dynamic-content" data-name="{{bodyName}}">
 
 
 
@@ -103,6 +103,13 @@
             return new Promise((resolve, reject) => {
                 const dynamicContent = document.querySelector('#dynamic-content');
                 // Lấy dữ liệu từ server
+                const validRefreshPage = ['info', 'password'];
+                if (validRefreshPage.includes(name)) {
+                    dynamicContent.setAttribute('data-name', name);
+                }
+                else {
+                    dynamicContent.setAttribute('data-name', 'info');
+                }
                 const __dirpath = 'http://127.0.0.1:8080'
                 const path = __dirpath + '/src/resources/views/profileElements/' + name + '.hbs'
                 fetch(path)
@@ -131,39 +138,33 @@
 
         // const popupClose = document.querySelector('.js-popup-close')
 
-        function showBuyTickets(buyBtn, popup) {
-            return function () {
-                if (buyBtn.getAttribute('aria-disabled') == 'false') {
-                    popup.classList.add('open');
-                    buyBtn.setAttribute('aria-disable', 'true');
-                }
+        function showStatus(popup) {
+            if (!popup.classList.contains('open')) {
+                popup.classList.add('open');
             }
         }
 
-        function hideBuyTickets(popup) {
+        function hideStatus(popup) {
             return function () {
                 if (popup.classList.contains('open')) {
                     popup.classList.remove('open');
-                    buyBtn.setAttribute('aria-disable', 'false');
                 }
+                location.reload();
             }
         }
 
-        function addEventsToNewElements() {
-            const submitBtns = document.querySelectorAll('.submit-button');
+        function addNewStatus(status) {
             const popup = document.querySelector('.js-popup');
             const popupContainer = document.querySelector('.js-popup-container');
 
-            for (const buyBtn of submitBtns) {
-                buyBtn.addEventListener('click', showBuyTickets(buyBtn, popup));
-            }
+            showStatus(popup);
 
-            popup.addEventListener('click', hideBuyTickets(popup));
+            popup.addEventListener('click', hideStatus(popup));
             popupContainer.addEventListener('click', function (event) {
                 event.stopPropagation();
             });
         }
-        addEventsToNewElements();
+        // addEventsToNewElements();
     </script>
 
     <!-- Choose gender -->
@@ -180,21 +181,28 @@
             setAllAriaCheck(radioList)
             radio.setAttribute('aria-checked', 'true')
         }
-        document.addEventListener('click', function (event) {
+        function handleClick(event) {
             const target = event.target;
-            const radio = target.closest('.radio')
+            const radio = target.closest('.radio');
             if (radio != null) {
                 const radioBtns = document.querySelectorAll(".radio");
-                setAriaCheck(radio, radioBtns)
+                setAriaCheck(radio, radioBtns);
             }
-        })
+        }
+
+        document.addEventListener('click', handleClick);
     </script>
 
     <!-- Get Content when refresh -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            loadInfo();
+            const dynamicContent = document.getElementById('dynamic-content');
+            const name = dynamicContent.getAttribute('data-name');
+            if (name == 'info')
+                loadInfo();
+            if (name == 'password')
+                loadPassword();
         })
     </script>
 
@@ -232,7 +240,7 @@
                     checkImage();
                     const intervalId = checkInfoForm();
                     submitInfoForm(intervalId);
-        })
+                })
                 .catch (error => console.error(error));
         }
     </script>
@@ -246,6 +254,24 @@
         }
     </script>
 
+    <!--Prevent change--->
+    <script>
+        function preventChange() {
+            const dynamicContent = document.getElementById('dynamic-content');
+            dynamicContent.classList.add('disabled');
+            dynamicContent.tabIndex = -1;
+        }
+    </script>
+
+    <!--Unblock change--->
+    <script>
+        function unblockChange() {
+            const dynamicContent = document.getElementById('dynamic-content');
+            dynamicContent.classList.remove('disabled');
+            dynamicContent.removeAttribute('tabIndex');
+        }
+    </script>
+
     <!--Submit info form--->
     <script>
         function submitInfoForm(intervalId) {
@@ -255,6 +281,7 @@
                 // console.log('hehehe')
                 if (!isErr) {
                     clearInterval(intervalId);
+                    preventChange();
                     const form = document.querySelector('#info-form');
                     const inputs = form.querySelectorAll('.input');
                     const fullname = form.querySelector('.input#fullname').value;
@@ -282,6 +309,7 @@
                     })
                         .done(function (response) {
                             // Xử lý kết quả trả về từ server
+                            addNewStatus('success');
                             console.log(response);
                         })
                         .fail(function (jqXHR, textStatus, errorThrown) {
@@ -303,6 +331,7 @@
                 console.log(file);
 
                 const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                
                 if (!validImageTypes.includes(file.type)) {
                     alert('Vui lòng chọn đúng định dạng ảnh (.jpeg, .png, .jpg)');
                     return;
@@ -324,7 +353,7 @@
                         canvas.width = img.width * scale;
                         canvas.height = img.height * scale;
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        const quality = 0.3; // Đặt chất lượng ảnh là 30%
+                        const quality = 0.1; // Đặt chất lượng ảnh là 30%
                         const base64 = canvas.toDataURL('image/jpeg', quality);
                         avatar.src = base64;
                     };
@@ -335,6 +364,80 @@
         }
 
 
+    </script>
+
+
+    <!-- Load Info -->
+
+    <script>
+        function loadPassword() {
+            loadBody('password')
+                .then(() => {
+                    const formName = '#password-form';
+                    const form = document.querySelector(formName);
+                    const passwords = form.querySelectorAll('input');
+                    for (const password of passwords) {
+                        password.addEventListener("change", function () {
+                            let msg;
+                            ValidationElement(formName, password, msg);
+                        })
+                    }
+                    submitPasswordForm();
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+
+    <!--Submit password form--->
+    <script>
+        function submitPasswordForm() {
+            const formName = '#password-form';
+            $(formName).submit(function (event) {
+                event.preventDefault();
+                var isErr = ValidationForm(formName);
+                // console.log('hehehe')
+                if (!isErr) {
+                    const form = document.querySelector(formName);
+                    const password = form.querySelector('#password');
+                    const newPassword = form.querySelector('#newPassword');
+                    const newPasswordRepeat = form.querySelector('#newPasswordRepeat');
+                    if (newPassword.value != newPasswordRepeat.value) {
+                        isErr = true;
+                        const msg = 'Mật khẩu không trùng khớp';
+                        const noticeContent = form.querySelector('.notice-content.' + newPasswordRepeat.name);
+                        noticeContent.innerHTML = msg;
+                    }
+                    if (!isErr) {
+                        preventChange();
+                        $.ajax({
+                            url: '/profile/change-password',
+                            method: 'PUT',
+                            data: {
+                                password: password.value,
+                                newPassword: newPassword.value
+                            }
+                        })
+                            .done(function (response) {
+                                // Xử lý kết quả trả về từ server
+                                const msg = response.message;
+                                if (msg == 'Success') {
+                                    addNewStatus('success');
+                                }
+                                else {
+                                    const noticeContent = form.querySelector('.notice-content.' + password.name);
+                                    noticeContent.innerHTML = msg;
+                                    unblockChange();
+                                }
+                                console.log(response);
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                // Xử lý lỗi khi gửi form
+                                console.error(errorThrown);
+                            });
+                    }
+                }
+            })
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"

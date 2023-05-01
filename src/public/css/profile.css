@@ -39,6 +39,11 @@ button, input {
   margin: 0;
   font: inherit; }
 
+.disabled {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important; }
+
 .dict-button {
   text-size-adjust: 100%;
   display: block;

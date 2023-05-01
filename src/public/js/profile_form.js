@@ -70,6 +70,103 @@ function RenderError(formName, name, msg) {
     return true;
 }
 
+function ValidationElement(formName, input, msg) {
+    var isError = false;
+    switch (input.type) {
+
+        case 'password': {
+            const value = input.value;
+            const name = input.name;
+            msg = validatorRules.required(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+                break;
+            }
+            msg = validatorRules.password(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+            }
+            break;
+        }
+
+        case 'email': {
+            const value = input.value;
+            const name = input.name;
+            msg = validatorRules.required(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+                break;
+            }
+            msg = validatorRules.email(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+            }
+            break;
+        }
+
+        case 'date': {
+            const value = input.value;
+            const name = input.name;
+            // console.log(value);
+            msg = validatorRules.dateOfBirth(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+            }
+            break;
+        }
+
+        case 'number': {
+            const value = input.value;
+            const name = input.name;
+            msg = validatorRules.required(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+                break;
+            }
+            msg = validatorRules.confirmationCode(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+            }
+            break;
+        }
+
+        case 'tel': {
+            const value = input.value;
+            const name = input.name;
+            msg = validatorRules.required(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+                break;
+            }
+            msg = validatorRules.phoneNumber(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+            }
+            break;
+        }
+
+        case 'text': {
+            const value = input.value;
+            const name = input.name;
+            msg = validatorRules.required(value);
+            if (RenderError(formName, name, msg)) {
+                isError = true;
+                break;
+            }
+            if (input.id == 'fullname') {
+                msg = validatorRules.fullname(value);
+            }
+            if (RenderError(formName, name, msg)) {
+                // console.log('heheh');
+                isError = true;
+            }
+            break;
+        }
+    }
+
+    return isError;
+}
+
 function ValidationForm(formName) {
     const formElement = document.querySelector(formName);
     var isError = false;
@@ -77,96 +174,8 @@ function ValidationForm(formName) {
         const inputs = formElement.querySelectorAll('.input');
         for (const input of inputs) {
             let msg;
-            switch (input.type) {
-                
-                case 'password': {
-                    const value = input.value;
-                    const name = input.name;
-                    msg = validatorRules.required(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                        break;
-                    }
-                    msg = validatorRules.password(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                    }
-                    break;
-                }
-
-                case 'email': {
-                    const value = input.value;
-                    const name = input.name;
-                    msg = validatorRules.required(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                        break;
-                    }
-                    msg = validatorRules.email(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                    }
-                    break;
-                }
-
-                case 'date': {
-                    const value = input.value;
-                    const name = input.name;
-                    // console.log(value);
-                    msg = validatorRules.dateOfBirth(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                    }
-                    break;
-                }
-
-                case 'number': {
-                    const value = input.value;
-                    const name = input.name;
-                    msg = validatorRules.required(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                        break;
-                    }
-                    msg = validatorRules.confirmationCode(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                    }
-                    break;
-                }
-
-                case 'tel': {
-                    const value = input.value;
-                    const name = input.name;
-                    msg = validatorRules.required(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                        break;
-                    }
-                    msg = validatorRules.phoneNumber(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                    }
-                    break;
-                }
-
-                case 'text': {
-                    const value = input.value;
-                    const name = input.name;
-                    msg = validatorRules.required(value);
-                    if (RenderError(formName, name, msg)) {
-                        isError = true;
-                        break;
-                    }
-                    if (input.id == 'fullname') {
-                        msg = validatorRules.fullname(value);
-                    }
-                    if (RenderError(formName, name, msg)) {
-                        // console.log('heheh');
-                        isError = true;
-                    }
-                    break;
-                }
+            if (ValidationElement(formName, input, msg)) {
+                isError = true;
             }
         }
     }
