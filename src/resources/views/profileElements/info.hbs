@@ -3,7 +3,7 @@
         <h1 class="detail-header-content">Hồ sơ của tôi</h1>
     </div>
     <div class="container-content">
-        <form action="" class="container-form">
+        <form action="/profile/save-info" class="container-form" id="info-form" method="post" aria-disabled="true">
             <div class="detail-content">
                 <table class="table-content">
                     <tr>
@@ -12,22 +12,24 @@
                         </td>
                         <td class="second-column">
                             <div class="table-input__outer">
-                                <input type="text" class="table-input__inner" value="Địt mẹ mày" readonly>
+                                <input type="text" class="table-input__inner" id="username" value="" readonly>
                             </div>
                             <div class="table-input__content">
                                 Tên Đăng nhập không thể thay đổi
                             </div>
-                            
+
                         </td>
                     </tr>
 
                     <tr>
                         <td class="first-column">
-                            <label for="">Tên</label>
+                            <label for="fullname">Tên</label>
                         </td>
                         <td class="second-column">
                             <div class="table-input__outer">
-                                <input type="text" placeholder class="table-input__inner" value="">
+                                <input type="text" placeholder class="table-input__inner input" id="fullname" name="fullname" value="">
+                            </div>
+                            <div class="table-input__content notice-content fullname">
                             </div>
                         </td>
                     </tr>
@@ -38,8 +40,8 @@
                         </td>
                         <td class="second-column">
                             <div class="col-container">
-                                <div class="col-content">hahaha@gmail.com</div>
-                                <a class="col-btn email" onclick="loadBody('email')">Thay đổi</a>
+                                <div class="col-content" id="email"></div>
+                                <a class="col-btn email" onclick="loadEmail()">Thay đổi</a>
                             </div>
                         </td>
                     </tr>
@@ -50,8 +52,8 @@
                         </td>
                         <td class="second-column">
                             <div class="col-container">
-                                <div class="col-content">022649885</div>
-                                <a class="col-btn phone" onclick="loadBody('phone')">Thay đổi</a>
+                                <div class="col-content" id="phone"></div>
+                                <a class="col-btn phone" onclick="loadPhone()">Thay đổi</a>
                             </div>
                         </td>
                     </tr>
@@ -62,7 +64,7 @@
                         </td>
                         <td class="second-column">
                             <div class="radio-group" role="radiogroup">
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="male">
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Male">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -75,8 +77,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="female">
+
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Female">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -89,8 +91,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="radio" tabindex="0" role="radio" aria-checked="true" id="other">
+
+                                <div class="radio" tabindex="0" role="radio" aria-checked="false" id="Other">
                                     <div class="radio-btn">
                                         <div class="radio-btn__outer-circle">
                                             <div class="radio-btn__inner-circle"></div>
@@ -99,7 +101,7 @@
 
                                     <div class="radio__content">
                                         <div class="radio__label">
-                                            Bê đê
+                                            Khác
                                         </div>
                                     </div>
                                 </div>
@@ -112,16 +114,19 @@
                             <label for="birthday">Ngày sinh</label>
                         </td>
                         <td class="second-column">
-                            <input type="date" id="birthday" name="birthday">
+                            <input type="date" id="birthday" name="birthday" class="input">
+                            <div class="table-input__content notice-content birthday">
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <td class="first-column">
-                            
+
                         </td>
                         <td class="second-column">
-                            <button type="button" class="submit-button" aria-disabled="false" id="save-button">Lưu</button>
+                            <button type="submit" class="submit-button" aria-disabled="false"
+                                id="save-button">Lưu</button>
                         </td>
                     </tr>
                 </table>
@@ -131,14 +136,16 @@
         <div class="change-image-container">
             <div class="change-image">
                 <div class="image-container">
-                    <div class="image" style="background-image: url(https://wiki.tino.org/wp-content/uploads/2021/07/word-image-1467.png);"></div>
+                    <div class="image">
+                        <img src="" alt="Your Avatar" id="avatar">
+                    </div>
                 </div>
-                
+
                 <label for="file-upload" class="choose-image-button dict-button">
                     Chọn ảnh
                 </label>
-                <input type="file" class="choose-image" id="file-upload" accept=".jpg, .jpeg, .png">
-                
+                <input type="file" class="choose-image" id="file-upload" accept=".jpg, .jpeg, .png" max-size="1MB">
+
                 <div class="change-content-container">
                     <div class="change-content">Dung lượng file tối đa 1MB</div>
                     <div class="change-content">Định dạng: .JPEG, .PNG</div>
@@ -147,3 +154,4 @@
         </div>
     </div>
 </div>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{> head-admin}}
+
+<body>
+    
+    {{> header-admin}}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="content-header-left">
+                <i class="fa-solid fa-circle-right"></i><span>Thêm sản phẩm</span>
+            </div>
+            <div class="content-header-right"><a href="/admin/product">Quay lại</a></div>
+        </div>
+        <div class="content">
+            <form action="">
+                <div class="form-group">
+                    <label for="">Tên sản phẩm * </label>
+                    <input type="text" name="name" class="form-control" placeholder="Name product">
+                </div>
+                <div class="form-group">
+                    <label for="">Mô tả sản phẩm </label>
+                    <textarea id="subject" name="description" class="form-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Key search </label>
+                    <textarea id="key_search" name="key_search" class="form-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Giá (VNĐ) *</label>
+                    <input type="text" min="1000" name="price" class="form-control" value="1000">
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng *</label>
+                </div>
+                <div class="form-group">
+                    <label for="">S:</label>
+                    <input type="text" name="S_quantity" class="form-control" placeholder="Size S">
+                </div>
+                <div class="form-group">
+                    <label for="">M:</label>
+                    <input type="text" name="M_quantity" class="form-control" placeholder="Size M">
+                </div>
+                <div class="form-group">
+                    <label for="">L:</label>
+                    <input type="text" name="L_quantity" class="form-control" placeholder="Size L">
+                </div>
+                <div class="form-group">
+                    <label for="">XL:</label>
+                    <input type="text" name="XL_quantity" class="form-control" placeholder="Size XL">
+                </div>
+                <div class="form-group">
+                    <label for="">XXL:</label>
+                    <input type="text" name="XXL_quantity" class="form-control" placeholder="Size XXL">
+                </div>
+                <div class="form-group">
+                    <label for="">Hình ảnh *(link)</label>
+                    <input type="text" name="main_image" class="form-control" placeholder="Main image">
+                </div>
+                <div class="form-group">
+                    <label for="">Hình ảnh khác</label>
+                    <input type="text" name="image_1" class="form-control" placeholder="Sub image">
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="image_2" class="form-control" placeholder="Sub image">
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="image_3" class="form-control" placeholder="Sub image">
+                </div>
+                <div class="form-group">
+                    <label for="">Danh mục *</label>
+                    <select name="category" class="form-select">
+                        <option value="men">Nam</option>
+                        <option value="women">Nữ</option>
+                        <option value="kid">Trẻ em</option>
+                    </select>
+                </div>
+                <button class="btn-submit">Hoàn thành</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

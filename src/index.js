@@ -19,6 +19,10 @@ app.use(session({
   cookie: { secure: false}
 }));
 
+// Increase file upload limit
+
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ limit: '1mb', extended: true }));
 
 
 // connect database

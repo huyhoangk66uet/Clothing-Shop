@@ -3,7 +3,7 @@
         <h1 class="detail-header-content">Thay đổi số điện thoại</h1>
     </div>
     <div class="container-content password-flex">
-        <form action="">
+        <form action="" id="phone-form">
             <div class="detail-content">
                     <div class="password-container">
                         <div class="password-setup">
@@ -20,7 +20,7 @@
                                     Quên mật khẩu
                                 </button>
                             </div>
-                            <div class="notice-content margin-left wrong-password">
+                            <div class="notice-content margin-left password-confirm-phone">
                                 <!-- Sai mật khẩu -->
                             </div>
                         </div>
@@ -33,10 +33,10 @@
                                 </div>
 
                                 <div class="password-input">
-                                    <input type="phone" id="new-phone" class="input-content" autocomplete="off" name="password-confirm-phone" value="">
+                                    <input type="tel" id="new-phone" class="input-content" autocomplete="off" name="new-phone" value="">
                                 </div>
                             </div>
-                            <div class="notice-content margin-left wrong-new-phone">
+                            <div class="notice-content margin-left new-phone">
                                 <!-- phone không hợp lệ -->
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <div class="password-label password-space">
                                 </div>
                                 <div class="password-button">
-                                    <button type="button" class="submit-button" aria-disabled="true" id="confirm-change-phone">Xác nhận</button>
+                                    <button type="submit" class="submit-button" aria-disabled="false" id="confirm-change-phone">Xác nhận</button>
                                 </div>
                             </div>
                         </div>

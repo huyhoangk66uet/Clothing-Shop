@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
@@ -26,14 +26,13 @@
                 <div class="avatar">
                     <a href="/profile" class="avatar-place">
                         <div class="image-place">
-                            <img src="https://wiki.tino.org/wp-content/uploads/2021/07/word-image-1467.png"
-                                alt="Your avatar" class="avatar-image">
+                            <img src="{{avatarUrl}}" alt="Your avatar" class="avatar-image" id="avatar-icon">
                         </div>
                     </a>
 
                     <div class="username">
-                        <div class="avatar-name">Địt mẹ mày</div>
-                        <a class="change-profile" onclick="loadBody('info')">
+                        <div class="avatar-name">{{fullname}}</div>
+                        <a class="change-profile" onclick="loadInfo()">
                             <div class="change-button">
                                 <i class="fa fa-pencil pencil-icon"></i>
                                 Sửa hồ sơ
@@ -43,14 +42,14 @@
                 </div>
                 <div class="list-directory">
                     <div class="directory-header">
-                        <a class="dict-button dict-header" onclick="loadBody('info')">
+                        <a class="dict-button dict-header" onclick="loadInfo()">
                             <i class="fa fa-user-o user-icon"></i>
                             Tài khoản của tôi
                         </a>
                         <div class="sub-directory">
                             <ul>
-                                <li><a class="dict-button" onclick="loadBody('info')">Hồ sơ</a></li>
-                                <li><a class="dict-button" onclick="loadBody('password')" >Đổi mật khẩu</a></li>
+                                <li><a class="dict-button" onclick="loadInfo()">Hồ sơ</a></li>
+                                <li><a class="dict-button" onclick="loadPassword()">Đổi mật khẩu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="detail" id="dynamic-content" data-name="{{name}}">
+            <div class="detail" id="dynamic-content" data-name="{{bodyName}}">
 
 
 
@@ -101,24 +100,36 @@
             }
         }
         function loadBody(name) {
-            const dynamicContent = document.querySelector('#dynamic-content');
-            // Lấy dữ liệu từ server
-            const __dirpath = 'http://127.0.0.1:8080'
-            const path = __dirpath + '/src/resources/views/profileElements/' + name + '.hbs'
-            fetch(path)
-                .then(response => response.text())
-                .then(data => {
+            return new Promise((resolve, reject) => {
+                const dynamicContent = document.querySelector('#dynamic-content');
+                // Lấy dữ liệu từ server
+                const validRefreshPage = ['info', 'password'];
+                if (validRefreshPage.includes(name)) {
+                    dynamicContent.setAttribute('data-name', name);
+                }
+                else {
+                    dynamicContent.setAttribute('data-name', 'info');
+                }
+                const __dirpath = 'http://127.0.0.1:8080'
+                const path = __dirpath + '/src/resources/views/profileElements/' + name + '.hbs'
+                fetch(path)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Thêm phần khác vào div
+                        const newElement = document.createElement('div');
+                        newElement.innerHTML = data;
+                        dynamicContent.appendChild(newElement)
+                        removeChild();
+                        // Thay đổi URL trên thanh địa chỉ
+                        // addEventsToNewElements();
+                        history.pushState({}, '', '/profile/' + name);
+                        dynamicContent.setAttribute('data-name', name);
 
-                    // Thêm phần khác vào div
-                    const newElement = document.createElement('div');
-                    newElement.innerHTML = data;
-                    dynamicContent.appendChild(newElement)
-                    removeChild();
-                    // Thay đổi URL trên thanh địa chỉ
-                    addEventsToNewElements();
-                    history.pushState({}, '', '/profile/' + name);
-                });
-        }  
+                        resolve();
+                    })
+                    .catch(error => reject(error));
+            });
+        }
     </script>
 
     <!-- Show/Hide popup -->
@@ -127,39 +138,33 @@
 
         // const popupClose = document.querySelector('.js-popup-close')
 
-        function showBuyTickets(buyBtn, popup) {
-            return function () {
-                if (buyBtn.getAttribute('aria-disabled') == 'false') {
-                    popup.classList.add('open');
-                    buyBtn.setAttribute('aria-disable', 'true');
-                }
+        function showStatus(popup) {
+            if (!popup.classList.contains('open')) {
+                popup.classList.add('open');
             }
         }
 
-        function hideBuyTickets(popup) {
+        function hideStatus(popup) {
             return function () {
                 if (popup.classList.contains('open')) {
                     popup.classList.remove('open');
-                    buyBtn.setAttribute('aria-disable', 'false');
                 }
+                location.reload();
             }
         }
 
-        function addEventsToNewElements() {
-            const submitBtns = document.querySelectorAll('.submit-button');
+        function addNewStatus(status) {
             const popup = document.querySelector('.js-popup');
             const popupContainer = document.querySelector('.js-popup-container');
 
-            for (const buyBtn of submitBtns) {
-                buyBtn.addEventListener('click', showBuyTickets(buyBtn, popup));
-            }
+            showStatus(popup);
 
-            popup.addEventListener('click', hideBuyTickets(popup));
+            popup.addEventListener('click', hideStatus(popup));
             popupContainer.addEventListener('click', function (event) {
                 event.stopPropagation();
             });
         }
-        addEventsToNewElements();
+        // addEventsToNewElements();
     </script>
 
     <!-- Choose gender -->
@@ -176,25 +181,401 @@
             setAllAriaCheck(radioList)
             radio.setAttribute('aria-checked', 'true')
         }
-        document.addEventListener('click', function (event) {
+        function handleClick(event) {
             const target = event.target;
-            const radio = target.closest('.radio')
+            const radio = target.closest('.radio');
             if (radio != null) {
                 const radioBtns = document.querySelectorAll(".radio");
-                setAriaCheck(radio, radioBtns)
+                setAriaCheck(radio, radioBtns);
             }
-        })
+        }
+
+        document.addEventListener('click', handleClick);
     </script>
 
     <!-- Get Content when refresh -->
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const dynamicContent = document.getElementById("dynamic-content");
+        document.addEventListener("DOMContentLoaded", function () {
+            const dynamicContent = document.getElementById('dynamic-content');
             const name = dynamicContent.getAttribute('data-name');
-            loadBody(name);
+            if (name == 'info')
+                loadInfo();
+            if (name == 'password')
+                loadPassword();
         })
     </script>
+
+    <!-- Load Info -->
+
+    <script>
+        function loadInfo() {
+            loadBody('info')
+                .then(() => {
+                    // Set username
+                    const cur_username = document.getElementById('username');
+                    cur_username.value = '{{username}}';
+                    // Set fullname
+                    const cur_fullname = document.getElementById('fullname');
+                    cur_fullname.value = '{{fullname}}';
+                    // Set email
+                    const cur_email = document.getElementById('email');
+                    cur_email.innerHTML = '{{email}}';
+                    // Set phone
+                    const cur_phone = document.getElementById('phone');
+                    const phone = {{ phone_number }};
+                    if (phone != 0)
+                        cur_phone.innerHTML = '0' + '{{phone_number}}';
+                    // Set birthday
+                    const cur_birthday = document.getElementById('birthday');
+                    const birthdayStr = new Date('{{birthday}}');
+                    cur_birthday.value = birthdayStr.toISOString().slice(0, 10);
+                    // Set gender
+                    const radioBtn = document.getElementById('{{gender}}');
+                    radioBtn.setAttribute('aria-checked', 'true');
+                    // Set avatar 
+                    const avatar = document.getElementById('avatar');
+                    const avatarIcon = document.getElementById('avatar-icon');
+                    avatar.src = avatarIcon.src;
+                    checkImage();
+                    const intervalId = checkInfoForm();
+                    submitInfoForm(intervalId);
+                })
+                .catch (error => console.error(error));
+        }
+    </script>
+    <!--Check info form--->
+    <script src="/js/profile_form.js"></script>
+    <script>
+        function checkInfoForm() {
+            setInterval(function () {
+                ValidationForm('#info-form');
+            }, 500)
+        }
+    </script>
+
+    <!--Prevent change--->
+    <script>
+        function preventChange() {
+            const dynamicContent = document.getElementById('dynamic-content');
+            dynamicContent.classList.add('disabled');
+            dynamicContent.tabIndex = -1;
+        }
+    </script>
+
+    <!--Unblock change--->
+    <script>
+        function unblockChange() {
+            const dynamicContent = document.getElementById('dynamic-content');
+            dynamicContent.classList.remove('disabled');
+            dynamicContent.removeAttribute('tabIndex');
+        }
+    </script>
+
+    <!--Submit info form--->
+    <script>
+        function submitInfoForm(intervalId) {
+            $('#info-form').submit(function (event) {
+                event.preventDefault();
+                const isErr = ValidationForm('#info-form');
+                // console.log('hehehe')
+                if (!isErr) {
+                    clearInterval(intervalId);
+                    preventChange();
+                    const form = document.querySelector('#info-form');
+                    const inputs = form.querySelectorAll('.input');
+                    const fullname = form.querySelector('.input#fullname').value;
+                    const birthday = form.querySelector('.input#birthday').value;
+                    const radiogroup = form.querySelectorAll('.radio');
+                    var gender;
+                    for (const radio of radiogroup) {
+                        if (radio.getAttribute('aria-checked') == 'true') {
+                            gender = radio.id;
+                            break;
+                        }
+                    }
+                    const src = document.querySelector('#avatar').src;
+                    const base64String = src.split(';base64,').pop();
+                    const avatar = base64String;
+                    $.ajax({
+                        url: '/profile/save-info',
+                        method: 'PUT',
+                        data: {
+                            fullname: fullname,
+                            birthday: birthday,
+                            gender: gender,
+                            avatar: avatar
+                        }
+                    })
+                        .done(function (response) {
+                            // Xử lý kết quả trả về từ server
+                            addNewStatus('success');
+                            console.log(response);
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            // Xử lý lỗi khi gửi form
+                            console.error(errorThrown);
+                        });
+                }
+            })
+        }
+    </script>
+    <!--Check image--->
+    <script>
+        function checkImage() {
+            const avatar = document.getElementById('avatar');
+            const fileUpload = document.getElementById('file-upload');
+
+            fileUpload.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                console.log(file);
+
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                
+                if (!validImageTypes.includes(file.type)) {
+                    alert('Vui lòng chọn đúng định dạng ảnh (.jpeg, .png, .jpg)');
+                    return;
+                }
+
+                const maxSize = 1 * 1024 * 1024; // 1MB
+                if (file.size > maxSize) {
+                    alert('Vui lòng chọn ảnh có dung lượng tối đa là 1MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const scale = Math.min(1024 / img.width, 1024 / img.height); // giới hạn kích thước ảnh là 1024x1024
+                        canvas.width = img.width * scale;
+                        canvas.height = img.height * scale;
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        const quality = 0.1; // Đặt chất lượng ảnh là 30%
+                        const base64 = canvas.toDataURL('image/jpeg', quality);
+                        avatar.src = base64;
+                    };
+                    img.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+
+    </script>
+
+
+    <!-- Load Password -->
+
+    <script>
+        function loadPassword() {
+            loadBody('password')
+                .then(() => {
+                    const formName = '#password-form';
+                    const form = document.querySelector(formName);
+                    const passwords = form.querySelectorAll('input');
+                    for (const password of passwords) {
+                        password.addEventListener("change", function () {
+                            let msg;
+                            ValidationElement(formName, password, msg);
+                        })
+                    }
+                    submitPasswordForm();
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+
+    <!--Submit password form--->
+    <script>
+        function submitPasswordForm() {
+            const formName = '#password-form';
+            $(formName).submit(function (event) {
+                event.preventDefault();
+                var isErr = ValidationForm(formName);
+                // console.log('hehehe')
+                if (!isErr) {
+                    const form = document.querySelector(formName);
+                    const password = form.querySelector('#password');
+                    const newPassword = form.querySelector('#newPassword');
+                    const newPasswordRepeat = form.querySelector('#newPasswordRepeat');
+                    if (newPassword.value != newPasswordRepeat.value) {
+                        isErr = true;
+                        const msg = 'Mật khẩu không trùng khớp';
+                        const noticeContent = form.querySelector('.notice-content.' + newPasswordRepeat.name);
+                        noticeContent.innerHTML = msg;
+                    }
+                    if (!isErr) {
+                        preventChange();
+                        $.ajax({
+                            url: '/profile/change-password',
+                            method: 'PUT',
+                            data: {
+                                password: password.value,
+                                newPassword: newPassword.value
+                            }
+                        })
+                            .done(function (response) {
+                                // Xử lý kết quả trả về từ server
+                                const msg = response.message;
+                                if (msg == 'Success') {
+                                    addNewStatus('success');
+                                }
+                                else {
+                                    const noticeContent = form.querySelector('.notice-content.' + password.name);
+                                    noticeContent.innerHTML = msg;
+                                    unblockChange();
+                                }
+                                console.log(response);
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                // Xử lý lỗi khi gửi form
+                                console.error(errorThrown);
+                            });
+                    }
+                }
+            })
+        }
+    </script>
+
+    <!-- Load Email -->
+
+    <script>
+        function loadEmail() {
+            loadBody('email')
+                .then(() => {
+                    const formName = '#email-form';
+                    const form = document.querySelector(formName);
+                    const inputs = form.querySelectorAll('input');
+                    for (const input of inputs) {
+                        input.addEventListener("change", function () {
+                            let msg;
+                            ValidationElement(formName, input, msg);
+                        })
+                    }
+                    submitEmailForm();
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+
+    <!--Submit email form--->
+    <script>
+        function submitEmailForm() {
+            const formName = '#email-form';
+            $(formName).submit(function (event) {
+                event.preventDefault();
+                var isErr = ValidationForm(formName);
+                // console.log('hehehe')
+                if (!isErr) {
+                    const form = document.querySelector(formName);
+                    const password = form.querySelector('#password-confirm-email');
+                    const email = form.querySelector('#new-email');
+                    if (!isErr) {
+                        preventChange();
+                        $.ajax({
+                            url: '/profile/change-email',
+                            method: 'PUT',
+                            data: {
+                                password: password.value,
+                                email: email.value
+                            }
+                        })
+                            .done(function (response) {
+                                // Xử lý kết quả trả về từ server
+                                const msg = response.message;
+                                if (msg == 'Success') {
+                                    addNewStatus('success');
+                                }
+                                else {
+                                    const nameErr = (msg == 'Duplicate') ? email.name : password.name;
+                                    const noticeContent = form.querySelector('.notice-content.' + nameErr);
+                                    noticeContent.innerHTML = (msg == 'Duplicate') ? 'Email phải khác với email hiện tại' : msg;
+                                    unblockChange();
+                                }
+                                console.log(response);
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                // Xử lý lỗi khi gửi form
+                                console.error(errorThrown);
+                            });
+                    }
+                }
+            })
+        }
+    </script>
+
+
+    <!-- Load Phone -->
+
+    <script>
+        function loadPhone() {
+            loadBody('phone')
+                .then(() => {
+                    const formName = '#phone-form';
+                    const form = document.querySelector(formName);
+                    const inputs = form.querySelectorAll('input');
+                    for (const input of inputs) {
+                        input.addEventListener("change", function () {
+                            let msg;
+                            ValidationElement(formName, input, msg);
+                        })
+                    }
+                    submitPhoneForm();
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+
+    <!--Submit phone form--->
+    <script>
+        function submitPhoneForm() {
+            const formName = '#phone-form';
+            $(formName).submit(function (event) {
+                event.preventDefault();
+                var isErr = ValidationForm(formName);
+                console.log(isErr);
+                if (!isErr) {
+                    const form = document.querySelector(formName);
+                    const password = form.querySelector('#password-confirm-phone');
+                    const phone = form.querySelector('#new-phone');
+                    if (!isErr) {
+                        preventChange();
+                        $.ajax({
+                            url: '/profile/change-phone',
+                            method: 'PUT',
+                            data: {
+                                password: password.value,
+                                phone_number: phone.value
+                            }
+                        })
+                            .done(function (response) {
+                                // Xử lý kết quả trả về từ server
+                                const msg = response.message;
+                                if (msg == 'Success') {
+                                    addNewStatus('success');
+                                }
+                                else {
+                                    const nameErr = (msg == 'Duplicate') ? phone.name : password.name;
+                                    const noticeContent = form.querySelector('.notice-content.' + nameErr);
+                                    noticeContent.innerHTML = (msg == 'Duplicate') ? 'Số điện thoại phải khác với số điện thoại hiện tại' : msg;
+                                    unblockChange();
+                                }
+                                console.log(response);
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                // Xử lý lỗi khi gửi form
+                                console.error(errorThrown);
+                            });
+                    }
+                }
+            })
+        }
+    </script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>

@@ -4,11 +4,12 @@ const router = express.Router();
 import profileController from '../app/controllers/ProfileController.js'
 
 
-
-router.get('/phone', profileController.phone)
-router.get('/email', profileController.email)
-router.get('/password', profileController.password)
-router.get('/info', profileController.info)
+router.put('/change-phone', profileController.changePhone)
+router.put('/change-email', profileController.changeEmail)
+router.put('/change-password', profileController.changePassword)
+router.put('/save-info', profileController.saveInfo)
+router.get('/password', profileController.loadPassword)
+router.get('/info', profileController.loadInfo)
 router.get('/:page', profileController.redirectPath)
 router.get('/', profileController.redirectPath)
 
