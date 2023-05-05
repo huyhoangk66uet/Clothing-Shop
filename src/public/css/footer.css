@@ -3,7 +3,8 @@
   border-top: 1px solid #ddd; }
 
 .general-footer .main-footer {
-  margin: 0px 50px; }
+  margin: 0px 50px;
+  display: flex; }
 
 .general-footer .main-footer .footer-info {
   flex: 1.25;
@@ -11,24 +12,34 @@
   padding-right: 60px; }
 
 .footer-info .logo-ft {
+  display: flex;
+  justify-content: space-between;
   max-width: 100%;
   justify-content: center;
   align-items: center;
   margin-bottom: 16px;
   padding: 0px 60px; }
 
+.logo-ft > a {
+  flex: 1; }
+
 .main-footer .footer-info div,
 ul {
   font-size: 16px; }
 
 .footer-info .logo-ft .footer-logo-image {
+  display: flex;
+  justify-content: space-between;
   height: 50px;
   width: 50px;
   margin: auto; }
 
 .main-footer .footer-info .list-social {
+  display: flex;
+  justify-content: space-between;
   list-style: none;
-  padding: 0px 40px; }
+  padding: 0px 40px;
+  margin-bottom: 1rem; }
 
 .footer-info .list-social .icon-ft {
   font-size: 30px; }
@@ -36,7 +47,9 @@ ul {
 .general-footer .main-footer .footer-about {
   flex: 3;
   padding: 0px 90px;
-  margin-top: 12px; }
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between; }
 
 .footer-about .about-ft-item .title-ft {
   font-weight: 600;
