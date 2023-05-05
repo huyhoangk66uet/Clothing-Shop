@@ -10,15 +10,16 @@ li {
 }
 
 .product {
-    margin-top: 80px;
-    padding: 50px 100px;
+    margin-top: 50px;
+    padding: 50px 120px;
 }
 
 .product-top {
     display: flex;
     align-items: center;
 }
-.product-top > p{
+
+.product-top>p {
     font-family: var(--main-text-font);
     margin: 0 12px;
     font-size: 14px;
@@ -27,47 +28,101 @@ li {
 .product-content {
     display: flex;
 }
+
 .product-content-left {
     flex: 1;
-    width: 50%;
     display: flex;
+    height: 500px;
+    overflow: hidden;
 }
+
 .product-content-left-big-img {
+    flex: 5;
+   // aspect-ratio: 2/3;
+    overflow: hidden;
+    border: #CCCCCC solid 0.5px;
     display: flex;
-    flex: 8;
-    width: 80%;
-    padding-right: 20px;
-    aspect-ratio: 4 / 6; /* Tỉ lệ khung hình 4:6 */
+    align-items: center;
 }
-.product-content-left-big-img img {
+
+.product-content-left-big-img>img {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
+
 .product-content-left-small-img {
     flex: 2;
-    width: 20%;
-    padding-right: 20px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
+.box-list-small-img {
+    display: block;
+    width: 100%;
+    height: 85%;
+    overflow: hidden;
+    justify-content: center;
+    margin: 10px;
+}
+.list-small-img {
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.small-img {
+    height: 33.33%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
 .product-content-left-small-img img {
     width: 100%;
-    height: 24%;
+    height: auto;
+    margin: 10px;
+}
+
+.prev_button {
+    position: absolute;
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+    top: 1%;
+    left: 50%;
+}
+
+.next_button {
+    position: absolute;
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+    top: 94.5%;
+    left: 50%;
 }
 
 .product-content-right {
     flex: 1;
     width: 50%;
-    padding-left: 20px;
+    padding-left: 50px;
     text-align: left;
-
+    padding-top: 10px;
 }
-.product-content-right-product-name > h1{
+
+.product-content-right-product-name>h1 {
     font-family: var(--main-text-font);
     font-size: 25px;
 }
-.product-content-right-product-name > p{
+
+.product-content-right-product-name>p {
     color: #CCCCCC;
     font-size: 14px;
 }
+
 .product-content-right-product-price {
     margin: 12px 0px;
     font-size: 28px;
@@ -75,11 +130,12 @@ li {
     color: #ee4d2d;
     font-family: var(--main-text-font);
 }
-.product-content-right-product-price > p {
+
+.product-content-right-product-price>p {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.product-content-right-product-price  span {
+.product-content-right-product-price span {
     text-decoration-line: line-through;
     color: #585858;
     font-size: 20px;
@@ -93,10 +149,12 @@ li {
     font-size: 14px;
     cursor: pointer;
 }
+
 .product-color span:hover {
     color: red;
     border-color: red;
 }
+
 #chooseColor {
     display: none;
 }
@@ -105,15 +163,17 @@ li {
     display: inline-block;
     padding: 3px 6px;
     border: 1px solid;
-    border-color: #dddddd ;
+    border-color: #dddddd;
     margin: 12px 10px 5px 0px;
     font-size: 14px;
     cursor: pointer;
 }
+
 .size span:hover {
     color: red;
     border-color: red;
 }
+
 #chooseSize {
     display: none;
 }
@@ -123,6 +183,7 @@ li {
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
 .quantity-adjustment {
     padding-left: 9px;
     display: flex;
@@ -130,6 +191,7 @@ li {
     width: 90px;
     padding-left: 3px;
 }
+
 .quantity input {
     width: 50px;
     height: 20px;
@@ -139,13 +201,15 @@ li {
     flex: 1;
     border: 1px solid #CCCCCC;
 }
+
 .quantity input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.quantity-adjustment > i {
+
+.quantity-adjustment>i {
     cursor: pointer;
-    flex:1;
+    flex: 1;
     padding: 0px 3px;
     border: 1px solid #CCCCCC;
     width: 30px;
@@ -172,6 +236,7 @@ li {
     align-items: center;
     justify-content: center;
 }
+
 .product-content-right-product-button button:hover {
     background-color: black;
     color: #ffff;
@@ -182,6 +247,7 @@ li {
     padding-top: 40px;
     border-top: 1px solid #dddddd;
 }
+
 .product-content-right-bottom-top {
     position: absolute;
     width: 30px;
@@ -203,6 +269,7 @@ li {
     display: flex;
     border-bottom: 1px solid #dddddd;
 }
+
 .chitiet {
     border-bottom: 2px solid black;
 }
@@ -222,6 +289,7 @@ li {
     display: block;
     white-space: pre-wrap;
 }
+
 .product-content-right-bottom-content-mota {
     display: none;
     white-space: pre-wrap;
