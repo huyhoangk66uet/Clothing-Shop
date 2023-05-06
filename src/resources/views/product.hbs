@@ -8,7 +8,13 @@
   <script src="https://kit.fontawesome.com/3c35f3eeb3.js" crossorigin="anonymous"></script>
   <title>Product</title>
   <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/footer.css">
   <link rel="stylesheet" type="text/css" href="/css/product.css">
+   {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"> --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -26,10 +32,24 @@
             <img src="{{product.main_image}}" alt="">
           </div>
           <div class="product-content-left-small-img">
-            <img src="{{product.main_image}}" alt="">
-            <img src="{{getValueAtIndex product.image_ 0}}" alt="">
-            <img src="{{getValueAtIndex product.image_ 1}}" alt="">
-            <img src="{{getValueAtIndex product.image_ 2}}" alt="">
+            <i class="fa-sharp fa-solid fa-chevron-up prev_button"></i>
+            <div class="box-list-small-img">
+              <div class="list-small-img">
+                <div class="small-img">
+                  <img src="{{product.main_image}}" alt="">
+                </div>
+                <div class="small-img">
+                  <img src="{{getValueAtIndex product.image_ 0}}" alt="">
+                </div>
+                <div class="small-img">
+                  <img src="{{getValueAtIndex product.image_ 1}}" alt="">
+                </div>
+                <div class="small-img">
+                  <img src="{{getValueAtIndex product.image_ 2}}" alt="">
+                </div>
+              </div>
+            </div>
+            <i class="fa-sharp fa-solid fa-chevron-down next_button"></i>
           </div>
         </div>
         <!--_________________________Text____________________________--->
@@ -44,17 +64,6 @@
               {{/if}}
             </p>
           </div>
-          {{!-- <div class="product-content-right-product-color">
-            <p style="font-weight: bold; font-size: 20px;">Màu sắc:</p>
-            <div class="product-color">
-              <span>Xanh cổ vịt</span>
-              <span>Đỏ nâu</span>
-              <span>Vàng</span>
-              <span>Hồng</span>
-              <span>Xanh min</span>
-            </div>
-            <p id="chooseColor" style="font-size: 12px; color:red;">*Vui lòng chọn màu</p>
-          </div> --}}
           <div class="product-content-right-product-size">
             <p style="font-weight: bold;margin-top: 12px; font-size: 20px;">Size:</p>
             <div class="size">
@@ -115,6 +124,7 @@
       </div>
     </div>
   </div>
+  <div class="footer">{{> footer}}</div>
 </body>
 
 <script>
@@ -193,6 +203,37 @@
     })
   });
 
+  const prev_button = document.querySelector('.prev_button');
+  const next_button = document.querySelector('.next_button');
+
+  const imageList = document.querySelector('.list-small-img'); /// danh sách ảnh
+  const small_img_count = document.querySelectorAll('.small-img').length; /// số lượng ảnh nhỏ
+  const rect_box_list_small_img = document.querySelector('.box-list-small-img').getBoundingClientRect();
+  //// khung hiển thị ảnh
+  const rect_img_list = imageList.getBoundingClientRect();
+  const step = imageList.getBoundingClientRect().height / small_img_count;
+  /// số px di chuyển mỗi lần bấm nút
+  const maxClick = Math.max(0 , (rect_img_list.height - rect_box_list_small_img.height) / step);
+  let currentIndex = 0; // Vị trí hiện tại của danh sách ảnh
+
+  prev_button.addEventListener('click', () => {
+    currentIndex++; // Tăng vị trí lên 1
+    if (currentIndex > 0) {
+      currentIndex = 0; // Nếu đang ở vị trí đầu tiên thì đứng yên
+    }
+    const translateValue = `${currentIndex * step}px`; // Tính giá trị transform
+    imageList.style.transform = `translateY(${translateValue})`; // Di chuyển danh sách ảnh
+  });
+
+  next_button.addEventListener('click', () => {
+    currentIndex--; // Giảm vị trí đi 1
+    if (currentIndex < -maxClick) {
+      currentIndex = -maxClick; // Nếu đang ở vị trí cuối cùng, thì đứng yên
+    }
+    const translateValue = `${currentIndex * step}px`; // Tính giá trị transform
+    imageList.style.transform = `translateY(${translateValue})`; // Di chuyển danh sách ảnh
+  });
+
   //-------------------------------------Tăng giảm số lượng------------------------------------
   const plusIcon = document.getElementById("plus")
   const minusIcon = document.getElementById("minus")
@@ -206,19 +247,6 @@
     if (parseInt(amount.value) > parseInt(amount.min))
       amount.value = parseInt(amount.value) - 1;
   })
-
-
-  //-------------------------------------Chọn màu---------------------------------------------
-  /*const colorList = document.querySelectorAll(".product-color span")
-  //console.log(colorList)
-  colorList.forEach(function (color1) {
-    color1.addEventListener("click", function () {
-      colorList.forEach(function (color2) {
-        color2.style = "color: black; border-color: #dddddd;";
-      })
-      color1.style = "color: red; border-color: red;";
-    })
-  })*/
 
 
   //-------------------------------------Chọn size---------------------------------------------

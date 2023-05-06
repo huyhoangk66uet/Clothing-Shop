@@ -17,7 +17,7 @@
                         <th style="width: 5vw;">STT</th>
                         <th style="width: 20vw">Thông tin khách hàng</th>
                         <th style="width: 20vw">Thông tin sản phẩm</th>
-                        <th style="width: 10vw">Số tiền thanh toán</th>
+                        <th style="width: 10vw">Số tiền thanh toán (VNĐ)</th>
                         <th style="width: 10vw">Tình trạng thanh toán</th>
                         <th style="width: 10vw">Tình trạng giao hàng</th>
                         <th style="width: 15vw">Thay đổi</th>
@@ -29,7 +29,7 @@
                         <th>{{sum @index 1}}</th>
                         <th><img src="" alt="">{{this.user_name}}</th>
                         <th>Mã đơn: {{this._id}}</th>
-                        <th>{{this.total_money}}đ</th>
+                        <th>{{this.total_money}}</th>
                         {{#if (compareDate this.ship_date)}}
                             <th>Chưa thanh toán</th>
                         {{else}}

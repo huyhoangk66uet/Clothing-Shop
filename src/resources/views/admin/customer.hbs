@@ -16,20 +16,22 @@
                     <tr>
                         <th style="width: 5vw;">STT</th>
                         <th style="width: 20vw">Tên khách hàng</th>
+                        <th style="width: 10vw">Giới tính</th>
+                        <th style="width: 15vw">Ngày sinh</th>
                         <th style="width: 20vw">Email</th>
                         <th style="width: 10vw">SĐT</th>
-                        <th style="width: 10vw">Địa chỉ</th>
-                        <th style="width: 15vw">Thay đổi</th>
+                        <th style="width: 10vw">Thay đổi</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each users}}
                     <tr>
                         <th>{{sum @index 1}}</th>
-                        <th><img src="" alt="">{{this.name}}</th>
+                        <th>{{this.name}}</th>
+                        <th>{{this.gender}}</th>
+                        <th>{{dateString this.birthday}}</th>
                         <th>{{this.email}}</th>
                         <th>{{this.phone_number}}</th>
-                        <th>{{this.address}}</th>
                         <th>
                             <button class="btn btn-delete" user_id="{{this._id}}"
                                 onclick="removeItem(event, 'customer', 'user_id')">Xóa</button>
