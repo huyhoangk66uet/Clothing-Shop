@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="payment_page">
+        {{> header}} 
         <form id="payment_page" action="" method="post">
-            <header class="header_payment">
+            
+            {{!-- <header class="header_payment">
                 <div class="header_container">
                     <div class="logo">
                         <a href="./">
@@ -20,9 +27,10 @@
                         <span class="tiltle">Thanh Toán</span>
                     </div>
                 </div>
-            </header>
-            <div style="background-color: aliceblue;"><br><br></div>
-            <main>
+            </header> --}}
+            
+            <main style="margin-top: 60px;">
+                <div style="background-color: aliceblue;"><br><br></div>
                 <div class="container_payment">
                     <div class="payment_left">
                         <div class= "selection_container">
@@ -168,28 +176,28 @@
                             <div class="user_input_info">
                                 <div class="inputs_login_register_form">
                                     <div class="form_group">
-                                        <input id="user_name" name="user_name" rules="required" type="text" placeholder="Ho ten">
-                                        <p class="form_mess"></p>
+                                        <input id="user_name" name="user_name" rules="required" type="text" placeholder="Họ tên">
+                                        <p class="form_mess" style="color: red;"></p>
                                     </div>
                                     <br>
                                     <div class="form_group">
-                                        <input id="sdt" name="sdt" rules="required|min:10|max:11" type="number" placeholder="Dien thoai di dong">
-                                        <p class="form_mess"></p>
+                                        <input id="sdt" name="sdt" rules="required|min:10|max:11" type="number" placeholder="Điện thoại di động">
+                                        <p class="form_mess" style="color: red;"></p>
                                     </div>
                                     <br>
                                     <div class="form_group">
-                                        <input id="Tinh" name="Tinh" rules="required" type="text" placeholder="Tinh/Thanh pho">
-                                        <p class="form_mess"></p>
+                                        <input id="Tinh" name="Tinh" rules="required" type="text" placeholder="Tỉnh/Thành phố">
+                                        <p class="form_mess" style="color: red;"></p>
                                     </div>
                                     <br>
                                     <div class="form_group">
-                                        <input id="Huyen" name="Huyen" rules="required" type="text" placeholder="Quan/Huyen">
-                                        <p class="form_mess"></p>
+                                        <input id="Huyen" name="Huyen" rules="required" type="text" placeholder="Quận/Huyện">
+                                        <p class="form_mess" style="color: red;"></p>
                                     </div>
                                     <br>
                                     <div class="form_group">
-                                        <input id="Dia_chi" name="Dia_chi" rules="required" type="text" placeholder="Dia chi">
-                                        <p class="form_mess"></p>
+                                        <input id="Dia_chi" name="Dia_chi" rules="required" type="text" placeholder="Địa chỉ cụ thể">
+                                        <p class="form_mess" style="color: red;"></p>
                                     </div>
                                     <br> <br>
                                 </div> 

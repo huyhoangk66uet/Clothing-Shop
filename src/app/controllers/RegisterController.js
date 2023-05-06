@@ -1,6 +1,6 @@
 import Users from '../models/User.js'; // tra ve bang users
 import Carts from '../models/Cart.js';
-import User from '../models/User.js';
+//import User from '../models/User.js';
 //import { Promise } from 'mongoose';
 //import { data } from 'jquery';
 

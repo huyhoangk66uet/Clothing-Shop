@@ -6,13 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoping Cart</title>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 
 <body>
     
     <div class="cart_page">
-        {{!-- {{> header}} --}}
-        <header class="header_payment">
+        {{> header}} 
+        {{!-- <header class="header_payment">
             <div class="header_container">
                 <div class="logo">
                     <a href="/">
@@ -21,10 +27,13 @@
                     <span class="divider"></span>
                     <span class="tiltle">Giỏ Hàng</span>
                 </div>
+                 
             </div>
-        </header>
-        <div style="background-color: aliceblue;"><br><br></div>
-        <main>
+            
+        </header> --}}
+        
+        <main style="margin-top: 60px;">
+            <div style="background-color: aliceblue;"><br><br></div>
             <div class="container_cart">
                 <div class="cart_left">
                     <div class= "selection_container">
@@ -81,7 +90,7 @@
                                                                 <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg" alt="increase">
                                                             </span>
                                                         </div>
-                                                        <div class="q-ty_mess hide">Chỉ còn {{getThe2ndParameter this ../products ../remaining_product_list}} sản phẩm</div>
+                                                        <div class="q-ty_mess hide">Chi con {{getThe2ndParameter this ../products ../remaining_product_list}} san pham</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -236,13 +245,7 @@
 <script src='/js/Cart_Logic.js'></script>
 <script>
 
-    var product__final_prices_list = $('.product__final-prices')
-    product__final_prices_list = Array.from(product__final_prices_list)
-    product__final_prices_list.forEach(product__final_prices => {
-        product__final_prices.textContent = 
-                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('product__real_prices')[0].textContent) * 
-                parseFloat(product__final_prices.parentElement.parentElement.getElementsByClassName('qty-input')[0].value) + ' ₫'
-    })
+    
     //check_remaining_products()
 
 
