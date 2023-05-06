@@ -19,7 +19,7 @@
                         <th style="width: 5vw;">STT</th>
                         <th style="width: 20vw">Hình ảnh</th>
                         <th style="width: 20vw">Tên sản phẩm</th>
-                        <th style="width: 10vw">Giá</th>
+                        <th style="width: 10vw">Giá (VNĐ)</th>
                         <th style="width: 10vw">Số lượng</th>
                         <th style="width: 10vw">Danh mục</th>
                         <th style="width: 15vw">Thay đổi</th>
@@ -31,7 +31,7 @@
                         <th>{{sum @index 1}}</th>
                         <th><img style="width: 90px;" src="{{this.main_image}}" alt="img"></th>
                         <th>{{this.name}}</th>
-                        <th>{{this.price}}đ</th>
+                        <th>{{this.price}}</th>
                         <th>
                             <ul>
                                 <li>S:{{getValueAtIndex this.remaining_products 0}}</li>

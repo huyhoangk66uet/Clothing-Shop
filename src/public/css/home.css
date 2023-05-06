@@ -1,14 +1,5 @@
-/* ///////////////////////////////// */
 .content {
-    top: 60px;
-    height: 1000px;
-    position: relative;
-}
-
-.container {
-    width: 100vw;
-    height: 600px;
-    position: relative;
+    margin-top: 60px;
 }
 
 .container-new {
@@ -42,7 +33,7 @@
 
 
 .product-carousel .slick-slide {
-    margin: 0 20px;
+    margin: 0 25px;
     border: 2px rgb(207, 207, 207) solid;
 }
 
@@ -77,8 +68,6 @@
 
 .product {
     position: relative;
-    width: 250px;
-    height: 400px;
     background-color: rgb(241, 241, 241);
     justify-content: space-around;
 }
@@ -90,7 +79,7 @@
 }
 
 .product__image {
-    width: 248px;
+    width: 100%;
     height: 300px;
     position: relative;
 }
@@ -204,7 +193,7 @@
     position: absolute;
     top: 30vh;
     left: 20vw;
-    font-size: 80px;
+    font-size: 6vw;
     color: rgb(36, 36, 36);
 }
 

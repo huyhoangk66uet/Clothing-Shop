@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import Product from '../models/Product.js'; // tra ve bang users
-
+import Product from '../models/Product.js';
+import User from '../models/User.js';
 
 class HomeController {
 
@@ -8,6 +8,7 @@ class HomeController {
     show(req, res, next) {
 
         var check_out_auth = false
+        var check_admin = false
         try {
             var token = req.cookies.token;
             var ketqua = jwt.verify(token, 'mk');
@@ -16,6 +17,16 @@ class HomeController {
         }
         if (!ketqua) {
             check_out_auth = true
+        }else {
+            User.findById(ketqua._id)
+            .then(user => {
+                if (user.role === "admin") {
+                    check_admin = true
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
 
         var outstandingProducts;
@@ -27,7 +38,7 @@ class HomeController {
                     .limit(10)
                     .then(newProducts => {
                         newProducts = newProducts.map(product => product.toObject())
-                        res.render('./home', { check_out_auth, newProducts, outstandingProducts })
+                        res.render('./home', { check_out_auth, check_admin, newProducts, outstandingProducts })
                     })
                     .catch(err => {
                         res.status(400).json({ error: err })

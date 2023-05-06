@@ -53,10 +53,13 @@
     <div class="other" id="authentication">
         <div class="other__individual" style="margin-top: 15px;">
             <li class="individual" onclick="showDropdown()">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user" style="height: 40px;"></i>
                 <div class="individual__dropdown">
+                    {{#if check_admin}}
+                    <a class="individual__admin" href="/admin">Admin</a>
+                    {{/if}}
                     <a class="individual__edit" href="/profile/info">Thông tin tài khoản</a>
-                    <a href="/logout" class="individual__logout">Đăng xuất</a>
+                    <a class="individual__logout" href="/logout" >Đăng xuất</a>
                 </div>
             </li>
 
