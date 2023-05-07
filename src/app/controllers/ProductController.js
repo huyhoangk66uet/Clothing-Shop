@@ -2,6 +2,7 @@
 import jwt from 'jsonwebtoken';
 import Product from '../models/Product.js'; // tra ve bang users
 import Cart from '../models/Cart.js';
+import User from '../models/User.js';
 import { query } from 'express';
 //import { data } from 'jquery';
 //import Product_Image from '../models/Product_Image.js';
@@ -24,6 +25,7 @@ class ProductController {
         Product.findOne({_id: req.params.id})
             .then(product => {    
                 product = product.toObject();
+                var check_admin = false
                 if (!check_out_auth) {
                     User.findById(ketqua._id)
                         .then(user => {
@@ -40,7 +42,7 @@ class ProductController {
                 }
             })
             .catch(err => {
-                res.send('Khong tim thay san pham')
+                res.send('Không tìm thấy sản phẩm')
             })
                
 
@@ -71,7 +73,7 @@ class ProductController {
                     {$push: {products: product_}}
                 ).then(data => {
                     res.json({
-                        message: 'Da them vao gio hang'
+                        message: 'Đã thêm vào giỏ hàng'
                     })                    
                 }).catch(err => {
                     console.log('err' + err)
@@ -79,7 +81,7 @@ class ProductController {
                 
             } else {
                 res.json({
-                    message: 'San Pham Da Ton Tai Trong Gio Hang'
+                    message: 'Sản phẩm đã tồn tại trong giỏ hàng'
                 })
             }
         })        
