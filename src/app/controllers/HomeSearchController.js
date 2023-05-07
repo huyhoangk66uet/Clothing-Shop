@@ -30,7 +30,7 @@ class HomeSearchController {
             var classify = req.query.classify
             var category = req.query.category
             var key_search = classify + " " + category
-            var category_ = 'category=' + key_search
+            var category_ = 'category=' + category + '&classify=' + classify
             Product.find({ key_search: new RegExp(classify, "i"), category: category, isDelete: false })
                 .skip(start)
                 .limit(perPage)
