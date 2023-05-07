@@ -10,7 +10,7 @@ const User = new Schema({
     phone_number: {type: Number},
     user_name: {type: String},
     role: {type: String},
-    avatar: {type: Buffer, default: Buffer.from('30', 'hex')},
+    avatar: {type: Buffer, default: Buffer.from('', 'hex')},
     gender: {type: String, default: 'Other'},
     birthday: {type: Date, default: Date.now()}
   });
