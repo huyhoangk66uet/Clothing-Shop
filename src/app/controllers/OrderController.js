@@ -2,10 +2,24 @@
 import jwt from 'jsonwebtoken';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
+import User from '../models/User.js';
 class OrderController {
     show(req, res, next) {
         var token = req.cookies.token;
         var ketqua = jwt.verify(token, 'mk');
+
+        var check_admin = false
+        if (ketqua){
+            User.findById(ketqua._id)
+            .then(user => {
+                if (user.role === "admin") {
+                    check_admin = true
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
 
         // Trong quá trình xử lý Promise, 
         /// các lệnh tiếp theo trong chương trình sẽ tiếp tục được thực hiện 
@@ -50,7 +64,7 @@ class OrderController {
                             }
                             orders[i].total_amount = orders[i].total_money - orders[i].shipping_cost
                         }
-                        res.render('./order', { orders })
+                        res.render('./order', { orders , check_admin})
                     })
             })
             .catch(err => {

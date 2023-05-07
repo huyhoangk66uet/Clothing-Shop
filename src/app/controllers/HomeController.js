@@ -8,13 +8,14 @@ class HomeController {
     show(req, res, next) {
 
         var check_out_auth = false
-        var check_admin = false
         try {
             var token = req.cookies.token;
             var ketqua = jwt.verify(token, 'mk');
         } catch {
 
         }
+
+        var check_admin = false
         if (!ketqua) {
             check_out_auth = true
         }else {
