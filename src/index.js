@@ -6,7 +6,7 @@ import { engine, create } from 'express-handlebars';
 import cookieParser from 'cookie-parser';
 import session, { Cookie } from 'express-session';
 const app = express();
-const port = 3000;
+const port = 3003;
 
 //cookie-parser
 app.use(cookieParser())

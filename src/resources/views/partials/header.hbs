@@ -1,27 +1,25 @@
-<link rel="stylesheet" href="css/header.css">
-
 <header class="header">
     <div class="category">
         <div class="category-item">
-            <div class="category-item__parent " category="nam" >Nam</div>
+            <div class="category-item__parent " category="Nam">Nam</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao" >Áo</li>
-                <li class="category_child" classify="quan" >Quần</li>
+                <li class="category_child" classify="Áo">Áo</li>
+                <li class="category_child" classify="Quần">Quần</li>
             </div>
         </div>
         <div class="category-item">
-            <div class="category-item__parent" category="nu" >Nữ</div>
+            <div class="category-item__parent" category="Nữ">Nữ</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao" >Áo</li>
-                <li class="category_child" classify="quan" >Quần</li>
-                <li class="category_child" classify="vay" >Váy</li>
+                <li class="category_child" classify="Áo">Áo</li>
+                <li class="category_child" classify="Quần">Quần</li>
+                <li class="category_child" classify="Váy">Váy</li>
             </div>
         </div>
         <div class="category-item">
-            <div class="category-item__parent" category="tre_em" >Trẻ em</div>
+            <div class="category-item__parent" category="Trẻ em">Trẻ em</div>
             <div class="category-item__child">
-                <li class="category_child" classify="ao" >Áo</li>
-                <li class="category_child" classify="quan" >Quần</li>
+                <li class="category_child" classify="Áo">Áo</li>
+                <li class="category_child" classify="Quần">Quần</li>
             </div>
         </div>
     </div>
@@ -31,8 +29,8 @@
     </div>
 
     <form class="search" action="/homeSearch">
-                <input class="search__input" type="text" name="search" placeholder="Tìm kiếm sản phẩm">
-                <button class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <input class="search__input" type="text" name="search" placeholder="Tìm kiếm sản phẩm">
+        <button class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     {{#if check_out_auth}}
     <div class="other" id="unauthenticated">
@@ -61,7 +59,7 @@
                     <a class="individual__admin" href="/admin">Admin</a>
                     {{/if}}
                     <a class="individual__edit" href="/profile/info">Thông tin tài khoản</a>
-                    <a class="individual__logout" href="/logout" >Đăng xuất</a>
+                    <a class="individual__logout" href="/logout">Đăng xuất</a>
                 </div>
             </li>
 
@@ -77,48 +75,48 @@
     {{/if}}
 </header>
 <form action="/homeSearch" method="GET" id="get_category">
-        <input type="hidden" name="category" id="category_info">
+    <input type="hidden" name="category" id="category_info">
+</form>
+<form action="/homeSearch" method="GET" id="get_classify">
+    <input type="hidden" name="category" id="category_classify">
+    <input type="hidden" name="classify" id="classify_info">
 </form>
 
 
 <script>
     function showDropdown() {
-    document.querySelector(".individual__dropdown").classList.toggle("showDropdown");
-}
+        document.querySelector(".individual__dropdown").classList.toggle("showDropdown");
+    }
 </script>
 
 <script>
-//// phan loai theo gioi tinh
-        var form_category = document.getElementById('get_category')
-        var input_category = document.getElementById('category_info')
-        var input_category_tv = document.getElementById('category_info_tv')
-        var input_classify = document.getElementById('classify_info')
+    //// phan loai theo gioi tinh
+    var categorys = document.getElementsByClassName('category-item__parent')
+    categorys = Array.from(categorys)
+    categorys.forEach(category => {
+        category.onclick = function (event) {
+            var form_category = document.getElementById('get_category')
+            var input_category = document.getElementById('category_info')
+            var sex = event.target.getAttribute('category')
+            input_category.value = sex
+            form_category.submit()
 
-        var categorys = document.getElementsByClassName('category-item__parent')
-        categorys = Array.from(categorys)
-        categorys.forEach(category => {
-            category.onclick = function(event) {
-                var sex = event.target.getAttribute('category')
-                input_category.value = sex
-                input_category_tv = event.target.getAttribute('category_')
-                form_category.submit()
-
-            }
-        })
+        }
+    })
 
     //// phan loai theo loai hang
 
-        var category_childs = document.getElementsByClassName('category_child')
-        category_childs = Array.from(category_childs)
-        category_childs.forEach(category_child => {
-            category_child.onclick = function(event) {
-                var sex = event.target.parentElement.parentElement.getElementsByClassName('category-item__parent')[0].getAttribute('category')
-                var classify = event.target.getAttribute('classify')
-                console.log(sex + '/' + classify)
-                input_category.value = sex + '-' + classify
-                //input_classify.value = classify
-                form_category.submit()
-
-            }
-        })
+    var classifies = document.getElementsByClassName('category-item__child')
+    classifies = Array.from(classifies)
+    classifies.forEach(classify => {
+        classify.onclick = function (event) {
+            var form_classify = document.getElementById('get_classify')
+            var input_classify = document.getElementById('classify_info')
+            var input_category = document.getElementById('category_classify')
+            var sex = event.target.parentElement.parentElement.getElementsByClassName('category-item__parent')[0].getAttribute('category')
+            input_category.value = sex
+            input_classify.value = event.target.getAttribute('classify')
+            form_classify.submit()
+        }
+    })
 </script>

@@ -1,6 +1,6 @@
 
 .content {
-    margin-top: 50px;
+    margin: 25px 100px;
     display: flex;
     flex-wrap: wrap;
     column-count: auto;
@@ -13,7 +13,7 @@
     width: 100vw;
     height: 150px;
     background-color: #565d9e;
-    font-size: 50px;
+    font-size: 40px;
     color: aliceblue;
     justify-content: center;
     align-items: center;
@@ -24,7 +24,7 @@
     position: relative;
     border: 2px solid rgb(167, 167, 167);
     margin: 30px auto;
-    width: 300px;
+    width: 260px;
     height: 400px;
     background-color: rgb(212, 212, 212);
     justify-content: space-around;

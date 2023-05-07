@@ -9,8 +9,21 @@ class ProfileController {
     loadInfo(req, res, next) {
         const token = req.cookies.token;
         const result = jwt.verify(token, 'mk');
-        // console.log(token);
-        // console.log(result);
+
+        var check_admin = false
+        if (!result) {
+            check_out_auth = true
+        } else {
+            User.findById(result._id)
+                .then(user => {
+                    if (user.role === "admin") {
+                        check_admin = true
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
         User.findById(result._id)
             .then(profile => {
                 if (profile) {
@@ -26,7 +39,7 @@ class ProfileController {
                             const phone_number = profile.phone_number;
                             const gender = profile.gender;
                             const birthday = profile.birthday;
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info' });
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info' , check_admin});
                         })
                         .catch((err) => {
                             console.log(err);
@@ -60,7 +73,7 @@ class ProfileController {
                             const phone_number = profile.phone_number;
                             const gender = profile.gender;
                             const birthday = profile.birthday;
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password' });
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password'});
                         })
                         .catch((err) => {
                             console.log(err);

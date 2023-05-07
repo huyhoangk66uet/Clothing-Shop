@@ -3,6 +3,7 @@ import User from '../models/UserProfile.js';
 import Order from '../models/Order.js';
 import Cart from '../models/Cart.js';
 import lodash from 'lodash';
+import unidecode from 'unidecode';
 
 
 
@@ -81,8 +82,9 @@ class AdminController {
     add_product(req, res, next) {
         var name = lodash.toLower(req.body.name) 
         name = lodash.startCase(name)
+        var key_search = req.body.name + " " + unidecode(name)
         var newProduct = {
-            name: name,
+            name: req.body.name,
             price: req.body.price,
             old_price: req.body.old_price,
             category: req.body.category,
@@ -97,7 +99,7 @@ class AdminController {
             image_: [req.body.image_1,
             req.body.image_2,
             req.body.image_3],
-            key_search: req.body.key_search,
+            key_search: key_search,
             isDelete: false,
             isOutstanding: req.body.isOutstanding
         }
@@ -135,8 +137,9 @@ class AdminController {
         var product_id = req.params.id
         var name = lodash.toLower(req.body.name) 
         name = lodash.startCase(name)
+        var key_search = req.body.name + " " + unidecode(name)
         var updateProduct = {
-            name: name,
+            name: req.body.name,
             price: req.body.price,
             old_price: req.body.old_price,
             category: req.body.category,
@@ -151,7 +154,7 @@ class AdminController {
             image_: [req.body.image_1,
             req.body.image_2,
             req.body.image_3],
-            key_search: req.body.key_search,
+            key_search: key_search,
             isDelete: false,
             isOutstanding: req.body.isOutstanding
         }
