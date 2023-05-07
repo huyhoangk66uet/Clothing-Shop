@@ -8,6 +8,8 @@ import jwt from 'jsonwebtoken';
 class PaymentController {
     
     show(req, res, next) {
+        var token = req.cookies.token;
+        var ketqua = jwt.verify(token, 'mk');
         var product_list = JSON.parse(req.body.product_id_list)
         console.log('ok nhá')
         console.log(product_list)
@@ -19,12 +21,7 @@ class PaymentController {
         })
         var product_quantity_list = product_list.map(function(product) {
             return product.quantity
-        })
-        // Product.find({_id: {$in: product_id_list}})
-        // .then(product_list => {
-        //     product_list = product_list.map(product => product.toObject())
-        //     res.render('./payment', {product_list, product_quantity_list })
-        // })    
+        })   
         const getProductList = (productIds) => {
             const promises = productIds.map((productId) => {
               return Product.findById(productId);
@@ -33,11 +30,23 @@ class PaymentController {
         };
         
           getProductList(product_id_list)
-            .then((product_list) => {
-                // productList will contain all products matching the provided ids, in the same order
-                
+            .then((product_list) => {                
                 product_list = product_list.map(product => product.toObject())
-                res.render('./payment', {product_list, product_quantity_list , product_size_list})
+                if (!check_out_auth) {
+                    User.findById(ketqua._id)
+                        .then(user => {
+                            if (user.role === "admin") {
+                                check_admin = true
+                            }
+                            res.render('./payment', {product_list, product_quantity_list , product_size_list, check_admin})
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                } else {
+                    res.render('./payment', {product_list, product_quantity_list , product_size_list, check_admin})
+                }
+                
             })
     }
 

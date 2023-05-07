@@ -14,20 +14,8 @@ class HomeController {
         } catch {
 
         }
-
-        var check_admin = false
         if (!ketqua) {
             check_out_auth = true
-        }else {
-            User.findById(ketqua._id)
-            .then(user => {
-                if (user.role === "admin") {
-                    check_admin = true
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
         }
 
         var outstandingProducts;
@@ -39,7 +27,22 @@ class HomeController {
                     .limit(10)
                     .then(newProducts => {
                         newProducts = newProducts.map(product => product.toObject())
-                        res.render('./home', { check_out_auth, check_admin, newProducts, outstandingProducts })
+                        var check_admin = false
+                        if (!check_out_auth) {
+                            User.findById(ketqua._id)
+                                .then(user => {
+                                    if (user.role === "admin") {
+                                        check_admin = true
+                                    }
+                                    res.render('./home', { check_out_auth, check_admin, newProducts, outstandingProducts })
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
+                        } else {
+                            res.render('./home', { check_out_auth, check_admin, newProducts, outstandingProducts })
+                        }
+                        
                     })
                     .catch(err => {
                         res.status(400).json({ error: err })

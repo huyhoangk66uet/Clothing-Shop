@@ -8,19 +8,6 @@ class OrderController {
         var token = req.cookies.token;
         var ketqua = jwt.verify(token, 'mk');
 
-        var check_admin = false
-        if (ketqua){
-            User.findById(ketqua._id)
-            .then(user => {
-                if (user.role === "admin") {
-                    check_admin = true
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        }
-
         // Trong quá trình xử lý Promise, 
         /// các lệnh tiếp theo trong chương trình sẽ tiếp tục được thực hiện 
         /// mà không cần chờ Promise hoàn thành. 
@@ -29,7 +16,7 @@ class OrderController {
         Order.find({
             user_id: ketqua._id
         })
-        .sort({order_date: 'desc'})
+            .sort({ order_date: 'desc' })
             .then(orders => {
                 orders = orders.map(order => order.toObject())
                 // Lấy danh sách các sản phẩm có id trong productIds (trả về dưới dạng promise)
@@ -57,14 +44,28 @@ class OrderController {
                                 orders[i].product_list[j].product_main_image = products[i][j].main_image
                                 //console.log(orders[i].product_list[j])
                             }
-                            if( orders[i].shipping_method === "Giao sieu toc") {
+                            if (orders[i].shipping_method === "Giao sieu toc") {
                                 orders[i].shipping_cost = 25000
                             } else {
                                 orders[i].shipping_cost = 15000
                             }
                             orders[i].total_amount = orders[i].total_money - orders[i].shipping_cost
                         }
-                        res.render('./order', { orders , check_admin})
+                        var check_admin = false
+                        if (ketqua) {
+                            User.findById(ketqua._id)
+                                .then(user => {
+                                    if (user.role === "admin") {
+                                        check_admin = true
+                                    }
+                                    res.render('./order', { orders, check_admin })
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
+                        }else {
+                            res.render('./order', { orders, check_admin })
+                        }
                     })
             })
             .catch(err => {

@@ -20,17 +20,8 @@ class HomeSearchController {
         }
         if (!ketqua) {
             check_out_auth = true
-        } else {
-            User.findById(ketqua._id)
-                .then(user => {
-                    if (user.role === "admin") {
-                        check_admin = true
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
         }
+
         var page = parseInt(req.query.page) || 1;
         var perPage = 12;
         var start = (page - 1) * perPage;
@@ -45,20 +36,46 @@ class HomeSearchController {
                 .limit(perPage)
                 .then(products => {
                     products = products.map(product => product.toObject())
-                    res.render('./homeSearch', { products, page, category_, key_search , check_out_auth, check_admin })
+                    if (!check_out_auth) {
+                        User.findById(ketqua._id)
+                            .then(user => {
+                                if (user.role === "admin") {
+                                    check_admin = true
+                                }
+                                res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    } else {
+                        res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                    }
                 })
                 .catch(err => {
                     res.status(400).json({ error: err })
                 })
-        }else if (req.query.category) {
+        } else if (req.query.category) {
             var key_search = req.query.category
             var category_ = 'category=' + key_search
-            Product.find({ category: new RegExp(key_search, "i"), isDelete: false })
+            Product.find({ category: key_search, isDelete: false })
                 .skip(start)
                 .limit(perPage)
                 .then(products => {
                     products = products.map(product => product.toObject())
-                    res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                    if (!check_out_auth) {
+                        User.findById(ketqua._id)
+                            .then(user => {
+                                if (user.role === "admin") {
+                                    check_admin = true
+                                }
+                                res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    } else {
+                        res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                    }
                 })
                 .catch(err => {
                     res.status(400).json({ error: err })
@@ -71,7 +88,20 @@ class HomeSearchController {
                 .limit(perPage)
                 .then(products => {
                     products = products.map(product => product.toObject())
-                    res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                    if (!check_out_auth) {
+                        User.findById(ketqua._id)
+                            .then(user => {
+                                if (user.role === "admin") {
+                                    check_admin = true
+                                }
+                                res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    } else {
+                        res.render('./homeSearch', { products, page, category_, key_search, check_out_auth, check_admin })
+                    }
                 })
                 .catch(err => {
                     res.status(400).json({ error: err })
@@ -82,8 +112,20 @@ class HomeSearchController {
                 .limit(perPage)
                 .then(products => {
                     products = products.map(product => product.toObject())
-                    //console.log(products[0].image_[0])
-                    res.render('./homeSearch', { products, page, check_out_auth, check_admin })
+                    if (!check_out_auth) {
+                        User.findById(ketqua._id)
+                            .then(user => {
+                                if (user.role === "admin") {
+                                    check_admin = true
+                                }
+                                res.render('./homeSearch', { products, page, check_out_auth, check_admin })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    } else {
+                        res.render('./homeSearch', { products, page, check_out_auth, check_admin })
+                    }
                 })
                 .catch(err => {
                     res.status(400).json({ error: err })

@@ -13,18 +13,6 @@ class CartController {
         var token = req.cookies.token;
         var ketqua = jwt.verify(token, 'mk');
 
-        var check_admin = false
-        if (ketqua){
-            User.findById(ketqua._id)
-            .then(user => {
-                if (user.role === "admin") {
-                    check_admin = true
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        }
         Cart.findOne({
             user_id: ketqua._id
         })
@@ -70,7 +58,22 @@ class CartController {
                             }
                         })
                         products = products.map(product => product.toObject())
-                        res.render('./cart', { products, check_remaining, size_list, remaining_product_list, quantity_list, check_admin })
+                        var check_admin = false
+                        if (ketqua) {
+                            User.findById(ketqua._id)
+                                .then(user => {
+                                    if (user.role === "admin") {
+                                        check_admin = true
+                                    }
+                                    res.render('./cart', { products, check_remaining, size_list, remaining_product_list, quantity_list, check_admin })
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
+                        } else {
+                            res.render('./cart', { products, check_remaining, size_list, remaining_product_list, quantity_list, check_admin })
+                        }
+                        
                     })
             })
             .catch(err => {

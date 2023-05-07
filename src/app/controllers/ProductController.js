@@ -22,12 +22,22 @@ class ProductController {
             check_out_auth = true
         }
         Product.findOne({_id: req.params.id})
-            // .populate('product_images')
-            // .exec()
             .then(product => {    
                 product = product.toObject();
-                //console.log(product);
-                res.render('./product', {product, check_out_auth})
+                if (!check_out_auth) {
+                    User.findById(ketqua._id)
+                        .then(user => {
+                            if (user.role === "admin") {
+                                check_admin = true
+                            }
+                            res.render('./product', {product, check_out_auth, check_admin})
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                } else {
+                    res.render('./product', {product, check_out_auth, check_admin})
+                }
             })
             .catch(err => {
                 res.send('Khong tim thay san pham')
