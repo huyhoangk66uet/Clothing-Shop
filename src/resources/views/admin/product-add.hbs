@@ -14,9 +14,10 @@
         </div>
         <div class="content">
             <form id="add_product_form" action="" method="POST">
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">Tên sản phẩm * </label>
-                    <input type="text" id="name" name="name" class="form-control" >
+                    <input type="text" id="name" name="name" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
                 <div class="form-group">
                     <label for="">Chi tiết sản phẩm </label>
@@ -26,9 +27,10 @@
                     <label for="">Mô tả sản phẩm </label>
                     <textarea id="description" name="description" class="form-text"></textarea>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">Giá hiện tại (VNĐ) *</label>
-                    <input type="text" id="price" name="price" class="form-control" >
+                    <input type="text" id="price" name="price" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
                 <div class="form-group">
                     <label for="">Giá cũ (VNĐ) </label>
@@ -37,29 +39,35 @@
                 <div class="form-group">
                     <label for="">Số lượng *</label>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">S:</label>
-                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" >
+                    <input type="text" id="S_quantity" name="S_quantity" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">M:</label>
-                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" >
+                    <input type="text" id="M_quantity" name="M_quantity" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">L:</label>
-                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" >
+                    <input type="text" id="L_quantity" name="L_quantity" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">XL:</label>
-                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" >
+                    <input type="text" id="XL_quantity" name="XL_quantity" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">XXL:</label>
-                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" >
+                    <input type="text" id="XXL_quantity" name="XXL_quantity" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
-                <div class="form-group">
+                <div class="form_group form-group">
                     <label for="">Hình ảnh *(link)</label>
-                    <input type="text" id="main_image" name="main_image" class="form-control" >
+                    <input type="text" id="main_image" name="main_image" class="form-control" rules="required">
+                    <p class="form_mess" style="color: red;"></p>
                 </div>
                 <div class="form-group">
                     <label for="">Hình ảnh khác</label>
@@ -94,46 +102,53 @@
     </div>
     <script src="/js/admin.js"></script>
 </body>
-
+<script src='/js/validation_form.js'></script>
 <script>
-    var addProduct_form = document.getElementById('add_product_form')
-    addProduct_form.onsubmit = function(event) {
-        var newProduct = {}
-        event.preventDefault();
-        $.ajax({
-            url: '/admin/product-add',
-            type: 'POST',
-            data: {
-                name: $('#name').val(),
-                price: $('#price').val(),
-                old_price: $('#old_price').val(),
-                detail: $('#detail').val(),
-                description: $('#description').val(),
-                S_quantity: $('#S_quantity').val(),
-                M_quantity: $('#M_quantity').val(),
-                L_quantity: $('#L_quantity').val(),
-                XL_quantity: $('#XL_quantity').val(),
-                XXL_quantity: $('#XXL_quantity').val(),
-                main_image: $('#main_image').val(),
-                image_1: $('#image_1').val(),
-                image_2: $('#image_2').val(),
-                image_3: $('#image_3').val(),
-                category: $('#category').val(),
-                isOutstanding:$('#isOutstanding').val()
-            }
-        })
-        .done(data => {
-            if(data.message) {
-                alert('Thêm sản phẩm thành công')
-                window.location.reload()
-            }else{
-                alert("Thêm sản phẩm thất bại")
-                window.location.reload()
-            }
-        })
-        .fail(err => {
-            alert(err)
-        })
+    var form = new Validator('#add_product_form'); 
+    form.onSubmit = function(formData) {
+            addProductF()
+        }
+
+    function addProductF() {
+        var addProduct_form = document.getElementById('add_product_form')
+        addProduct_form.onsubmit = function(event) {
+            var newProduct = {}
+            event.preventDefault();
+            $.ajax({
+                url: '/admin/product-add',
+                type: 'POST',
+                data: {
+                    name: $('#name').val(),
+                    price: $('#price').val(),
+                    old_price: $('#old_price').val(),
+                    detail: $('#detail').val(),
+                    description: $('#description').val(),
+                    S_quantity: $('#S_quantity').val(),
+                    M_quantity: $('#M_quantity').val(),
+                    L_quantity: $('#L_quantity').val(),
+                    XL_quantity: $('#XL_quantity').val(),
+                    XXL_quantity: $('#XXL_quantity').val(),
+                    main_image: $('#main_image').val(),
+                    image_1: $('#image_1').val(),
+                    image_2: $('#image_2').val(),
+                    image_3: $('#image_3').val(),
+                    category: $('#category').val(),
+                    isOutstanding:$('#isOutstanding').val()
+                }
+            })
+            .done(data => {
+                if(data.message) {
+                    alert('Thêm sản phẩm thành công')
+                    window.location.reload()
+                }else{
+                    alert("Thêm sản phẩm thất bại")
+                    window.location.reload()
+                }
+            })
+            .fail(err => {
+                alert(err)
+            })
+        }
     }
 
 </script>
