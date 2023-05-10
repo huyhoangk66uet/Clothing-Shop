@@ -15,8 +15,8 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
             var tmp = 0;
             var q_ty_mess = event.currentTarget.parentElement.parentElement.getElementsByClassName('q-ty_mess')[0]
             if(qty_input.value > 1) {
-                q_ty_mess.classList.add('hide')
-                qty_input.value = parseFloat(qty_input.value) - 1;
+                // q_ty_mess.classList.add('hide')
+                // qty_input.value = parseFloat(qty_input.value) - 1;
                 var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
                 tmp = item_product.getElementsByClassName('product__final-prices')[0].textContent
                 item_product.getElementsByClassName('product__final-prices')[0].textContent = 
@@ -54,7 +54,7 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
             .done(data => {
                 if(data.check_remaining) {
                     var tmp = 0;
-                    qty_input.value = parseFloat(qty_input.value) + 1;
+                    // qty_input.value = parseFloat(qty_input.value) + 1;
                     //var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
                     tmp = item_product.getElementsByClassName('product__final-prices')[0].textContent
                     item_product.getElementsByClassName('product__final-prices')[0].textContent = 
@@ -65,9 +65,9 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
                          + parseFloat(item_product.getElementsByClassName('product__final-prices')[0].textContent)
                     }
                     document.getElementById('prices__value--final').textContent = prices__value_tmp.textContent
-                    q_ty_mess.classList.add('hide')
+                    // q_ty_mess.classList.add('hide')
                 } else {
-                    q_ty_mess.classList.remove('hide')
+                    // q_ty_mess.classList.remove('hide')
                 }
             })
             .fail(err => {
