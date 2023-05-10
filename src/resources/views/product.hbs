@@ -82,7 +82,7 @@
             <p style="font-weight: bold; font-size: 20px;">Số lượng:</p>
             <div class="quantity-adjustment">
               <i class="fa-sharp fa-solid fa-minus" id="minus"></i>
-              <input style="pointer-events: none;" type="number" id="amount_product" min="1" max="10" value="1">
+              <input type="number" id="amount_product" min="1" max="10" value="1">
               <i class="fa-sharp fa-solid fa-plus" id="plus"></i>
             </div>
             <p id="quantityInStock">103 sản phẩm có sẵn</p>
@@ -137,12 +137,12 @@
   })
     .done(data => {
       if (data.remainning <= 0) {
-        amount.min = 0
-        $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+        amount.min = 0;
+        $('#quantityInStock').text('Sản phẩm tạm hết hàng');
 
       } else {
-        amount.min = 1
-        $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn')
+        amount.min = 1;
+        $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn');
 
       }
       amount.value = amount.min
@@ -151,6 +151,19 @@
     .fail(err => {
       console.log(err)
     })
+
+
+  var input = document.getElementById("amount_product");
+  input.addEventListener("change", function () {
+    var value = parseInt(this.value);
+    var min = parseInt(this.min);
+    var max = parseInt(this.max);
+    if (value < min) {
+      this.value = min;
+    } else if (value > max) {
+      this.value = max;
+    }
+  });
 </script>
 
 <script>
