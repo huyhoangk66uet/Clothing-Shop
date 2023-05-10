@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,16 +11,16 @@
     <link rel="stylesheet" href="/css/product.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 
 <body>
-
+    
     <div class="cart_page">
-        {{> header}}
+        {{> header}} 
         {{!-- <header class="header_payment">
             <div class="header_container">
                 <div class="logo">
@@ -31,16 +30,16 @@
                     <span class="divider"></span>
                     <span class="tiltle">Giỏ Hàng</span>
                 </div>
-
+                 
             </div>
-
+            
         </header> --}}
-
+        
         <main style="margin-top: 60px;">
             <div style="background-color: aliceblue;"><br><br></div>
             <div class="container_cart">
                 <div class="cart_left">
-                    <div class="selection_container">
+                    <div class= "selection_container">
                         <div class="order_overview">
                             <label class="select_all_product">
                                 <input id="select_all_product" type="checkbox">
@@ -51,166 +50,118 @@
                             <span>Thành tiền</span>
                         </div>
                         <div class="product_list">
-                            <div class="product_list_info">
-                                <div class="package_summary">
-                                </div>
-                                <div class="package_item_list">
-                                    {{#each products}}
-                                    {{#if (check this ../products ../check_remaining)}}
-                                    <div class="item_product">
-                                        <div class="row">
-                                            <div class="col-1">
-                                                <div class="product_images">
-                                                    <div class="product_checkbox">
-                                                        <label>
-                                                            <input name="check_product" class="input_checkbox"
-                                                                type="checkbox" product_id="{{this._id}}"
-                                                                size="{{getThe2ndParameter this ../products ../size_list}}"
-                                                                data-view-id=""
-                                                                data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
-                                                        </label>
-                                                    </div>
-                                                    <a href="/product/{{this._id}}">
-                                                        <picture class="img_product">
-                                                            <img class="" style="width: 90px;" src="{{this.main_image}}"
-                                                                alt="icon">
-                                                        </picture>
-                                                    </a>
-                                                    <div class="product_content">
-                                                        <a href="/product/{{this._id}}"
-                                                            class="product_name">{{this.name}}</a>
-                                                        <span style="margin:0px; opacity: 0.6; ">Size: </span> <span
-                                                            style="margin:0px; opacity: 0.6; "
-                                                            class="size">{{getThe2ndParameter this ../products
-                                                            ../size_list}}</span> <br>
-                                                        <span style="margin:0px; opacity: 0.6; ">SL: </span> <span
-                                                            style="margin:0px; opacity: 0.6; "
-                                                            class="size">{{getThe2ndParameter this ../products
-                                                            ../quantity_list}}</span>
+                                <div class="product_list_info">
+                                    <div class="package_summary">
+                                    </div>
+                                    <div class="package_item_list">
+                                        {{#each products}}
+                                        {{#if (check this ../products ../check_remaining)}}
+                                        <div class="item_product">
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <div class="product_images">
+                                                        <div class="product_checkbox">
+                                                            <label>
+                                                                <input name="check_product" class="input_checkbox" type="checkbox"  product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}" data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
+                                                            </label>
+                                                        </div>
+                                                        <a href="/product/{{this._id}}">
+                                                            <picture class="img_product">
+                                                                <img class="" style="width: 90px;" src="{{this.main_image}}" alt="icon">
+                                                            </picture>
+                                                        </a>
+                                                        <div class="product_content">
+                                                            <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
+                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../size_list}}</span> <br>
+                                                            <span style="margin:0px; opacity: 0.6; ">XL: </span> <span style="margin:0px; opacity: 0.6; " class="size">{{getThe2ndParameter this ../products ../quantity_list}}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <p class="product_wrap_price">
-                                                    <span class="product__real_prices">{{this.price}} ₫</span>
-                                                </p>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="product-qty" product_id="{{this._id}}"
-                                                    size="{{getThe2ndParameter this ../products ../size_list}}">
-                                                    <div class="gEpOC">
-                                                        <span data-view-id="cart_main_quantity.decrease"
-                                                            data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                            class="qty-decrease ">
-                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg"
-                                                                alt="decrease">
-                                                        </span>
-                                                        <input style="pointer-events: none;" type="tel"
-                                                            class="qty-input product-qty-input"
-                                                            value="{{getThe2ndParameter this ../products ../quantity_list}}"
-                                                            min="1"
-                                                            max="{{getThe2ndParameter this ../products ../remaining_product_list}}">
-                                                        <span data-view-id="cart_main_quantity.increase"
-                                                            data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                            class="qty-increase ">
-                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg"
-                                                                alt="increase">
-                                                        </span>
-                                                    </div>
-                                                    <div class="q-ty_mess" style="color:#757575">Còn {{getThe2ndParameter this
-                                                        ../products ../remaining_product_list}} sản phẩm</div>
+                                                <div class="col-2">
+                                                    <p class="product_wrap_price">
+                                                        <span class="product__real_prices">{{this.price}} ₫</span>
+                                                    </p>
                                                 </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <span class="product__final-prices">{{this.price}} ₫</span>
-                                            </div>
-                                            <div class="col-5">
-                                                <span class="product__delete" data-view-id="cart_main_remove.product"
-                                                    data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                    onclick="removeProduct(event)" product_id="{{this._id}}"
-                                                    size="{{getThe2ndParameter this ../products ../size_list}}">
-                                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg"
-                                                        alt="deleted">
-                                                </span>
+                                                <div class="col-3">
+                                                    <div class="product-qty" product_id = "{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
+                                                        <div class="gEpOC">
+                                                            <span data-view-id="cart_main_quantity.decrease" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-decrease ">
+                                                                <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg" alt="decrease">
+                                                            </span>
+                                                            <input style="pointer-events: none;" type="tel" class="qty-input" value="{{getThe2ndParameter this ../products ../quantity_list}}">
+                                                            <span data-view-id="cart_main_quantity.increase" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-increase ">
+                                                                <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg" alt="increase">
+                                                            </span>
+                                                        </div>
+                                                        <div class="q-ty_mess hide">Chi con {{getThe2ndParameter this ../products ../remaining_product_list}} san pham</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <span class="product__final-prices">{{this.price}} ₫</span>
+                                                </div>
+                                                <div class="col-5">
+                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
+                                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {{else}}
-                                    <div class="item_product">
-                                        <div class="row">
-                                            <div class="col-1  blur_button">
-                                                <div class="product_images">
-                                                    <div class="product_checkbox">
-                                                        <label class="">
-                                                            <input style="cursor: no-drop;" name="check_product"
-                                                                class="input_checkbox_fail" type="checkbox"
-                                                                product_id="{{this._id}}" disabled data-view-id=""
-                                                                data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
-                                                        </label>
-                                                    </div>
-                                                    <a href="/product/{{this._id}}">
-                                                        <picture class="img_product">
-                                                            <img class="" style="width: 90px;" src="{{this.main_image}}"
-                                                                alt="icon">
-                                                        </picture>
-                                                    </a>
-                                                    <div class="product_content">
-                                                        <a href="/product/{{this._id}}"
-                                                            class="product_name">{{this.name}}</a>
-                                                        <span style="margin:0px; opacity: 0.6; ">Size: </span> <span
-                                                            style="margin:0px; opacity: 0.6;"
-                                                            class="size">{{getThe2ndParameter this ../products
-                                                            ../size_list}}</span>
-                                                        <p style="color: orangered;">Sản phẩm tạm hết hàng</p>
+                                        {{else}}
+                                        <div class="item_product">
+                                            <div class="row">
+                                                <div class="col-1  blur_button">
+                                                    <div class="product_images">
+                                                        <div class="product_checkbox">
+                                                            <label class="" >
+                                                                <input style="cursor: no-drop;" name="check_product" class="input_checkbox_fail" type="checkbox"  product_id="{{this._id}}" disabled data-view-id="" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2">
+                                                            </label>
+                                                        </div>
+                                                        <a href="/product/{{this._id}}">
+                                                            <picture class="img_product">
+                                                                <img class="" style="width: 90px;" src="{{this.main_image}}" alt="icon">
+                                                            </picture>
+                                                        </a>
+                                                        <div class="product_content">
+                                                            <a href="/product/{{this._id}}" class="product_name">{{this.name}}</a>
+                                                            <span style="margin:0px; opacity: 0.6; ">Size: </span> <span style="margin:0px; opacity: 0.6;" class="size">{{getThe2ndParameter this ../products ../size_list}}</span>
+                                                            <p style="color: orangered;">Sản phẩm tạm hết hàng</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-2  blur_button">
-                                                <p class="product_wrap_price">
-                                                    <span class="product__real_prices">{{this.price}} ₫</span>
-                                                </p>
-                                            </div>
-                                            <div class="col-3  blur_button">
-                                                <div class="product-qty hide" product_id="{{this._id}}"
-                                                    size="{{getThe2ndParameter this ../products ../size_list}}">
-                                                    <div class="gEpOC">
-                                                        <span data-view-id="cart_main_quantity.decrease"
-                                                            data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                            class="qty-decrease ">
-                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg"
-                                                                alt="decrease">
-                                                        </span>
-                                                        <input type="tel" class="qty-input" value="1">
-                                                        <span data-view-id="cart_main_quantity.increase"
-                                                            data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                            class="qty-increase ">
-                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg"
-                                                                alt="increase">
-                                                        </span>
-                                                    </div>
-                                                    <div class="q-ty_mess hide">Chi con {{this.remaining_products}}san
-                                                        pham</div>
+                                                <div class="col-2  blur_button">
+                                                    <p class="product_wrap_price">
+                                                        <span class="product__real_prices">{{this.price}} ₫</span>
+                                                    </p>
                                                 </div>
-                                            </div>
-                                            <div class="col-4  blur_button">
-                                                <span class="product__final-prices hide">{{this.price}} ₫</span>
-                                            </div>
-                                            <div class="col-5">
-                                                <span class="product__delete" data-view-id="cart_main_remove.product"
-                                                    data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2"
-                                                    onclick="removeProduct(event)" product_id="{{this._id}}"
-                                                    size="{{getThe2ndParameter this ../products ../size_list}}">
-                                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg"
-                                                        alt="deleted">
-                                                </span>
+                                                <div class="col-3  blur_button">
+                                                    <div class="product-qty hide" product_id = "{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
+                                                        <div class="gEpOC">
+                                                            <span data-view-id="cart_main_quantity.decrease" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-decrease ">
+                                                                <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg" alt="decrease">
+                                                            </span>
+                                                            <input type="tel" class="qty-input" value="1">
+                                                            <span data-view-id="cart_main_quantity.increase" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" class="qty-increase ">
+                                                                <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg" alt="increase">
+                                                            </span>
+                                                        </div>
+                                                        <div class="q-ty_mess hide">Chi con {{this.remaining_products}}san pham</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4  blur_button">
+                                                    <span class="product__final-prices hide">{{this.price}} ₫</span>
+                                                </div>
+                                                <div class="col-5">
+                                                    <span class="product__delete" data-view-id="cart_main_remove.product" data-view-index="837c53c3-c990-11ed-8873-92a90607c8e2" onclick="removeProduct(event)" product_id="{{this._id}}" size="{{getThe2ndParameter this ../products ../size_list}}">
+                                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted" >
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+                                        {{/if}}
+                                        {{/each}}
                                     </div>
-                                    {{/if}}
-                                    {{/each}}
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="cart_right">
@@ -226,8 +177,8 @@
                                 <li class="prices__item">
                                     <span class="prices__text">Tạm tính</span>
                                     <div>
-                                        <span class="prices__value" id="prices__value_tmp">0</span>
-                                        <span>₫</span>
+                                    <span class="prices__value" id="prices__value_tmp">0</span>
+                                    <span>₫</span>
                                     </div>
                                 </li>
                                 <li class="prices__item">
@@ -238,15 +189,14 @@
                             <div class="prices__total">
                                 <span class="prices__text">Tổng tiền</span>
                                 <div class="prices__content">
-                                    <span class="prices__value prices__value--final" id="prices__value--final">0</span>
+                                    <span class="prices__value prices__value--final"id="prices__value--final">0</span>
                                     <span class="prices__value prices__value--final">₫</span>
                                     <span class="prices__value--noted">(Đã bao gồm VAT nếu có)</span>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
-                        <button onclick="cartSubmit(event)" class="button_cart blur_button" id="button_cart">Mua
-                            Hàng</button>
-
+                        <button onclick="cartSubmit(event)" class="button_cart blur_button" id="button_cart">Mua Hàng</button>
+                        
                     </div>
                 </div>
             </div>
@@ -255,42 +205,33 @@
         </footer>
     </div>
     <div class="ReactModalPortal hide" id="ReactModalPortal">
-        <div class="ReactModal__Overlay ReactModal__Overlay--after-open"
+        <div class="ReactModal__Overlay ReactModal__Overlay--after-open" 
             style="position: fixed; inset: 0px; background-color: rgba(39, 39, 42, 0.7); z-index: 999;">
-            <div class="ReactModal__Content ReactModal__Content--after-open" tabindex="-1" role="dialog"
-                aria-modal="true" style="position: absolute; inset: 50% 40px auto 50%; border: 1px solid rgb(204, 204, 204); 
+            <div class="ReactModal__Content ReactModal__Content--after-open" 
+                tabindex="-1" role="dialog" aria-modal="true" 
+                style="position: absolute; inset: 50% 40px auto 50%; border: 1px solid rgb(204, 204, 204); 
                         background: rgb(255, 255, 255); overflow: auto; border-radius: 8px; outline: none; 
                         padding: 16px; width: 311px; transform: translate(-50%, -50%);">
                 <div class="styles__StyledDialog-sc-10typcj-0 Pvpwm">
                     <div class="dialog-content" style="color: rgb(56, 56, 61); margin-bottom: 24px; display: flex;">
-                        <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z"
-                                fill="#FC820A"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z"
-                                fill="#FC820A"></path>
-                            <path
-                                d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z"
-                                fill="#FC820A"></path>
+                        <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="#FC820A"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z" fill="#FC820A"></path>
+                            <path d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z" fill="#FC820A"></path>
                         </svg>
                         <div class="dialog-content__text">
-                            <div class="dialog-content__title"
-                                style="font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px;">Xoá
-                                sản phẩm</div>
-                            <div class="dialog-content__message"
-                                style="font-size: 14px; line-height: 20px; color: rgb(81, 81, 88); word-break: break-word;">
-                                Bạn có muốn xóa sản phẩm đang chọn?</div>
+                            <div class="dialog-content__title" style="font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px;">Xoá sản phẩm</div>
+                            <div class="dialog-content__message" style="font-size: 14px; line-height: 20px; color: rgb(81, 81, 88); word-break: break-word;">Bạn có muốn xóa sản phẩm đang chọn?</div>
                         </div>
                     </div>
-                    <div class="dialog-control"
-                        style="display: flex; text-align: center; font-size: 14px; line-height: 20px; font-weight: 500; -webkit-box-pack: end; justify-content: flex-end;">
-                        <div id="confirm" class="dialog-control__button dialog-control__button--secondary" style="padding: 8px 16px; border-radius: 4px; 
+                    <div class="dialog-control" style="display: flex; text-align: center; font-size: 14px; line-height: 20px; font-weight: 500; -webkit-box-pack: end; justify-content: flex-end;">
+                        <div id="confirm" class="dialog-control__button dialog-control__button--secondary" 
+                            style="padding: 8px 16px; border-radius: 4px; 
                                     height: 36px; cursor: pointer; box-sizing: border-box; 
                                     border: 1px solid rgb(11, 116, 229); 
                                     color: rgb(11, 116, 229); margin-right: 8px;">Xác Nhận</div>
-                        <div id="cancel" class="dialog-control__button dialog-control__button--main" style="padding: 8px 16px; border-radius: 4px; height: 36px; 
+                        <div id="cancel" class="dialog-control__button dialog-control__button--main" 
+                            style="padding: 8px 16px; border-radius: 4px; height: 36px; 
                                     cursor: pointer; box-sizing: border-box; 
                                     background-color: rgb(11, 116, 229); 
                                     color: rgb(255, 255, 255);">Huỷ</div>
@@ -304,40 +245,13 @@
     </form>
     {{>footer}}
 </body>
-<script>
-    const product_qty = document.querySelectorAll(".product-qty")
-    product_qty.forEach(qty => {
-       // const plusIcon = qty.querySelector(".qty-increase")
-       // const minusIcon = qty.querySelector(".qty-decrease")
-        const amount = qty.querySelector(".product-qty-input")
-        //console.log(plusIcon, minusIcon, amount);
-        //plusIcon.addEventListener("click", function () {
-        //    if (parseInt(amount.value) < parseInt(amount.max))
-        //        amount.value = parseInt(amount.value) + 1;
-        //})
-        //minusIcon.addEventListener("click", function () {
-        //    if (parseInt(amount.value) > parseInt(amount.min))
-        //        amount.value = parseInt(amount.value) - 1;
-        //})
 
-       // console.log(amount)
-        amount.addEventListener("change", function () {
-            var value = parseInt(this.value);
-            var min = parseInt(this.min);
-            var max = parseInt(this.max);
-            if (value < min) {
-                this.value = min;
-            } else if (value > max) {
-                this.value = max;
-            }
-        });
-    })
-</script>
 <script src='/js/Cart_Logic.js'></script>
 <script>
 
-
+    
     //check_remaining_products()
+
 
     function removeProduct(event) {
         var product_id = event.currentTarget.getAttribute("product_id")
@@ -347,38 +261,36 @@
         ReactModalPortal.classList.remove('hide');
         var confirm = document.getElementById('confirm')
         var cancel = document.getElementById('cancel')
-        cancel.onclick = function (event) {
+        cancel.onclick = function(event) {
             ReactModalPortal.classList.add('hide')
         }
-        confirm.onclick = function (event) {
+        confirm.onclick = function(event) {
             $.ajax({
                 url: '/cart/' + product_id,
                 type: 'DELETE',
-                data: {
-                    product_id: product_id,
-                    size: size
+                data: {product_id: product_id,
+                        size: size}
+            })
+            .done(function(data) {
+                if(data.message) {
+                    window.location.reload();
                 }
             })
-                .done(function (data) {
-                    if (data.message) {
-                        window.location.reload();
-                    }
-                })
-                .fail(function (err) {
-                    console.log(err)
-                })
+            .fail(function(err) {
+                console.log(err)
+            })
         }
     }
 
-    function cartSubmit(event) {
+    function cartSubmit(event) {   
         var button_cart = document.getElementById('button_cart')
-        if (!button_cart.classList.contains('blur_button')) {
+        if(!button_cart.classList.contains('blur_button')) {
             var product_id_list = document.querySelectorAll('input[name="check_product"]:checked')
             product_id_list = Array.from(product_id_list)
             //product_id_list = product_id_list.map(product_id => product_id.getAttribute('product_id'))
-            product_id_list = product_id_list.map(function (product) {
+            product_id_list = product_id_list.map(function(product) {
                 var quantity = product.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.qty-input').value
-
+                
                 return {
                     product_id: product.getAttribute('product_id'),
                     size: product.getAttribute('size'),
@@ -390,7 +302,7 @@
             var product_id_list_json = JSON.stringify(product_id_list)
             var input_product_id_list = document.getElementById('input_product_id_list')
             input_product_id_list.value = product_id_list_json
-
+            
             //////////////
             var check_boxs = document.querySelectorAll('input[type="checkbox"]')
             check_boxs = Array.from(check_boxs)
@@ -401,13 +313,12 @@
             input_qtys = Array.from(input_qtys)
             input_qtys.forEach(input_qty => {
                 input_qty.value = 1
-            })
+            })  
             /////////////////////
-            cart_form.submit()
+            cart_form.submit()    
         } else {
             var cart_form = document.getElementById('cart_form').preventDefault()
         }
     }
 </script>
-
 </html>
