@@ -60,9 +60,9 @@
             <h1>{{product.name}}</h1>
           </div>
           <div class="product-content-right-product-price">
-            <p>{{product.price}}<sup>đ</sup>
+            <p><span class = "money">{{product.price}}</span>
               {{#if (isNotNull product.old_price)}}
-              <span>{{product.old_price}}<sup>đ</sup></span>
+              <span class="money old-price">{{product.old_price}}</span>
               {{/if}}
             </p>
           </div>
@@ -128,7 +128,7 @@
   </div>
   <div class="footer">{{> footer}}</div>
 </body>
-
+<script src="/js/money.js"></script>
 <script>
   $.ajax({
     url: '/product/' + $('#id_Product').attr('_id'),
