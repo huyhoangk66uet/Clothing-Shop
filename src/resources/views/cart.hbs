@@ -307,18 +307,18 @@
 <script>
     const product_qty = document.querySelectorAll(".product-qty")
     product_qty.forEach(qty => {
-        const plusIcon = qty.querySelector(".qty-increase")
-        const minusIcon = qty.querySelector(".qty-decrease")
+       // const plusIcon = qty.querySelector(".qty-increase")
+       // const minusIcon = qty.querySelector(".qty-decrease")
         const amount = qty.querySelector(".product-qty-input")
         //console.log(plusIcon, minusIcon, amount);
-        plusIcon.addEventListener("click", function () {
-            if (parseInt(amount.value) < parseInt(amount.max))
-                amount.value = parseInt(amount.value) + 1;
-        })
-        minusIcon.addEventListener("click", function () {
-            if (parseInt(amount.value) > parseInt(amount.min))
-                amount.value = parseInt(amount.value) - 1;
-        })
+        //plusIcon.addEventListener("click", function () {
+        //    if (parseInt(amount.value) < parseInt(amount.max))
+        //        amount.value = parseInt(amount.value) + 1;
+        //})
+        //minusIcon.addEventListener("click", function () {
+        //    if (parseInt(amount.value) > parseInt(amount.min))
+        //        amount.value = parseInt(amount.value) - 1;
+        //})
 
        // console.log(amount)
         amount.addEventListener("change", function () {

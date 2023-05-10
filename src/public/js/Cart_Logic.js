@@ -16,7 +16,7 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
             var q_ty_mess = event.currentTarget.parentElement.parentElement.getElementsByClassName('q-ty_mess')[0]
             if(qty_input.value >= 1) {
                 // q_ty_mess.classList.add('hide')
-                // qty_input.value = parseFloat(qty_input.value) - 1;
+                qty_input.value = Math.max(parseFloat(qty_input.value) - 1, parseFloat(qty_input.min));
                 var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
                 tmp = item_product.getElementsByClassName('product__final-prices')[0].textContent
                 item_product.getElementsByClassName('product__final-prices')[0].textContent = 
@@ -36,43 +36,22 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
     qty_increases.forEach(qty_increase => {
         qty_increase.onclick = function(event) {
             var qty_input = event.currentTarget.parentElement.getElementsByClassName('qty-input')[0]
-            var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
-            var isChecked = event.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('input_checkbox')[0].checked
-            //////////////////////
+            var tmp = 0;
             var q_ty_mess = event.currentTarget.parentElement.parentElement.getElementsByClassName('q-ty_mess')[0]
+    
+                // q_ty_mess.classList.add('hide')
+                qty_input.value = Math.min(parseFloat(qty_input.value) + 1, parseFloat(qty_input.max));
+                var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
+                tmp = item_product.getElementsByClassName('product__final-prices')[0].textContent
+                item_product.getElementsByClassName('product__final-prices')[0].textContent = 
+                parseFloat(item_product.getElementsByClassName('product__real_prices')[0].textContent) * 
+                parseFloat(item_product.getElementsByClassName('qty-input')[0].value) + ' ₫'
             
-            var product_id = event.currentTarget.parentElement.parentElement.getAttribute('product_id')
-            console.log(event.currentTarget.parentElement.parentElement)
-            var size = event.currentTarget.parentElement.parentElement.getAttribute("size")
-            $.ajax({
-                url: '/cart',
-                type: 'PUT',
-                data: {product_id: product_id,
-                       size: size, 
-                       q_ty_product: parseFloat(qty_input.value)}
-            })
-            .done(data => {
-                if(data.check_remaining) {
-                    var tmp = 0;
-                    // qty_input.value = parseFloat(qty_input.value) + 1;
-                    //var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
-                    tmp = item_product.getElementsByClassName('product__final-prices')[0].textContent
-                    item_product.getElementsByClassName('product__final-prices')[0].textContent = 
-                    parseFloat(item_product.getElementsByClassName('product__real_prices')[0].textContent) * 
-                    parseFloat(item_product.getElementsByClassName('qty-input')[0].value) + ' ₫'
-                    if(isChecked) {
-                        prices__value_tmp.textContent = parseFloat(prices__value_tmp.textContent) - parseFloat(tmp)
-                         + parseFloat(item_product.getElementsByClassName('product__final-prices')[0].textContent)
-                    }
-                    document.getElementById('prices__value--final').textContent = prices__value_tmp.textContent
-                    // q_ty_mess.classList.add('hide')
-                } else {
-                    // q_ty_mess.classList.remove('hide')
-                }
-            })
-            .fail(err => {
-                console.log(err)
-            })
+            if(event.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('input_checkbox')[0].checked) {
+                prices__value_tmp.textContent = parseFloat(prices__value_tmp.textContent) - parseFloat(tmp)
+                 + parseFloat(item_product.getElementsByClassName('product__final-prices')[0].textContent)
+            }
+            document.getElementById('prices__value--final').textContent = prices__value_tmp.textContent
         }
     });
 
