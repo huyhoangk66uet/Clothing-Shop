@@ -14,7 +14,7 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
             var qty_input = event.currentTarget.parentElement.getElementsByClassName('qty-input')[0]
             var tmp = 0;
             var q_ty_mess = event.currentTarget.parentElement.parentElement.getElementsByClassName('q-ty_mess')[0]
-            if(qty_input.value > 1) {
+            if(qty_input.value >= 1) {
                 // q_ty_mess.classList.add('hide')
                 // qty_input.value = parseFloat(qty_input.value) - 1;
                 var item_product = event.currentTarget.parentElement.parentElement.parentElement.parentElement
