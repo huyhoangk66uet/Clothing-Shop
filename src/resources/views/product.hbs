@@ -10,11 +10,13 @@
   <link rel="stylesheet" type="text/css" href="/css/header.css">
   <link rel="stylesheet" type="text/css" href="/css/footer.css">
   <link rel="stylesheet" type="text/css" href="/css/product.css">
-   {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"> --}}
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -58,9 +60,9 @@
             <h1>{{product.name}}</h1>
           </div>
           <div class="product-content-right-product-price">
-            <p>{{product.price}}<sup>đ</sup>
+            <p><span class = "money">{{product.price}}</span>
               {{#if (isNotNull product.old_price)}}
-              <span>{{product.old_price}}<sup>đ</sup></span>
+              <span class="money old-price">{{product.old_price}}</span>
               {{/if}}
             </p>
           </div>
@@ -126,7 +128,7 @@
   </div>
   <div class="footer">{{> footer}}</div>
 </body>
-
+<script src="/js/money.js"></script>
 <script>
   $.ajax({
     url: '/product/' + $('#id_Product').attr('_id'),
@@ -135,12 +137,12 @@
   })
     .done(data => {
       if (data.remainning <= 0) {
-        amount.min = 0
-        $('#quantityInStock').text('Sản phẩm tạm hết hàng')
+        amount.min = 0;
+        $('#quantityInStock').text('Sản phẩm tạm hết hàng');
 
       } else {
-        amount.min = 1
-        $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn')
+        amount.min = 1;
+        $('#quantityInStock').text(data.remainning + ' sản phẩm có sẵn');
 
       }
       amount.value = amount.min
@@ -149,6 +151,19 @@
     .fail(err => {
       console.log(err)
     })
+
+
+  var input = document.getElementById("amount_product");
+  input.addEventListener("change", function () {
+    var value = parseInt(this.value);
+    var min = parseInt(this.min);
+    var max = parseInt(this.max);
+    if (value < min) {
+      this.value = min;
+    } else if (value > max) {
+      this.value = max;
+    }
+  });
 </script>
 
 <script>
@@ -203,35 +218,18 @@
     })
   });
 
-  const prev_button = document.querySelector('.prev_button');
-  const next_button = document.querySelector('.next_button');
 
-  const imageList = document.querySelector('.list-small-img'); /// danh sách ảnh
-  const small_img_count = document.querySelectorAll('.small-img').length; /// số lượng ảnh nhỏ
-  const rect_box_list_small_img = document.querySelector('.box-list-small-img').getBoundingClientRect();
-  //// khung hiển thị ảnh
-  const rect_img_list = imageList.getBoundingClientRect();
-  const step = imageList.getBoundingClientRect().height / small_img_count;
-  /// số px di chuyển mỗi lần bấm nút
-  const maxClick = Math.max(0 , (rect_img_list.height - rect_box_list_small_img.height) / step);
-  let currentIndex = 0; // Vị trí hiện tại của danh sách ảnh
-
-  prev_button.addEventListener('click', () => {
-    currentIndex++; // Tăng vị trí lên 1
-    if (currentIndex > 0) {
-      currentIndex = 0; // Nếu đang ở vị trí đầu tiên thì đứng yên
-    }
-    const translateValue = `${currentIndex * step}px`; // Tính giá trị transform
-    imageList.style.transform = `translateY(${translateValue})`; // Di chuyển danh sách ảnh
-  });
-
-  next_button.addEventListener('click', () => {
-    currentIndex--; // Giảm vị trí đi 1
-    if (currentIndex < -maxClick) {
-      currentIndex = -maxClick; // Nếu đang ở vị trí cuối cùng, thì đứng yên
-    }
-    const translateValue = `${currentIndex * step}px`; // Tính giá trị transform
-    imageList.style.transform = `translateY(${translateValue})`; // Di chuyển danh sách ảnh
+  $(document).ready(function () {
+    $('.list-small-img').slick({
+      autoplaySpeed: 2000,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      vertical: true, // Thêm thuộc tính để chuyển slider theo chiều dọc
+      infinite: false, // không quay tròn
+      swipe: false,
+      prevArrow: '.prev_button',
+      nextArrow: '.next_button'
+    });
   });
 
   //-------------------------------------Tăng giảm số lượng------------------------------------
