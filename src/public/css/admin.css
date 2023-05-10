@@ -436,3 +436,8 @@ th.sorting::after {
   color: #ccc;
   background-color: red;
   left: 210px; }
+
+.form_mess {
+  font-size: 15px;
+  margin-top: 30px;
+  margin-left: -400px; }
