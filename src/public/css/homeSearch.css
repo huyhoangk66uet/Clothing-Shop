@@ -29,7 +29,7 @@
 .product:hover {
   margin: 25px calc(auto - 5px);
   border: none;
-  background-color: #b1cdf1;
+  background-color: #fffb00;
   cursor: pointer; }
 
 .product__image {
@@ -57,10 +57,7 @@
 .product__name {
   margin-top: 5px;
   color: #110f0f;
-  font-size: 20px; 
-  justify-content: center;
-  align-items: center;
-  display: flex;}
+  font-size: 20px; }
 
 .product__price {
   position: absolute;
