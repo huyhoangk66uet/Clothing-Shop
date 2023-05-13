@@ -489,13 +489,14 @@
                             .done(function (response) {
                                 // Xử lý kết quả trả về từ server
                                 const msg = response.message;
+                                const idErr = response.idErr;
                                 if (msg == 'Success') {
                                     addNewStatus('success');
                                 }
                                 else {
-                                    const nameErr = (msg == 'Duplicate') ? email.name : password.name;
+                                    const nameErr = (idErr == '2') ? email.name : password.name;
                                     const noticeContent = form.querySelector('.notice-content.' + nameErr);
-                                    noticeContent.innerHTML = (msg == 'Duplicate') ? 'Email phải khác với email hiện tại' : msg;
+                                    noticeContent.innerHTML = msg;
                                     unblockChange();
                                 }
                                 console.log(response);
