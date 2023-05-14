@@ -135,7 +135,7 @@ class ProfileController {
                         if (realEmail != email.trim()) {
                             User.find({ email: email.trim() })
                                 .then((findResult) => {
-                                    if (findResult) {
+                                    if (findResult.length != 0) {
                                         res.json({ message: 'Email này đã được sử dụng', idErr: '2' });
                                     }
                                     else {
