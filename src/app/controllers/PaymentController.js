@@ -79,58 +79,140 @@ class PaymentController {
             return product.product_qty
         })
 
-        for (let i = 0; i < product_list_id.length; i++) {
-            const _id = product_list_id[i];
-            const product_qty = product_list_quantity[i]
-            Product.findOne({ _id: _id })
+        const checkList = product_list_id.map((product_id,index) => {
+            const _id = product_list_id[index];
+            const product_qty = product_list_quantity[index]
+            return Product.findOne({ _id: _id })
                 .then(product => {
                     if (product) {
 
-                        var remaining_product_of_size = product.remaining_products[size_list_num[i]]
-                        var index = size_list_num[i]
-                        Product.updateOne({ _id: _id }, { $set: { ['remaining_products.' + index]: (remaining_product_of_size - product_qty) } })
-                            .then(() => {
-                                console.log('update ok')
-                            })
+                        var remaining_product_of_size = product.remaining_products[size_list_num[index]]
+                        var index_ = size_list_num[index]
+                        if(remaining_product_of_size >= product_qty) {
+                            return true;
+                        } else {
+                            return false;
+                        }
                     }
                 })
                 .catch(err => {
                     console.log(err)
                 })
-        }
-        //res.render('./paymentSuccess')
-        var address = payment_info.Dia_chi + ', ' + payment_info.Huyen + ', ' + payment_info.Tinh
-        var order_data = {
-            user_id: ketqua._id,
-            product_list: payment_info.product_list,
-            payment_method: payment_info.payment_method,
-            shipping_method: payment_info.shipping_method,
-            user_name: payment_info.user_name,
-            address: address,
-            phone_number: payment_info.sdt,
-            total_money: payment_info.Tong_tien,
-            order_date: payment_info.order_date,
-            ship_date: payment_info.ship_date
-        }
-        console.log(Order)
-        Order.create(order_data)
-            .then(newOrder => {
-                console.log('Tao don hang thanh cong')
-                if (newOrder) {
-                    res.json({
-                        isSuccess: true
-                    })
-                } else {
-                    res.json({
-                        isSuccess: false
-                    })
+        })
+        Promise.all(checkList)
+        .then(check_list => {
+            //console.log('++++++++++++++aa++++++++++' + check_list)
+            if(!check_list.includes(false)) {
+                for (let i = 0; i < product_list_id.length; i++) {
+                    const _id = product_list_id[i];
+                    const product_qty = product_list_quantity[i]
+                    Product.findOne({ _id: _id })
+                        .then(product => {
+                            if (product) {
+        
+                                var remaining_product_of_size = product.remaining_products[size_list_num[i]]
+                                var index = size_list_num[i]
+                                Product.updateOne({ _id: _id }, { $set: { ['remaining_products.' + index]: (remaining_product_of_size - product_qty) } })
+                                    .then(() => {
+                                        console.log('update ok')
+                                    })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
                 }
+                //res.render('./paymentSuccess')
+                var address = payment_info.Dia_chi + ', ' + payment_info.Huyen + ', ' + payment_info.Tinh
+                var order_data = {
+                    user_id: ketqua._id,
+                    product_list: payment_info.product_list,
+                    payment_method: payment_info.payment_method,
+                    shipping_method: payment_info.shipping_method,
+                    user_name: payment_info.user_name,
+                    address: address,
+                    phone_number: payment_info.sdt,
+                    total_money: payment_info.Tong_tien,
+                    order_date: payment_info.order_date,
+                    ship_date: payment_info.ship_date
+                }
+                console.log(Order)
+                Order.create(order_data)
+                    .then(newOrder => {
+                        console.log('Tao don hang thanh cong')
+                        if (newOrder) {
+                            res.json({
+                                isSuccess: true
+                            })
+                        } else {
+                            res.json({
+                                isSuccess: false
+                            })
+                        }
+        
+                    })
+                    .catch(err => {
+                        console.log('Không tạo được đơn hàng')
+                        console.log(err)
+                    })
+            } else {
+                res.json({
+                    isSuccess: false
+                })
+            }
+        })
+        // for (let i = 0; i < product_list_id.length; i++) {
+        //     const _id = product_list_id[i];
+        //     const product_qty = product_list_quantity[i]
+        //     Product.findOne({ _id: _id })
+        //         .then(product => {
+        //             if (product) {
 
-            })
-            .catch(err => {
-                console.log('Không tạo được đơn hàng')
-                console.log(err)
-            })
+        //                 var remaining_product_of_size = product.remaining_products[size_list_num[i]]
+        //                 var index = size_list_num[i]
+        //                 Product.updateOne({ _id: _id }, { $set: { ['remaining_products.' + index]: (remaining_product_of_size - product_qty) } })
+        //                     .then(() => {
+        //                         console.log('update ok')
+        //                     })
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //         })
+        // }
+        // //res.render('./paymentSuccess')
+        // var address = payment_info.Dia_chi + ', ' + payment_info.Huyen + ', ' + payment_info.Tinh
+        // var order_data = {
+        //     user_id: ketqua._id,
+        //     product_list: payment_info.product_list,
+        //     payment_method: payment_info.payment_method,
+        //     shipping_method: payment_info.shipping_method,
+        //     user_name: payment_info.user_name,
+        //     address: address,
+        //     phone_number: payment_info.sdt,
+        //     total_money: payment_info.Tong_tien,
+        //     order_date: payment_info.order_date,
+        //     ship_date: payment_info.ship_date
+        // }
+        // console.log(Order)
+        // Order.create(order_data)
+        //     .then(newOrder => {
+        //         console.log('Tao don hang thanh cong')
+        //         if (newOrder) {
+        //             res.json({
+        //                 isSuccess: true
+        //             })
+        //         } else {
+        //             res.json({
+        //                 isSuccess: false
+        //             })
+        //         }
+
+        //     })
+        //     .catch(err => {
+        //         console.log('Không tạo được đơn hàng')
+        //         console.log(err)
+        //     })
 
     }
 }

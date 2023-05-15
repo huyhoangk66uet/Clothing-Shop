@@ -320,6 +320,40 @@
             </div>
         </div>
     </div>
+    <div class="Order_failed hide" id="Order_failed">
+        <div class="ReactModal__Overlay ReactModal__Overlay--after-open" 
+            style="position: fixed; inset: 0px; background-color: rgba(39, 39, 42, 0.7); z-index: 999;">
+            <div class="ReactModal__Content ReactModal__Content--after-open" 
+                tabindex="-1" role="dialog" aria-modal="true" 
+                style="position: absolute; inset: 50% 40px auto 50%; border: 1px solid rgb(204, 204, 204); 
+                        background: rgb(255, 255, 255); overflow: auto; border-radius: 8px; outline: none; 
+                        padding: 16px; width: 311px; transform: translate(-50%, -50%); background-color:">
+                <div class="styles__StyledDialog-sc-10typcj-0 Pvpwm">
+                    <div class="dialog-content" style="color: rgb(56, 56, 61); margin-bottom: 24px; display: flex;">
+                        {{!-- <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; flex-shrink: 0;"> --}}
+                            <img src="/img/cancel.png" alt="order_failed" width="24" height="24" style="margin-right:10px;">
+                        {{!-- </svg> --}}
+                        <div class="dialog-content__text">
+                            <div class="dialog-content__title" style="font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px;">Sản phẩm đã có sự thay đổi!!!</div>
+                            <div class="dialog-content__message" style="font-size: 14px; line-height: 20px; color: rgb(81, 81, 88); word-break: break-word;">Vui lòng thực hiện mua lại từ đầu.</div>
+                        </div>
+                    </div>
+                    <div class="dialog-control" style="display: flex; text-align: center; font-size: 14px; line-height: 20px; font-weight: 500; -webkit-box-pack: end; justify-content: flex-end;">
+                        <div id="back_home_page" class="dialog-control__button dialog-control__button--secondary" 
+                            style="padding: 8px 16px; border-radius: 4px; 
+                                    height: 36px; cursor: pointer; box-sizing: border-box; 
+                                    border: 1px solid rgb(11, 116, 229); 
+                                    color: rgb(11, 116, 229); margin-right: 8px;">Về Trang Chủ</div>
+                        <div id="cart_page" class="dialog-control__button dialog-control__button--main" 
+                            style="padding: 8px 16px; border-radius: 4px; height: 36px; 
+                                    cursor: pointer; box-sizing: border-box; 
+                                    background-color: rgb(11, 116, 229); 
+                                    color: rgb(255, 255, 255);">Giỏ Hàng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{!-- <form action="/payment/success" method="POST" id="payment_form">
         <input type="hidden" name="payment_info" id="payment_info">
     </form> --}}
@@ -439,7 +473,7 @@
             if(message.isSuccess) {
                 order_success();
             } else {
-                alert('Dat hang that bai')
+                order_failed();
             }
         })
         .fail(err => {
@@ -463,6 +497,18 @@
         }
         order_page.onclick = function(event) {
             window.location.href = './order'
+        }
+    }
+    var order_failed = function() {
+        var Order_failed = document.getElementById('Order_failed')
+        Order_failed.classList.remove('hide');
+        var home_page = document.getElementById('back_home_page')
+        var cart_page = document.getElementById('cart_page')
+        home_page.onclick = function(event) {
+            window.location.href = './'
+        }
+        cart_page.onclick = function(event) {
+            window.location.href = './cart'
         }
     }
     
