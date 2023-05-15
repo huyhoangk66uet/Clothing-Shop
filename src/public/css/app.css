@@ -8,7 +8,18 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Open Sans", sans-serif;
-  color: #333333; }
+  color: #333333;
+  height: 100%; }
+
+#login_form {
+  display: flex;
+  align-items: center;
+  height: 100vh; }
+
+#register_form {
+  display: flex;
+  align-items: center;
+  height: 100vh; }
 
 .box_form {
   margin: 20px auto 0px;

@@ -67,8 +67,8 @@ var qty_decreases = document.getElementsByClassName('qty-decrease');
                     document.getElementById('prices__value--final').textContent = prices__value_tmp.textContent
                     q_ty_mess.classList.add('hide')
                 } else {
-                    qty_input.value = data.quanti_
-                    q_ty_mess.textContent ='Chỉ còn ' + data.quanti_ + ' sản phẩm'
+                    qty_input.value = data.quanti_;
+                    q_ty_mess.textContent = 'Chỉ còn ' + data.quanti_ + ' sản phẩm'
                     q_ty_mess.classList.remove('hide')
                 }
             })

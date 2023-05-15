@@ -42,12 +42,12 @@ class RegisterController {
             if(data[0]) {
                 res.json({
                     isCreate: false,
-                    message: 'Email nay da duoc su dung'
+                    message: 'Email này đã được sử dụng'
                 })
             } else if(data[1]){
                 res.json({
                     isCreate: false,
-                    message: 'User name nay da duoc su dung'
+                    message: 'User name này đã được sử dụng'
                 })
             } else {
                 Users.create(data_user)

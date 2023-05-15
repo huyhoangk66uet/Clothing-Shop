@@ -122,12 +122,12 @@ class CartController {
                     if (q_ty_product < data.remaining_products[size]) {
                         res.json({
                             check_remaining: true,
-                            quanti_: data.remaining_products[size]
+                            quanti_ : data.remaining_products[size]
                         })
                     } else {
                         res.json({
                             check_remaining: false,
-                            quanti_: data.remaining_products[size]
+                            quanti_ : data.remaining_products[size]
                         })
                     }
                 } else {

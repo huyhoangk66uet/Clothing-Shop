@@ -26,10 +26,10 @@ class ProfileController {
                             const gender = profile.gender;
                             const birthday = profile.birthday;
                             var check_admin = false;
-                            if(profile.role === "admin") {
+                            if (profile.role === "admin") {
                                 check_admin = true
                             }
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info' , check_admin});
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'info', check_admin });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -63,7 +63,7 @@ class ProfileController {
                             const phone_number = profile.phone_number;
                             const gender = profile.gender;
                             const birthday = profile.birthday;
-                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password'});
+                            res.render('profile', { fullname, username, email, password, avatarUrl, phone_number, gender, birthday, bodyName: 'password' });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -133,20 +133,28 @@ class ProfileController {
                     if (password == realPassword) {
                         const realEmail = profile.email;
                         if (realEmail != email.trim()) {
-                            User.findByIdAndUpdate(_id, { email: email.trim() })
-                                .then(() => res.json({ message: 'Success' }));
+                            User.find({ email: email.trim() })
+                                .then((findResult) => {
+                                    if (findResult.length != 0) {
+                                        res.json({ message: 'Email này đã được sử dụng', idErr: '2' });
+                                    }
+                                    else {
+                                        User.findByIdAndUpdate(_id, { email: email.trim() })
+                                            .then(() => res.json({ message: 'Success', idErr: '0' }));
+                                    }
+                                })
                         }
                         else {
-                            res.json({ message: 'Duplicate' });
+                            res.json({ message: 'Email này trùng với email cũ của bạn', idErr: '2' });
                         }
 
                     }
                     else {
-                        res.json({ message: 'Mật khẩu không đúng' });
+                        res.json({ message: 'Mật khẩu không đúng', idErr: '1' });
                     }
                 }
                 else {
-                    res.json({ message: 'Không tìm thấy đối tượng' });
+                    res.json({ message: 'Không tìm thấy đối tượng', idErr: '2' });
                 }
             })
     }
@@ -168,7 +176,7 @@ class ProfileController {
                                 .then(() => res.json({ message: 'Success' }));
                         }
                         else {
-                            res.json({ message: 'Duplicate'});
+                            res.json({ message: 'Duplicate' });
                         }
                     }
                     else {
